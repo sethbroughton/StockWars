@@ -1,18 +1,28 @@
 <template>
   <div class="home">
     <h1>Home</h1>
-    <p>You must be authenticated to see this</p>
     <routes/>
+    <router-link v-bind:to="{name: 'create-game'}" tag="button">Create a New Game</router-link>
+    <router-link v-bind:to="{name: 'lobby'}" tag="button">Join New Game</router-link>
+    <leader-board/>
+    <active-games/>
+    <user-statistics/>
   </div>
 </template>
 
 <script>
-import Routes from '@/components/Routes'
+import Routes from '@/components/Routes';
+import LeaderBoard from '@/components/LeaderBoard';
+import ActiveGames from '@/components/ActiveGames';
+import UserStatistics from '@/components/UserStatistics'
 
 export default {
-  name: 'home',
+  name: 'profile',
   components: {
-    Routes
+    Routes,
+    LeaderBoard, 
+    ActiveGames,
+    UserStatistics
   }
 }
 </script>
