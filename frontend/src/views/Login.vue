@@ -76,6 +76,29 @@ export default {
         })
         .catch((err) => console.error(err));
     },
+
+  logoff() {
+      fetch(`${process.env.VUE_APP_REMOTE_API}/login`, {
+        method: 'DELETE',
+        // headers: {
+        //   Accept: 'application/json',
+        //   'Content-Type': 'application/json',
+        // },
+      //  body: JSON.stringify(this.user),
+      })
+        .then((response) => {
+          if (response.ok) {
+            this.invalidCredentials = true;
+          } else {
+            this.invalidCredentials = true;
+          }
+        })
+        .then(() => {
+          this.$router.push('/');
+        })
+        .catch((err) => console.error(err));
+    },
+
   },
 };
 </script>
