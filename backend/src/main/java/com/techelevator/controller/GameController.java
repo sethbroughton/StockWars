@@ -25,10 +25,26 @@
 //
 
 
+//TODO create(new game)
+//TODO put(update game/start game)
+//TODO put(end game/assign winner) 
+//TODO get (list of all games)
+
+
+
+
+
+
+
+
+
+
+
+
 //@RestController
 //@CrossOrigin
 //
-//@RequestMapping("/api/creategame")
+//@RequestMapping("/game")
 //public class GameController {
 //	
 //	//Autowired for when gameDao is filled - Charles
@@ -53,7 +69,7 @@
 //	
 //	//This method will make sure the game's id is correct - Charles
 //	//Validation: May need to create a GameNotFoundException - Charles
-//	@GetMapping("/api/{id}")
+//	@GetMapping("/{gameId}")
 //	public Game read(@PathVariable int gameId) throws GameNotFoundException {
 //		Game game = GameDao.read(gameId);
 //		if(game != null) {
@@ -64,7 +80,7 @@
 //	}
 //	
 //	//These next few delete mapping and put mapping sections are for exception handling - Charles
-//	@DeleteMapping("/api/{id}")
+//	@DeleteMapping("/{gameId}")
 //	@ResponseStatus(HttpStatus.NO_CONTENT)
 //	public void delete(@PathVariable int gameId) {
 //		Game game = gameDao.read(gameId);
@@ -75,7 +91,7 @@
 //		}
 //	}
 //	
-//	@PutMapping("/api/{id}")
+//	@PutMapping("/api/{gameId}")
 //	public Game update(@RequestBody Game game, @PathVariable int gameId) {
 //		if(game.getGameId() != gameId) {
 //			throw new GameNotFoundException(gameId, "Product Review Not Found!");
