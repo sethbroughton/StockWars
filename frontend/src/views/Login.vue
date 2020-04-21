@@ -1,6 +1,9 @@
 <template>
   <div id="login" class="text-center">
-    <form class="form-signin" @submit.prevent="login">
+
+     <a href="#"  v-on:click="logoff">LogOut</a>
+
+    <router-link to="/" tag="button">Home</router-link>
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
         Invalid username and password!
@@ -79,27 +82,22 @@ export default {
 
   logoff() {
       fetch(`${process.env.VUE_APP_REMOTE_API}/login`, {
-        method: 'DELETE',
-        // headers: {
-        //   Accept: 'application/json',
-        //   'Content-Type': 'application/json',
-        // },
-      //  body: JSON.stringify(this.user),
+        method : 'DELETE'
+        }
+      )
+      .then(response => {
+        if(response.ok){
+          // the user has be logged off the server
+          //Log user out of front end
+          
+          auth.logout;
+          auth.destroyToken;
+          
+        }
       })
-        .then((response) => {
-          if (response.ok) {
-            this.invalidCredentials = true;
-          } else {
-            this.invalidCredentials = true;
-          }
-        })
-        .then(() => {
-          this.$router.push('/');
-        })
-        .catch((err) => console.error(err));
-    },
-
-  },
+      .catch(err => console.error(err));
+  }
+  }
 };
 </script>
 

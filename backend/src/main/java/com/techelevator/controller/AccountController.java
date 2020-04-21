@@ -53,12 +53,12 @@ public class AccountController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete() throws UnauthorizedException {
 		User currentUser = auth.getCurrentUser();
-		if (currentUser != null) {
+		if(currentUser!=null) {
 			auth.logOff();
-		} else {
-			throw new UnauthorizedException();
-		}
-
+		} 
+//		else {
+//			throw new UnauthorizedException();
+//		}
 	}
 
 }
