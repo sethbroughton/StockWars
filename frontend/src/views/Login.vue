@@ -1,43 +1,35 @@
 <template>
-  <div id="login">
-    <div class="titles">
-      <h1>Stock War$</h1>
-      <h2>Play the real market with fake money.  Challenge your friends.  Compete for investor supremacy</h2>
-    </div>
-    <div class="login-and-register">
-      <form action="/profile" @submit.prevent="login">
-        <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
-          Invalid username and password!
-        </div>
-        <div class="alert alert-success" role="alert" v-if="this.$route.query.registration">
-          Thank you for registering, please sign in.
-        </div>
-        <div class="credentials">
-          <label for="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            placeholder="Username"
-            v-model="user.username"
-            required
-            autofocus
-          />
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            v-model="user.password"
-            required
-          />          
-        </div>
-        <button type="submit" class="button">Sign in</button>
-      </form>
-      <router-link :to="{ name: 'register' }" class="button">Register</router-link>
-
-      <!-- LOGOUT BUTTON FOR TESTING/DEV PURPOSES -->
-      <a href="#"  v-on:click="logoff">LogOut</a>
-    </div>
+  <div id="login" class="text-center">
+    <form class="form-signin" @submit.prevent="login">
+      <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
+      <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
+        Invalid username and password!
+      </div>
+      <div class="alert alert-success" role="alert" v-if="this.$route.query.registration">
+        Thank you for registering, please sign in.
+      </div>
+      <label for="username" class="sr-only">Username</label>
+      <input
+        type="text"
+        id="username"
+        class="form-control"
+        placeholder="Username"
+        v-model="user.username"
+        required
+        autofocus
+      />
+      <label for="password" class="sr-only">Password</label>
+      <input
+        type="password"
+        id="password"
+        class="form-control"
+        placeholder="Password"
+        v-model="user.password"
+        required
+      />
+      <router-link :to="{ name: 'register' }">Need an account?</router-link>
+      <button type="submit">Sign in</button>
+    </form>
   </div>
 </template>
 
@@ -85,80 +77,9 @@ export default {
         .catch((err) => console.error(err));
     },
   },
-
-  // logoff() {
-  //     fetch(`${process.env.VUE_APP_REMOTE_API}/login`, {
-  //       method : 'DELETE'
-  //       }
-  //     )
-  //     .then(response => {
-  //       if(response.ok){
-  //         // the user has be logged off the server
-  //         //Log user out of front end
-  //         auth.logout;
-  //         auth.destroyToken;
-          
-  //       }
-  //     })
-  //     .catch(err => console.error(err));
-  // },
-  
 };
 </script>
 
-<style scoped>
-
-/* LAYOUT */
-
-#login {
-  height: 100vh;
-  padding: 4%;
-  
-  background: linear-gradient(var(--hero-image-overlay)), url(../assets/img/hero.jpg);
-  background-position: center;
-  background-size: cover;
-
-  position: relative;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.titles {
-  color: var(--color-grey-light-1);
-  margin: 2%;
-
-  flex: 3 1 0;
-}
-
-.login-and-register {
-  padding: 1%;
-
-  flex: 2 1 0;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-
-  align-content: center;
-}
-
-/* TYPOGRAPHY */
-
-h1 {
-  font-size: 13rem;
-  font-weight: 300;
-}
-
-h2 {
-  font-size: 3.5rem;
-  font-weight: 600;
-}
+<style>
 
 </style>
