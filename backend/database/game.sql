@@ -20,7 +20,7 @@ COMMIT;
 
 BEGIN TRANSACTION;
 
-CREATE TABLE users_games
+CREATE TABLE users_game
 (
         user_id int not null,
         game_id int not null,
