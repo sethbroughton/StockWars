@@ -15,10 +15,7 @@ CREATE TABLE game
 	constraint pk_game primary key (game_id)
 	
 );
-ROLLBACK;
-COMMIT;
 
-BEGIN TRANSACTION;
 
 CREATE TABLE users_game
 (
@@ -30,10 +27,7 @@ CREATE TABLE users_game
         constraint fk_users_game_game foreign key (game_id) references game (game_id)
 
 );
-ROLLBACK;
-COMMIT;
 
-BEGIN TRANSACTION;
 
 CREATE TABLE portfolio
 (
@@ -47,10 +41,7 @@ CREATE TABLE portfolio
         constraint fk_portfolio_game foreign key (game_id) references game (game_id)
              
 );
-ROLLBACK;
-COMMIT;
 
-BEGIN TRANSACTION;
 
 CREATE TABLE stock
 (
@@ -60,10 +51,7 @@ CREATE TABLE stock
        
         constraint pk_stock primary key (stock_id)
 );
-ROLLBACK;
-COMMIT;
 
-BEGIN TRANSACTION;
 
 CREATE TABLE portfolio_stock
 (
@@ -74,10 +62,7 @@ CREATE TABLE portfolio_stock
         constraint fk_portfolio_stock_stock foreign key (stock_id) references stock (stock_id),
         constraint fk_portfolio_stock_portfolio foreign key (portfolio_id) references portfolio (portfolio_id)
 );
-ROLLBACK;
-COMMIT;
 
-BEGIN TRANSACTION;
 
 CREATE TABLE trade
 (
@@ -94,5 +79,5 @@ CREATE TABLE trade
         constraint fk_trade_portfolio foreign key (portfolio_id) references portfolio (portfolio_id),
         constraint fk_trade_stock foreign key (stock_id) references stock (stock_id)        
 );
-ROLLBACK;
+
 COMMIT;
