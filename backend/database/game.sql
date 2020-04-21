@@ -76,18 +76,18 @@ CREATE TABLE trade
         commission money not null,
         
         constraint pk_trade primary key (trade_id),
-        constraint fk_trade_portfolio foreign key (portfolio_id) references portfolio (portfolio_id),
+        constraint fk_trade_portfolio foreign key (portfolio_id) references portfolio (portfolio_id)
 );
-ALTER TABLE trade ADD ticker varchar(64) not null;
-ALTER TABLE trade DROP COLUMN stock_id;
-COMMIT;
-BEGIN TRANSACTION;
+-- ALTER TABLE trade ADD ticker varchar(64) not null;
+-- ALTER TABLE trade DROP COLUMN stock_id;
+-- COMMIT;
+-- BEGIN TRANSACTION;
 
-ALTER TABLE users ADD avatar varchar(2048);
+-- ALTER TABLE users ADD avatar varchar(2048);
 
-ROLLBACK;
-COMMIT;
+-- ROLLBACK;
+-- COMMIT;
 
-BEGIN TRANSACTION;
+-- BEGIN TRANSACTION;
 
-DROP TABLE stock;
+-- DROP TABLE stock;
