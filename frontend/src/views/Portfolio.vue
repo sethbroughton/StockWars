@@ -1,5 +1,5 @@
 <template>
-  <div class="portfolio">
+  <div id="portfolio">
     <h1>Portfolio</h1>
     <p>You must be authenticated to see this</p>
     <routes/>
