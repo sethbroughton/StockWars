@@ -1,9 +1,9 @@
 <template>
   <div id="login" class="text-center">
 
-     <a href="#"  v-on:click="logoff">LogOut</a>
+    <a href="#"  v-on:click="logoff">LogOut</a>
 
-    <router-link to="/" tag="button">Home</router-link>
+    <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
         Invalid username and password!
@@ -102,5 +102,7 @@ export default {
 </script>
 
 <style>
-
+.form-signin {
+  background-color: var(--color-red-1);
+}
 </style>
