@@ -63,6 +63,7 @@ public class GameController {
 		}
 	}
 	
+	//These next few delete mapping and put mapping sections are for exception handling - Charles
 	@DeleteMapping("/api/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable int gameId) {
