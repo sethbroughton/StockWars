@@ -78,22 +78,22 @@ export default {
     },
   },
 
-  logoff() {
-      fetch(`${process.env.VUE_APP_REMOTE_API}/login`, {
-        method : 'DELETE'
-        }
-      )
-      .then(response => {
-        if(response.ok){
-          // the user has be logged off the server
-          //Log user out of front end
-          auth.logout;
-          auth.destroyToken;
+  // logoff() {
+  //     fetch(`${process.env.VUE_APP_REMOTE_API}/login`, {
+  //       method : 'DELETE'
+  //       }
+  //     )
+  //     .then(response => {
+  //       if(response.ok){
+  //         // the user has be logged off the server
+  //         //Log user out of front end
+  //         auth.logout;
+  //         auth.destroyToken;
           
-        }
-      })
-      .catch(err => console.error(err));
-  },
+  //       }
+  //     })
+  //     .catch(err => console.error(err));
+  // },
   
 };
 </script>
