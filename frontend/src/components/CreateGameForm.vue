@@ -29,6 +29,8 @@
 
 <script>
 export default {
+    name:'createGameForm',
+
     data() {
         return {
             game: {           
