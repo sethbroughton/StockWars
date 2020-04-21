@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import auth from './auth'
-import Home from './views/Home.vue'
+import Profile from './views/Profile.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import CreateGame from './views/CreateGame.vue'
@@ -29,8 +29,8 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      name: 'profile',
+      component: Profile,
       meta: {
         requiresAuth: true
       }
