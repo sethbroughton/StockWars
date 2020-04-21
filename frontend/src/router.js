@@ -4,6 +4,13 @@ import auth from './auth'
 import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
+import CreateGame from './views/CreateGame.vue'
+import GameLobby from './views/GameLobby.vue'
+import Game from './views/Game.vue'
+import Portfolio from './views/Portfolio.vue'
+import Search from './views/Search.vue'
+import TradeHistory from './views/TradeHistory.vue'
+import Stock from './views/Stock.vue'
 
 Vue.use(Router)
 
@@ -24,6 +31,62 @@ const router = new Router({
       path: '/',
       name: 'home',
       component: Home,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/create',
+      name: 'create-game',
+      component: CreateGame,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/lobby',
+      name: 'lobby',
+      component: GameLobby,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/game',
+      name: 'game',
+      component: Game,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/portfolio',
+      name: 'portfolio',
+      component: Portfolio,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: Search,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/Stock',
+      name: 'stock',
+      component: Stock,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/tradeHistory',
+      name: 'trade-history',
+      component: TradeHistory,
       meta: {
         requiresAuth: true
       }

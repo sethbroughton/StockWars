@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <h1>Home</h1>
+  <div class="portfolio">
+    <h1>Portfolio</h1>
     <p>You must be authenticated to see this</p>
     <routes/>
   </div>
@@ -10,7 +10,7 @@
 import Routes from '@/components/Routes'
 
 export default {
-  name: 'home',
+  name: 'portfolio',
   components: {
     Routes
   }
