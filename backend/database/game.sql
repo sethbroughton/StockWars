@@ -81,3 +81,10 @@ CREATE TABLE trade
 );
 
 COMMIT;
+
+BEGIN TRANSACTION;
+
+ALTER TABLE users ADD avatar varchar(2048);
+
+ROLLBACK;
+COMMIT;
