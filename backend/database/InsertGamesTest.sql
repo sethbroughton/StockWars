@@ -32,12 +32,17 @@ INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (5, 8, true)
 --NOTE: If a user does NOT accept an invite, what columns need to be able to be NULL?
 -- > >  portfolio_id? total_value?  The entire trade table?
 INSERT INTO users (username, password, salt, role) VALUES ('Loki', 'lokiistrickkyy', 'HAHAHAHAHAH!', 'user')
-INSERT INTO portfolio (portfolio_id, user_id, game_id, total_value) VALUES (2, 4, 7, 100000)
-INSERT INTO trade (trade_id, portfolio_id, stock_id, type, quantity, date_of_purchase, stock_value, commission) VALUES (2, 2, 1, 'buy', 30, '1990-03-07', 35, 19.95)
+
+--portfolio table - If user doesn't accept, they won't have joined a game, which means no portfolio or trade info
+INSERT INTO portfolio (portfolio_id, user_id, game_id, total_value) VALUES (null, 6, 8, null)
+
+INSERT INTO trade (trade_id, portfolio_id, stock_id, type, quantity, date_of_purchase, stock_value, commission) VALUES (null, null, null, null, null, null, null, null)
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 8, false)
 
 --Changing null constraints to account for invites not accepted / declined
 
+
+--Maybe add an invite column, and make an associative table for users_game? (invite_accepted)
 
 
 ROLLBACK;
