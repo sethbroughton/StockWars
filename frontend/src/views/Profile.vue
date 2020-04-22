@@ -7,6 +7,8 @@
     <leader-board/>
     <active-games/>
     <user-statistics/>
+    {{game}}
+   
   </div>
 </template>
 
@@ -28,8 +30,9 @@ export default {
   data() {
     return {
       user: {
-        name: ''
-      }
+          name: ''
+        },
+      game: ''
     }
   },
   created() {
@@ -47,6 +50,21 @@ export default {
       .then((currentUser) => {
         this.user.name = currentUser.username;
       });
+
+fetch(`${process.env.VUE_APP_REMOTE_API}/api/game`,{
+      method: 'GET',
+      headers:{
+      Authorization: `Bearer ${authToken}`
+      }
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((games) => {
+        this.games = games;
+      });
+
+
   }
 }
 

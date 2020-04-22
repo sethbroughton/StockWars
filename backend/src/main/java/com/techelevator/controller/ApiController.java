@@ -40,6 +40,12 @@ public class ApiController {
         }
         return "Success";
     }
+	
+	@GetMapping
+	public String list(){
+		//return gameDao.listAllGames();
+		return "hi";
+	}
     
 	
 
