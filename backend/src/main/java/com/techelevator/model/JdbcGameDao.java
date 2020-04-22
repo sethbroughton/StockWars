@@ -30,7 +30,7 @@ public class JdbcGameDao implements GameDao {
     public List<Game> listAllGames() {
         Game theGame = null;
         String sqlGetAllGames = "SELECT * from game";
-        ArrayList<Game> allGames = new ArrayList<Game>();
+        List<Game> allGames = new ArrayList<Game>();
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllGames);
         while (results.next()) {
             theGame = mapRowSetToGame(results);

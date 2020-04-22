@@ -88,6 +88,7 @@ export default {
             }
             auth.saveToken(token);
             this.$router.push('/');
+            
           }
         })
         .catch((err) => console.error(err));

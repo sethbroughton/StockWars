@@ -10,11 +10,11 @@
        <li
           v-for="game in games"
           v-bind:key="game.id">
-         <!-- v-on:click="changeStatus(item.id,$event)"> -->
-         
+         <!--<v-on:click="getUser(item.id,$event)">-->
+        Hey
       </li>
     </ul>
-    
+    Hey
     <user-statistics/>
   </div>
 </template>
@@ -23,7 +23,7 @@
 import Routes from '@/components/Routes';
 import LeaderBoard from '@/components/LeaderBoard';
 import ActiveGames from '@/components/ActiveGames';
-import UserStatistics from '@/components/UserStatistics'
+import UserStatistics from '@/components/UserStatistics';
 
 export default {
   name: 'profile',
@@ -36,22 +36,20 @@ export default {
    data() {
     return {
         games: []
-
       
     };
   },
   method: {
-    created() {
-   
-      fetch(`${process.env.VUE_APP_REMOTE_API}/api/game`)
+    created(){
+      fetch(`http://localhost:8080/AuthenticationApplication/api`)
         .then((response) => {
           return response.json();
         })
         .then((games) => {
           this.games = games;
-        });
-
-  }
+        })
+        .catch((err) => console.error(err));
+  } 
 
 }
 }
