@@ -8,7 +8,7 @@ import java.util.List;
 import com.techelevator.model.trade.Trade;
 
 public class Portfolio {
-
+    
 private long userId;
 private long gameId;
 private long portfolioId;
