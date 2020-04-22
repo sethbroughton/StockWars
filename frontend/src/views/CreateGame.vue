@@ -10,32 +10,40 @@
 <script>
 import Routes from '@/components/Routes'
 import UserHeader from '@/components/UserHeader'
+import CreateGameForm from '@/components/CreateGameForm'
 
 
 export default {
   name: 'create',
+
+  props: {
+    apiURL: String,
+  },
   components: {
     Routes,
-    
-  }
-  // methods: {
-  //   createGame() {
-  //     fetch(this.apiURL, {
-  //       method: 'POST',
-  //       headers: {
-  //         ??????
-  //       },
-  //       body: JSON.stringify(this.user)
+    UserHeader,
+    CreateGameForm
+  },
+  methods: {
+    createGame() {
+      fetch(this.apiURL, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          
+        },
+        body: JSON.stringify(this.user)
         
-  //     })
-  //     .then((response) => {
-  //       if(response.ok) {
-  //         this.???startgame????
-  //       }
-  //     })
-  //     .catch((err) => console.error(err));
-  //   },
-  // }
+      })
+      .then((response) => {
+        if(response.ok) {
+          this.game
+        }
+      })
+      .catch((err) => console.error(err));
+    },
+  }
 };
 
 </script>
