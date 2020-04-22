@@ -7,7 +7,7 @@
     </div>
 
     <div class="login-and-register">      
-      <form @submit.prevent="login" class="u-margin-bottom">
+      <form @submit.prevent="login" class="form u-margin-bottom">
         <div class="input-fields">
           <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
             Invalid username and password!
@@ -16,7 +16,7 @@
             Thank you for registering, please sign in.
           </div>
           <div class="form-group u-margin-bottom-small">
-            <label for="username">Username</label>
+            <label for="username" class="label">Username</label>
             <input
               type="text"
               id="username"
@@ -26,7 +26,7 @@
             />
           </div>
           <div class="form-group u-margin-bottom-small">
-            <label for="password">Password</label>
+            <label for="password" class="label">Password</label>
             <input
               type="password"
               id="password"
@@ -116,8 +116,6 @@ export default {
   }
 
   .login-and-register {
-    color:var(--color-grey-light-1);
-
     margin: 1%;
 
     flex: 2 1 0;
@@ -127,43 +125,14 @@ export default {
     align-items: center;
   }
 
-  form {
-    background-color: var(--color-grey-dark-2);
+  #sign-in { background-color: var(--color-green-2); }  
 
-    padding: 6% 10%;  
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  #sign-in:hover { background-color: var(--color-green-1);
   }
 
-  input {
-    margin-left: 2rem;
-  }
+  #register { background-color: var(--color-purple-2); }
 
-  #sign-in {
-    background-color: var(--color-green-2);
-
-    transition: all .2s;
-  }  
-
-  #sign-in:hover {
-    background-color: var(--color-green-1);
-    transform: translateY(-.3rem);
-    box-shadow: var(--shadow-small);
-  }
-
-  #register {
-    background-color: var(--color-purple-2);
-
-    transition: all .2s;
-  }
-
-  #register:hover {
-    background-color: var(--color-purple-1);
-    transform: translateY(-.3rem);
-    box-shadow: var(--shadow-small);
-  }
+  #register:hover { background-color: var(--color-purple-1); }
 
   #about {
     text-decoration: none;
@@ -186,11 +155,6 @@ export default {
   h2 {
     font-size: 3.5rem;
     font-weight: 500;
-  }
-
-  label {
-    font-size: 2rem;
-    font-weight: 600;
   }
 
 </style>

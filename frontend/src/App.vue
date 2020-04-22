@@ -82,15 +82,43 @@ body {
   background-size: cover;
 }
 
+.form {
+    background-color: rgba(47, 54, 64, .7);
+    color: var(--color-grey-light-1);
+
+    padding: 3rem 5rem;  
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+  display: flex;
+}
+
+.label {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-right: 2rem;
+}
+
 .button {
-  padding: 2rem 4rem;
+  padding: 1.5rem 3.5rem;
   text-decoration: none;
   color: var(--color-grey-light-2);
   border: none;
   font-size: 2rem;
   font-weight: 700;
   cursor: pointer;
+  transition: all .2s;
 }
+
+.button:hover {
+  transform: translateY(-.3rem);
+  box-shadow: var(--shadow-small);
+}
+
 
 /***************************************************
 ******* UTILITIES ***********************
