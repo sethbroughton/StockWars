@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import auth from '../auth';
+
 export default {
     name: 'user-header',
     data() {
@@ -19,10 +21,12 @@ export default {
       }
     },
     created() {
+      const authToken = auth.getToken();
 
-      fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`, {
-        headers: {
-          "Authorization": `Bearer ${authToken}`
+      fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`,{
+       method: 'GET',
+       headers:{
+        Authorization: `Bearer ${authToken}`
         }
       })
         .then((response) => {
@@ -31,7 +35,6 @@ export default {
         .then((currentUser) => {
           this.user.name = currentUser.username;
         });
-
     }
 }
 </script>

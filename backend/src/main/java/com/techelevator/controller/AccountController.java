@@ -69,11 +69,4 @@ public class AccountController {
 		User currentUser = auth.getCurrentUser();
 		return currentUser;
 	}
-
-	@GetMapping("/currentUser")
-	public String authToken() {
-		String authToken = auth.getToken();
-		return authToken;
-	}
-
 }
