@@ -11,7 +11,7 @@ public class JdbcPortfolioDao implements PortfolioDao {
     private JdbcTemplate jdbcTemplate;
 
     // @Override
-    // public Portfolio getActiveUserPortfolio(User user) {
+    // public Portfolio getActiveUserPortfolio(User user, Game game) {
 
     //     Portfolio portfolio = null;
     //     ArrayList<Portfolio> portfolios = new ArrayList<Portfolio>();
