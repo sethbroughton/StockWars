@@ -1,4 +1,4 @@
-package com.techelevator.model.portfolio;
+package com.techelevator.model;
 
 import java.util.List;
 

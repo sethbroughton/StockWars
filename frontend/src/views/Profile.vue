@@ -23,7 +23,17 @@ export default {
     LeaderBoard, 
     ActiveGames,
     UserStatistics
-  }
+  },
+   data() {
+    return {
+      user: {
+        username: '',
+        password: '',
+      },
+      invalidCredentials: false,
+    };
+  },
+
 }
 </script>
 

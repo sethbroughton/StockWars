@@ -1,4 +1,4 @@
-package com.techelevator.model.portfolio;
+package com.techelevator.model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

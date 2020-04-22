@@ -1,4 +1,4 @@
-package com.techelevator.model.trade;
+package com.techelevator.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
