@@ -6,7 +6,7 @@
     <router-link v-bind:to="{name: 'lobby'}" tag="button">Join New Game</router-link>
     <leader-board/>
     <active-games/>
-    <ul>
+       <ul>
        <li
           v-for="game in games"
           v-bind:key="game.id">
@@ -14,8 +14,8 @@
          
       </li>
     </ul>
-
-
+    
+    
 
 
     <user-statistics/>
@@ -38,7 +38,9 @@ export default {
   },
    data() {
     return {
-            games: []
+games: []
+
+      
     };
   },
   method: {
@@ -51,6 +53,7 @@ export default {
         .then((games) => {
           this.games = games;
         });
+
   }
 
 }
