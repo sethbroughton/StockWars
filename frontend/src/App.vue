@@ -1,10 +1,28 @@
 <template>
   <div id="app">
+    <user-header></user-header>
     <router-view/>
   </div>
 </template>
 
+<script>
+import UserHeader from '@/components/UserHeader'
 
+export default {
+  name: 'app',
+  components: {
+    UserHeader
+  },
+  data() {
+    return {
+
+    }
+  },
+  created() {
+    
+  }
+}
+</script>
 
 <style>
 

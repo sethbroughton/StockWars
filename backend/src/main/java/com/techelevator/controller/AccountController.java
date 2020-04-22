@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * AccountController
  */
 @RestController
+@CrossOrigin
 public class AccountController {
 	@Autowired
 	private AuthProvider auth;
@@ -61,6 +62,18 @@ public class AccountController {
 //		else {
 //			throw new UnauthorizedException();
 //		}
+	}
+
+	@GetMapping("/currentUser")
+	public User currentUser() {
+		User currentUser = auth.getCurrentUser();
+		return currentUser;
+	}
+
+	@GetMapping("/currentUser")
+	public String authToken() {
+		String authToken = auth.getToken();
+		return authToken;
 	}
 
 }

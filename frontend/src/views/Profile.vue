@@ -36,28 +36,24 @@ export default {
     ActiveGames,
     UserStatistics
   },
-   data() {
+  data() {
     return {
-games: []
-
-      
+      games: []      
     };
   },
-  method: {
-    created() {
-   
-      fetch(`${process.env.VUE_APP_REMOTE_API}/api/game`)
-        .then((response) => {
-          return response.json();
-        })
-        .then((games) => {
-          this.games = games;
-        });
+  created() {
+  
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/game`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((games) => {
+        this.games = games;
+      });
 
   }
+}
 
-}
-}
 </script>
 
 <style scoped>

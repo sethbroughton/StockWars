@@ -2,7 +2,7 @@
   <header class="header">
     <h1 class="title">Stock Wars</h1>
     <div class="user-info">
-      <router-link :to="{ name: 'profile' }" class="user-name">Jeff Crosley</router-link>
+      <router-link :to="{ name: 'profile' }" class="user-name">{{ user.name }}</router-link>
       <img src="../assets/img/sample-user-avi.jpg" alt="user avi">
     </div>
   </header>
@@ -10,7 +10,29 @@
 
 <script>
 export default {
-    name: 'user-header'
+    name: 'user-header',
+    data() {
+      return {
+        user: {
+          name: ''
+        }
+      }
+    },
+    created() {
+
+      fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`, {
+        headers: {
+          "Authorization": `Bearer ${authToken}`
+        }
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((currentUser) => {
+          this.user.name = currentUser.username;
+        });
+
+    }
 }
 </script>
 
