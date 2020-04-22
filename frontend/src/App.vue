@@ -76,8 +76,14 @@ body {
 ******* UNIVERSAL STYLES ***********************
 ****************************************************/
 
+body {
+  background-image: linear-gradient(var(--hero-image-overlay)), url(assets/img/hero.jpg);
+  background-position: center;
+  background-size: cover;
+}
+
 .button {
-  padding: 4% 7%;
+  padding: 2rem 4rem;
   text-decoration: none;
   color: var(--color-grey-light-2);
   border: none;

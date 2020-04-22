@@ -102,11 +102,6 @@ export default {
 
   #login {
     height: 100vh;
-    padding: 3%;
-
-    background-image: linear-gradient(var(--hero-image-overlay)), url(../assets/img/hero.jpg);
-    background-position: center;
-    background-size: cover;
 
     display: flex;
     justify-content: center;

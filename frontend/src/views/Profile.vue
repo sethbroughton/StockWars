@@ -1,6 +1,6 @@
 <template>
-  <div id="home">
-    <h1>Home</h1>
+  <div id="profile">
+    <h1>Profile</h1>
     <routes/>
     <router-link v-bind:to="{name: 'create-game'}" tag="button">Create a New Game</router-link>
     <router-link v-bind:to="{name: 'lobby'}" tag="button">Join New Game</router-link>
@@ -26,3 +26,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+#profile {
+  color: rgb(var(--color-grey-light-1));
+  font-size: 4rem;
+}
+
+</style>

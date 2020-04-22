@@ -1,6 +1,6 @@
 <template>
   <div class="routes">
-    <router-link to="/">Home</router-link>
+    <router-link to="/">Profile</router-link>
     <router-link to="/create">Create Game</router-link>
     <router-link to="/lobby">Lobby</router-link>
     <router-link to="/game">Game</router-link>
@@ -17,6 +17,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  a {
+    color: rgb(var(--color-grey-light-1));
+  }
 </style>
