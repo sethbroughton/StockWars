@@ -37,33 +37,33 @@ body {
   --font-primary: 'Barlow', sans-serif;
 
   /* COLORS */
-  --color-blue-1: #00a8ff;
-  --color-blue-2: #0097e6;
-  --color-blue-3: #487eb0;
-  --color-blue-4: #40739e;
-  --color-blue-5: #273c75;
-  --color-blue-6: #192a56;
+  --color-blue-1: 0, 168, 255;
+  --color-blue-2: 0, 151, 230;
+  --color-blue-3: 72, 126, 176;
+  --color-blue-4: 64, 115, 158;
+  --color-blue-5: 39, 60, 117;
+  --color-blue-6: 25, 42, 86;
 
-  --color-purple-1: #9c88ff;
-  --color-purple-2: #8c7ae6;
+  --color-purple-1: 156, 136, 255;
+  --color-purple-2: 140, 122, 230;
   
-  --color-red-1: #e84118;
-  --color-red-2: #c23616;
+  --color-red-1: 232, 65, 24;
+  --color-red-2: 194, 54, 22;
 
-  --color-yellow-1: #fbc531;
-  --color-yellow-2: #e1b12c;
+  --color-yellow-1: 251, 197, 49;
+  --color-yellow-2: 225, 177, 44;
 
-  --color-green-1: #4cd137;
-  --color-green-2: #44bd32;
+  --color-green-1: 76, 209, 55;
+  --color-green-2: 68, 189, 50;
 
-  --color-grey-light-1: #f5f6fa;
-  --color-grey-light-2: #dcdde1;
-  --color-grey-medium-1: #7f8fa6;
-  --color-grey-medium-2: #718093;
-  --color-grey-dark-1: #353b48;
-  --color-grey-dark-2: #2f3640;
+  --color-grey-light-1: 245, 246, 250;
+  --color-grey-light-2: 220, 221, 225;
+  --color-grey-medium-1: 127, 143, 166;
+  --color-grey-medium-2: 113, 128, 147;
+  --color-grey-dark-1: 53, 59, 72;
+  --color-grey-dark-2: 47, 54, 64;
 
-  --hero-image-overlay: to bottom right, rgb(25, 42, 86, 0.6), rgb(194, 54, 22, 0.6);
+  --hero-image-overlay: to bottom right, rgb(25, 42, 86, 0.8), rgb(194, 54, 22, 0.8);
 
   /* SHADOWS */
   --shadow: 0 2rem 2rem rgba(0,0,0,0.2);
@@ -77,13 +77,23 @@ body {
 ****************************************************/
 
 .button {
-  padding: 3% 6%;
+  padding: 4% 7%;
   text-decoration: none;
-  color: var(--color-grey-dark-2);
-  background-color: var(--color-blue-2);
+  color: var(--color-grey-light-2);
   border: none;
   font-size: 2rem;
   font-weight: 700;
+  cursor: pointer;
 }
+
+/***************************************************
+******* UTILITIES ***********************
+****************************************************/
+
+/* MARGINS */
+
+.u-margin-bottom-small { margin-bottom: 2rem !important; }
+.u-margin-bottom { margin-bottom: 3rem !important; }
+.u-margin-bottom-large { margin-bottom: 5rem !important; }
 
 </style>

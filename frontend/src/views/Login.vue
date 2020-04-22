@@ -1,35 +1,51 @@
 <template>
-  <div id="login" class="text-center">
-    <form class="form-signin" @submit.prevent="login">
-      <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
-      <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
-        Invalid username and password!
-      </div>
-      <div class="alert alert-success" role="alert" v-if="this.$route.query.registration">
-        Thank you for registering, please sign in.
-      </div>
-      <label for="username" class="sr-only">Username</label>
-      <input
-        type="text"
-        id="username"
-        class="form-control"
-        placeholder="Username"
-        v-model="user.username"
-        required
-        autofocus
-      />
-      <label for="password" class="sr-only">Password</label>
-      <input
-        type="password"
-        id="password"
-        class="form-control"
-        placeholder="Password"
-        v-model="user.password"
-        required
-      />
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
-      <button type="submit">Sign in</button>
-    </form>
+  <div id="login">
+
+    <div class="titles">
+      <h1>Stock Wars</h1>      
+      <h2>Play the real market with fake money. Challenge your friends. Compete for investor supremacy.</h2>
+    </div>
+
+    <div class="login-and-register">      
+      <form @submit.prevent="login" class="u-margin-bottom">
+        <div class="input-fields">
+          <div class="alert alert-danger" role="alert" v-if="invalidCredentials">
+            Invalid username and password!
+          </div>
+          <div class="alert alert-success" role="alert" v-if="this.$route.query.registration">
+            Thank you for registering, please sign in.
+          </div>
+          <div class="form-group u-margin-bottom-small">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              v-model="user.username"
+              required
+              autofocus
+            />
+          </div>
+          <div class="form-group u-margin-bottom-small">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              v-model="user.password"
+              required
+            />
+          </div>
+        </div>
+
+        <button type="submit" id="sign-in" class="button">Sign in</button>
+      </form>
+
+      <router-link :to="{ name: 'register' }" id="register" class="button">Need an account?</router-link>
+
+      <router-link :to="{ name: 'about' }" id="about">About the team</router-link>
+    </div>
+
+
+
   </div>
 </template>
 
@@ -80,6 +96,106 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+
+/* LAYOUT */
+
+  #login {
+    height: 100vh;
+    padding: 3%;
+
+    background-image: linear-gradient(var(--hero-image-overlay)), url(../assets/img/hero.jpg);
+    background-position: center;
+    background-size: cover;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .titles {
+    margin: 3%;
+    color: rgb(var(--color-grey-light-1));
+
+    flex: 3 1 0;
+  }
+
+  .login-and-register {
+    color: rgb(var(--color-grey-light-1));
+
+    margin: 1%;
+
+    flex: 2 1 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  form {
+    background-color: rgba(var(--color-grey-dark-2), 0.6);
+
+    padding: 6% 10%;  
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  input {
+    margin-left: 2rem;
+  }
+
+  #sign-in {
+    background-color: rgb(var(--color-green-2));
+
+    transition: all .2s;
+  }  
+
+  #sign-in:hover {
+    background-color: rgb(var(--color-green-1));
+    transform: translateY(-.3rem);
+    box-shadow: var(--shadow-small);
+  }
+
+  #register {
+    background-color: rgb(var(--color-purple-2));
+
+    transition: all .2s;
+  }
+
+  #register:hover {
+    background-color: rgb(var(--color-purple-1));
+    transform: translateY(-.3rem);
+    box-shadow: var(--shadow-small);
+  }
+
+  #about {
+    text-decoration: none;
+    color: rgb(var(--color-grey-light-1));
+    font-size: 2.5rem;
+    font-weight: 600;
+
+    position: absolute;
+    bottom: 2%;
+    right: 3%;
+  }
+
+  /* TYPOGRAPHY */
+
+  h1 {
+    font-size: 13rem;
+    font-weight: 300;
+  }
+
+  h2 {
+    font-size: 3.5rem;
+    font-weight: 500;
+  }
+
+  label {
+    font-size: 2rem;
+    font-weight: 600;
+  }
 
 </style>
