@@ -9,13 +9,17 @@ public class Game {
     private String name;
     private List<User> players;
     private int numberOfPlayers;
-    private List<Portfolio> portfolios;
+    //private List<Portfolio> portfolios;
     private int lengthInDays;
     private LocalDate startDate;
     private LocalDate endDate;
     private boolean publicGame;
     private long organizerId;
     private long winnerId;
+    
+    public Game() {
+    	
+    }
 
     public long getGameId() {
         return gameId;
@@ -89,13 +93,13 @@ public class Game {
         this.winnerId = winnerId;
     }
 
-    public List<Portfolio> getPortfolios() {
-        return portfolios;
-    }
-
-    public void setPortfolios(List<Portfolio> portfolios) {
-        this.portfolios = portfolios;
-    }
+//    public List<Portfolio> getPortfolios() {
+//        return portfolios;
+//    }
+//
+//    public void setPortfolios(List<Portfolio> portfolios) {
+//        this.portfolios = portfolios;
+//    }
 
     public int getNumberOfPlayers() {
         return numberOfPlayers;
