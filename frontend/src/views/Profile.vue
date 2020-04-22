@@ -6,15 +6,9 @@
     <router-link v-bind:to="{name: 'lobby'}" tag="button">Join New Game</router-link>
     <leader-board/>
     <active-games/>
-       <ul>
-       <li
-          v-for="game in games"
-          v-bind:key="game.id">
-         <!--<v-on:click="getUser(item.id,$event)">-->
-        Hey
-      </li>
-    </ul>
-    Hey
+     
+          {{name}}
+    
     <user-statistics/>
   </div>
 </template>
@@ -24,6 +18,7 @@ import Routes from '@/components/Routes';
 import LeaderBoard from '@/components/LeaderBoard';
 import ActiveGames from '@/components/ActiveGames';
 import UserStatistics from '@/components/UserStatistics';
+import auth from '../auth';
 
 export default {
   name: 'profile',
@@ -35,18 +30,27 @@ export default {
   },
   data() {
     return {
-      games: []      
+        name: ""      
     };
   },
-  created() {
-  
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/game`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((games) => {
-        this.games = games;
-      });
+  method: {
+    created(){
+      const authToken = auth.getToken();
+      fetch(`${process.env.VUE_APP_REMOTE_API}/game`,{
+       method: 'GET',
+       headers:{
+      Authorization: `Bearer ${authToken}`
+
+      }}
+      )
+        .then((response) => {
+               return response.json();
+        })
+        .then((name) => {
+          this.name = name;
+        })
+        .catch((err) => console.error(err));
+  } 
 
   }
 }
