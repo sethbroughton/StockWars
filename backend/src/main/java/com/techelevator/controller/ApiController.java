@@ -41,10 +41,6 @@ public class ApiController {
         return "Success";
     }
     
-	@GetMapping
-	public List<Game> list(){
-		return gameDao.listAllGames();
 	
-	}
 
 }
