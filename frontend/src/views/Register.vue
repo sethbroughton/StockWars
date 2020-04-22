@@ -85,9 +85,9 @@ export default {
 <style scoped>
 
 form {
-  background-color: rgba(var(--color-grey-dark-2), 0.8);
+  background-color: var(--color-grey-dark-2);
   padding: 3% 5%;
-  color: rgb(var(--color-grey-light-1));
+  color: var(--color-grey-light-1);
 
 
   display: flex;
@@ -96,7 +96,7 @@ form {
 }
 
 h1 {
-  color: rgb(var(--color-grey-light-1));
+  color: var(--color-grey-light-1);
   font-size: 13rem;
   font-weight: 300;
 }
@@ -111,26 +111,26 @@ h1 {
 }
 
 #create-account {
-  background-color: rgb(var(--color-green-2));
+  background-color: var(--color-green-2);
 
   transition: all .2s;
 }
 
 #create-account:hover {
-  background-color: rgb(var(--color-green-1));
+  background-color: var(--color-green-1);
   transform: translateY(-.3rem);
   box-shadow: var(--shadow-small);
 }
 
 #login {
-  background-color: rgb(var(--color-purple-2));
-  color: rgb(var(--color-grey-light-1));
+  background-color: var(--color-purple-2);
+  color: var(--color-grey-light-1);
 
   transition: all .2s;
 }
 
 #login:hover {
-  background-color: rgb(var(--color-purple-1));
+  background-color: var(--color-purple-1);
   transform: translateY(-.3rem);
   box-shadow: var(--shadow-small);
 }

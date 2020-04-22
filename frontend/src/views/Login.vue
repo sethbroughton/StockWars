@@ -110,13 +110,13 @@ export default {
 
   .titles {
     margin: 3%;
-    color: rgb(var(--color-grey-light-1));
+    color:var(--color-grey-light-1);
 
     flex: 3 1 0;
   }
 
   .login-and-register {
-    color: rgb(var(--color-grey-light-1));
+    color:var(--color-grey-light-1);
 
     margin: 1%;
 
@@ -128,7 +128,7 @@ export default {
   }
 
   form {
-    background-color: rgba(var(--color-grey-dark-2), 0.6);
+    background-color: var(--color-grey-dark-2);
 
     padding: 6% 10%;  
 
@@ -142,32 +142,32 @@ export default {
   }
 
   #sign-in {
-    background-color: rgb(var(--color-green-2));
+    background-color: var(--color-green-2);
 
     transition: all .2s;
   }  
 
   #sign-in:hover {
-    background-color: rgb(var(--color-green-1));
+    background-color: var(--color-green-1);
     transform: translateY(-.3rem);
     box-shadow: var(--shadow-small);
   }
 
   #register {
-    background-color: rgb(var(--color-purple-2));
+    background-color: var(--color-purple-2);
 
     transition: all .2s;
   }
 
   #register:hover {
-    background-color: rgb(var(--color-purple-1));
+    background-color: var(--color-purple-1);
     transform: translateY(-.3rem);
     box-shadow: var(--shadow-small);
   }
 
   #about {
     text-decoration: none;
-    color: rgb(var(--color-grey-light-1));
+    color: var(--color-grey-light-1);
     font-size: 2.5rem;
     font-weight: 600;
 

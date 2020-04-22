@@ -30,7 +30,7 @@ export default {
 <style scoped>
 
 #profile {
-  color: rgb(var(--color-grey-light-1));
+  color: var(--color-grey-light-1);
   font-size: 4rem;
 }
 
