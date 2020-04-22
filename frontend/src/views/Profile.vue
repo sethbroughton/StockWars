@@ -6,6 +6,18 @@
     <router-link v-bind:to="{name: 'lobby'}" tag="button">Join New Game</router-link>
     <leader-board/>
     <active-games/>
+    <ul>
+       <li
+          v-for="game in games"
+          v-bind:key="game.id">
+         <!-- v-on:click="changeStatus(item.id,$event)"> -->
+         
+      </li>
+    </ul>
+
+
+
+
     <user-statistics/>
   </div>
 </template>
@@ -26,14 +38,22 @@ export default {
   },
    data() {
     return {
-      user: {
-        username: '',
-        password: '',
-      },
-      invalidCredentials: false,
+            games: []
     };
   },
+  method: {
+    created() {
+   
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/game`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((games) => {
+          this.games = games;
+        });
+  }
 
+}
 }
 </script>
 
