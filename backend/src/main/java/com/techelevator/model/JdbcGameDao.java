@@ -74,9 +74,9 @@ public class JdbcGameDao implements GameDao {
 		ObjectMapper mapper = new ObjectMapper();
 		InputStream inputStream = Test.class.getResourceAsStream("/data.json");
 		Game[] jsondata = mapper.readValue(inputStream, Game[].class);
-		for (Game game : jsondata) {
-			games.put(game.getGameId(), game);
-		}
+//		for (Game game : jsondata) {
+//			games.put(game.getGameId(), game);
+//		}
 	}
 
 

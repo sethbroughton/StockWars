@@ -10,6 +10,7 @@
    <ul>
      <li v-for="game in games" v-bind:key="game.gameId">
        {{game.name}}
+    
        </li>
    </ul>
    
@@ -36,7 +37,7 @@ export default {
       user: {
           name: ''
         },
-      game: []
+      games: []
     }
   },
   created() {
