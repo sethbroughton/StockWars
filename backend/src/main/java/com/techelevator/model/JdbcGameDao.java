@@ -1,4 +1,4 @@
-package com.techelevator.model.game;
+package com.techelevator.model;
 
 
 import java.util.ArrayList;

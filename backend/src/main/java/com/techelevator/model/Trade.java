@@ -1,15 +1,20 @@
 package com.techelevator.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+
+
 
 public class Trade {
 
     private long tradeId;
+    private long portfolioId;
     private String type;
-    private Stock stock;
+    private String ticker;
     private int quantity;
     private BigDecimal stockValue;
     private BigDecimal commission;
+    private LocalDate dateOfPurchase;
 
     public long getTradeId() {
         return tradeId;
@@ -25,14 +30,6 @@ public class Trade {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public Stock getStock() {
-        return stock;
-    }
-
-    public void setStock(Stock stock) {
-        this.stock = stock;
     }
 
     public int getQuantity() {
@@ -57,6 +54,30 @@ public class Trade {
 
     public void setCommission(BigDecimal commission) {
         this.commission = commission;
+    }
+
+    public String getTicker() {
+        return ticker;
+    }
+
+    public void setTicker(String ticker) {
+        this.ticker = ticker;
+    }
+
+    public LocalDate getDateOfPurchase() {
+        return dateOfPurchase;
+    }
+
+    public void setDateOfPurchase(LocalDate dateOfPurchase) {
+        this.dateOfPurchase = dateOfPurchase;
+    }
+
+    public long getPortfolioId() {
+        return portfolioId;
+    }
+
+    public void setPortfolioId(long portfolioId) {
+        this.portfolioId = portfolioId;
     }
 
 }

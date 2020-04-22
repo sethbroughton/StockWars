@@ -2,14 +2,15 @@ package com.techelevator.model;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
 public class Portfolio {
-
+    
+private long userId;
+private long gameId;
 private long portfolioId;
 private List<Trade> trades;
-private Map<Stock, Integer> stocks;
-BigDecimal totalValue;
+private BigDecimal totalValue;
+
 
 public long getPortfolioId() {
     return portfolioId;
@@ -27,13 +28,6 @@ public void setTrades(List<Trade> trades) {
     this.trades = trades;
 }
 
-public Map<Stock, Integer> getStocks() {
-    return stocks;
-}
-
-public void setStocks(Map<Stock, Integer> stocks) {
-    this.stocks = stocks;
-}
 
 public BigDecimal getTotalValue() {
     return totalValue;
@@ -41,6 +35,22 @@ public BigDecimal getTotalValue() {
 
 public void setTotalValue(BigDecimal totalValue) {
     this.totalValue = totalValue;
+}
+
+public long getUserId() {
+    return userId;
+}
+
+public void setUserId(long userId) {
+    this.userId = userId;
+}
+
+public long getGameId() {
+    return gameId;
+}
+
+public void setGameId(long gameId) {
+    this.gameId = gameId;
 }
 
 

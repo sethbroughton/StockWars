@@ -8,6 +8,8 @@ public class Game {
     private long gameId;
     private String name;
     private List<User> players;
+    private int numberOfPlayers;
+    private List<Portfolio> portfolios;
     private int lengthInDays;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -85,6 +87,22 @@ public class Game {
 
     public void setWinnerId(long winnerId) {
         this.winnerId = winnerId;
+    }
+
+    public List<Portfolio> getPortfolios() {
+        return portfolios;
+    }
+
+    public void setPortfolios(List<Portfolio> portfolios) {
+        this.portfolios = portfolios;
+    }
+
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
+    public void setNumberOfPlayers(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
     }
 
 }
