@@ -15,9 +15,6 @@
       </li>
     </ul>
     
-    
-
-
     <user-statistics/>
   </div>
 </template>
@@ -38,7 +35,7 @@ export default {
   },
    data() {
     return {
-games: []
+        games: []
 
       
     };
