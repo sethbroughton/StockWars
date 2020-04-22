@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface PortfolioDao {
 
-    public Portfolio getActivePortfolio(long id);
+    // public Portfolio getActiveUserPortfolio(User user);
 
-    public List<Portfolio> listAllPortfolios();
+        public List<Portfolio> getBasicPortfolios();
 
 }

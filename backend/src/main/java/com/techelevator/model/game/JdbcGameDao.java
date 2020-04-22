@@ -1,6 +1,6 @@
 package com.techelevator.model.game;
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class JdbcGameDao implements GameDao {
 
         theGame.setGameId(results.getLong("game_id"));
         theGame.setName(results.getString("name"));
-        //theGame.setPlayers(results.getObject("number_of_players"));
+        theGame.setNumberOfPlayers(results.getInt("number_of_players"));
         theGame.setLengthInDays(results.getInt("length_in_days"));
 
         return theGame;
