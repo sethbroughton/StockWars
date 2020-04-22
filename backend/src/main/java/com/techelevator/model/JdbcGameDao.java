@@ -29,7 +29,7 @@ public class JdbcGameDao implements GameDao {
     @Override 
     public List<Game> listAllGames() {
         Game theGame = null;
-        String sqlGetAllGames = "SELECT * from game WHERE public_game = ? ";
+        String sqlGetAllGames = "SELECT * from game";
         ArrayList<Game> allGames = new ArrayList<Game>();
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllGames);
         while (results.next()) {
