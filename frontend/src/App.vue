@@ -86,7 +86,7 @@ body {
     background-color: rgba(47, 54, 64, .7);
     color: var(--color-grey-light-1);
 
-    padding: 3rem 5rem;  
+    padding: 3rem 5rem;
 
     display: flex;
     flex-direction: column;

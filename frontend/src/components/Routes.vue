@@ -20,5 +20,6 @@ export default {
 <style scoped>
   a {
     color: rgb(var(--color-grey-light-1));
+    margin-right: 1rem;
   }
 </style>
