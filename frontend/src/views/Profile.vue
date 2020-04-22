@@ -7,7 +7,11 @@
     <leader-board/>
     <active-games/>
     <user-statistics/>
-    {{game}}
+   <ul>
+     <li v-for="game in games" v-bind:key="game.gameId">
+       {{game.name}}
+       </li>
+   </ul>
    
   </div>
 </template>
@@ -32,7 +36,7 @@ export default {
       user: {
           name: ''
         },
-      game: ''
+      game: []
     }
   },
   created() {

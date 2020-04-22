@@ -41,10 +41,10 @@ public class ApiController {
         return "Success";
     }
 	
-	@GetMapping
+	@GetMapping("/game")
 	public String list(){
-		//return gameDao.listAllGames();
 		return "hi";
+	
 	}
     
 	

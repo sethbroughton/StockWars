@@ -1,17 +1,34 @@
 package com.techelevator.model;
 
 
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.bouncycastle.util.test.Test;
+import org.springframework.stereotype.Component;
+
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.stereotype.Component;
+
+import io.jsonwebtoken.io.IOException;
 
 @Component
 public class JdbcGameDao implements GameDao {
 
     private JdbcTemplate jdbcTemplate;
+    
+	private Map<Long, Game> games = new HashMap<>();
+    public void GameDao() throws IOException, java.io.IOException {
+		loadJSON();
+	}	
+    
 
     @Override
     public long createGame(long organizer_id, String name, int number_of_players, int length_in_days) {
@@ -52,6 +69,15 @@ public class JdbcGameDao implements GameDao {
         return theGame;
 
     }
+    
+    private void loadJSON() throws IOException, java.io.IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		InputStream inputStream = Test.class.getResourceAsStream("/data.json");
+		Game[] jsondata = mapper.readValue(inputStream, Game[].class);
+		for (Game game : jsondata) {
+			games.put(game.getGameId(), game);
+		}
+	}
 
 
 }
