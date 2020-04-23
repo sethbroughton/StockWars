@@ -52,9 +52,9 @@ public class ApiController {
 		return gameDao.listAllGames();
 	}
     
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public Game create(@RequestBody Game game) {
-		return gameDao.createGame(game);
-	}
+	// @PostMapping("/game")
+	// @ResponseStatus(HttpStatus.CREATED)
+	// public Game create(@RequestBody Game game) {
+	// 	return gameDao.createGame(game);
+	// }
 }
