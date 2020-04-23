@@ -10,7 +10,7 @@
    <ul>
      <li v-for="game in games" v-bind:key="game.gameId">
        {{game.name}}
-    
+  
        </li>
    </ul>
    
@@ -59,14 +59,20 @@ export default {
 fetch(`${process.env.VUE_APP_REMOTE_API}/api/game`,{
       method: 'GET',
       headers:{
-      Authorization: `Bearer ${authToken}`
+      Authorization: `Bearer ${authToken}`,
+
+        'Accept': 'application/json'
       }
     })
       .then((response) => {
-        return response.json();
+         console.log(response)
+        //return response.json();
       })
       .then((games) => {
+        console.log(games);
         this.games = games;
+
+
       });
 
 
