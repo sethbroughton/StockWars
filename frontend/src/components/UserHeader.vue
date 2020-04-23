@@ -4,6 +4,9 @@
     <div class="user-info">
       <router-link :to="{ name: 'profile' }" class="user-name">{{ user.name }}</router-link>
       <img src="../assets/img/sample-user-avi.jpg" alt="user avi">
+      <form v-on:submit.prevent="logout">
+        <button type="submit"  class="button">Sign out</button>
+      </form>
     </div>
   </header>
 </template>
@@ -21,6 +24,27 @@ export default {
         }
       }
     },
+     methods: {
+
+    logout() {
+      console.log('hi');
+      const authToken = auth.getToken();
+      const fetchConfig = {
+        method : "DELETE",
+        headers:{
+          Authorization : `Bearer ${authToken}`
+        }
+      }
+      fetch(`${process.env.VUE_APP_REMOTE_API}/login`, fetchConfig)
+      .then(response => {
+        if(response.ok) {
+          auth.logout();
+          this.$router.push('/login');
+        }
+      })
+       .catch((err) => console.error(err));
+      }
+  },
     created() {
       const authToken = auth.getToken();
 
@@ -36,8 +60,11 @@ export default {
         .then((currentUser) => {
           this.user.name = currentUser.username;
         });
+    },
+
+ 
     }
-}
+
 </script>
 
 <style scoped>
