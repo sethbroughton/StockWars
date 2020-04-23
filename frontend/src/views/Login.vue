@@ -43,9 +43,6 @@
 
       <router-link :to="{ name: 'about' }" id="about">About the team</router-link>
     </div>
-
-
-
   </div>
 </template>
 

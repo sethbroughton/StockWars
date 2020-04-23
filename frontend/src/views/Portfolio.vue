@@ -14,10 +14,10 @@
       <h1>Balance</h1>
         <p class = "stock-information">
           <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>Stock # 1 - Ticker - Shares - Current$ - Total$</li>
+            <li>Stock # 2 - Ticker - Shares - Current$ - Total$</li>
+            <li>Stock # 3 - Ticker - Shares - Current$ - Total$</li>
+            <li>Stock # 4 - Ticker - Shares - Current$ - Total$</li>
           </ul>
         </p>
 
@@ -37,15 +37,9 @@ export default {
     Routes
   },
   data() {
-    return {
-
-    }
-  };
-},
-methods: {
-
+    return {}
+  }
 }
-
 </script>
 
 <style scoped>
