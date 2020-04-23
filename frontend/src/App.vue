@@ -1,18 +1,13 @@
 <template>
   <div id="app">
-    <user-header v-if="header"></user-header>
     <router-view/>
   </div>
 </template>
 
 <script>
-import UserHeader from '@/components/UserHeader'
 
 export default {
   name: 'app',
-  components: {
-    UserHeader
-  },
   data() {
     return {
 
@@ -82,6 +77,15 @@ body {
   --color-grey-dark-2: rgb(47, 54, 64);
 
   --hero-image-overlay: to bottom right, rgb(72, 126, 176, 0.7), rgb(25, 42, 86, 0.7);
+
+  --color-primary-1: var(--color-blue-3);
+  --color-primary-2: var(--color-blue-4);
+
+  --color-secondary-1: var(--color-red-1);
+  --color-secondary-2: var(--color-red-2);
+
+  --color-complementary-1: var(--color-green-1);
+  --color-complementary-2: var(--color-green-2);
 
   /* SHADOWS */
   --shadow: 0 2rem 2rem rgba(0,0,0,0.2);

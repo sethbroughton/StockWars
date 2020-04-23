@@ -1,4 +1,4 @@
-<template>
+<template v-if="header">
   <header class="header">
     <h1 class="title">Stock Wars</h1>
     <div class="user-info">
@@ -15,6 +15,7 @@ export default {
     name: 'user-header',
     data() {
       return {
+        header: true,
         user: {
           name: ''
         }
