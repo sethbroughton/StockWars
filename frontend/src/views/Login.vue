@@ -123,14 +123,11 @@ export default {
     align-items: center;
   }
 
-  #sign-in { background-color: var(--color-green-2); }  
+  #sign-in { background-color: var(--color-complementary-2); }  
+  #sign-in:hover { background-color: var(--color-complementary-1); }
 
-  #sign-in:hover { background-color: var(--color-green-1);
-  }
-
-  #register { background-color: var(--color-purple-2); }
-
-  #register:hover { background-color: var(--color-purple-1); }
+  #register { background-color: var(--color-tertiary-2); }
+  #register:hover { background-color: var(--color-tertiary-1); }
 
   #about {
     text-decoration: none;
