@@ -12,6 +12,7 @@ import org.bouncycastle.util.test.Test;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.techelevator.authentication.AuthProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,6 +24,9 @@ import io.jsonwebtoken.io.IOException;
 public class JdbcGameDao implements GameDao {
 
     private JdbcTemplate jdbcTemplate;
+
+	@Autowired
+	private AuthProvider auth;
 
     @Autowired
     public JdbcGameDao(DataSource dataSource) {
@@ -36,15 +40,13 @@ public class JdbcGameDao implements GameDao {
     
 
     @Override
-    public long createGame(long organizer_id, String name, int number_of_players, int length_in_days) {
-        
+    public void createGame(long organizerId, String name, int numberOfPlayers, int lengthInDays) {
+
         String sqlInsertNewGame = "INSERT INTO game "
                 + "(organizer_id, name, number_of_players, length_in_days) "
-                + " VALUES (?, ?, ?, ?) RETURNING game_id ";
+                + " VALUES (?, ?, ?, ?)";
 
-        long gameId = jdbcTemplate.update(sqlInsertNewGame, organizer_id, name, number_of_players, length_in_days);
-    ///creates a game -Kevin
-        return gameId;
+        jdbcTemplate.update(sqlInsertNewGame, organizerId, name, numberOfPlayers, lengthInDays);
     }
 
     //gets all games, hopefully -Kevin 

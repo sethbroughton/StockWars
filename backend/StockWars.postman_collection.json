@@ -107,7 +107,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"Vermin Supreme\",\n    \"password\": \"ponies\"\n}",
+					"raw": "{\n    \"username\": \"Superman\",\n    \"password\": \"martha\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -145,7 +145,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"Vermin Supreme\",\n    \"password\": \"ponies\",\n    \"confirmPassword\": \"ponies\",\n    \"role\": \"user\"\n}"
+					"raw": "{\n    \"username\": \"Superman\",\n    \"password\": \"martha\",\n    \"confirmPassword\": \"martha\",\n    \"role\": \"user\"\n}"
 				},
 				"url": {
 					"raw": "{{url}}/AuthenticationApplication/register",
@@ -155,6 +155,55 @@
 					"path": [
 						"AuthenticationApplication",
 						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add game",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"organizerId\": 5,\r\n    \"name\": \"NO, REALLY, THE API WORKS!!!\",\r\n    \"lengthInDays\": 18,\r\n    \"numberOfPlayers\": 6\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/AuthenticationApplication/api/game",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"AuthenticationApplication",
+						"api",
+						"game"
 					]
 				}
 			},
