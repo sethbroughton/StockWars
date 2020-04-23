@@ -2,7 +2,18 @@
   <div id="trade-history">
     <user-header></user-header>
     <h1>Trade History</h1>
-    <p>You must be authenticated to see this</p>
+    <table> 
+      <tr>
+        <td> Stock Name </td>
+        <td> Stock Code </td>
+         <td> Buy/Sell </td>
+          <td> Shares </td>
+          <td> Value </td>
+          <td> Trade Date</td>
+
+      </tr>
+      
+    </table>
     <routes/>
   </div>
 </template>
@@ -19,3 +30,10 @@ export default {
   }
 }
 </script>
+
+<style>
+#trade-history {
+  color: var(--color-grey-light-1);
+  font-size: 2rem;
+}
+</style>
