@@ -1,10 +1,27 @@
 <template>
   <div id="search">
     <user-header></user-header>
-    <h1>Search</h1>
-    <p>{{quote["05. price"]}}</p>
-
     <routes/>
+
+<h1>Search</h1>
+ <form @submit.prevent="search" class="form u-margin-bottom">
+        <div class="input-fields">
+          <div class="form-group u-margin-bottom-small">
+            <label for="search" class="label">Ticker Symbol</label>
+            <input
+              type="text"
+              id="search"
+              v-model="query"
+              autofocus
+            />
+          </div>
+        </div>
+      <button type="submit" id="search" class="button">Search</button>
+      </form>
+
+    <h3>{{data[0].name}}</h3>
+
+
   </div>
 </template>
 
@@ -14,25 +31,34 @@ import UserHeader from '@/components/UserHeader'
 
 export default {
   name: 'search',
-    data() {
-        return {
-        
-            quote: ''
-        }
-    },
   components: {
     Routes,
     UserHeader
   }, 
-    created() {
-      fetch('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=F&apikey=PM87ANKO1HGLIBFA')
+  data() {
+        return {
+          data: [{
+            name: '',
+            price: ''
+          }],
+          query: '',
+          apikey: 'a7f7aa92b83ad64df4f2f540028a9880'
+        }
+    },
+  methods: {
+    search(){
+      const query = this.query
+      console.log(query);
+      const apikey = this.apikey
+      console.log(apikey);
+      fetch(`https://fmpcloud.io/api/v3/quote/${query}?apikey=${apikey}`)
         .then((response) => {
           return response.json();
         })
-        .then((quote) => {
-          this.quote = quote;
-          console.log('hi');
-        });
-    }
-}
+        .then((data) => {
+          this.data = data;
+        })
+  }
+  },
+  }
 </script>

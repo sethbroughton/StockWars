@@ -1,9 +1,20 @@
 <template>
   <div id="stock">
     <user-header></user-header>
-    <h1>Stock</h1>
-    <p>You must be authenticated to see this</p>
-    <routes/>
+      <h1>stock name(ticker symbol)</h1>
+      <h3>you own (XX) shares</h3>
+        <ul>          
+          <li> (Graph) </li>
+          <li> current: (stock price) </li>
+        </ul>  
+      <div class="buy-sell-buttons">
+        <input type="text" id="buy-shares" name="buy-shares"/>
+        <label for="num-shares">Shares</label>
+        <p><button class = "buy-btn"> BUY</button></p>
+        <input type="text" id="sell-shares" name="sell-shares"/>
+        <label for="num-shares">Shares</label>        
+        <p><button class = "sell-btn"> SELL</button></p>
+    </div>
   </div>
 </template>
 
