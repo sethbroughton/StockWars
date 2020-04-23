@@ -62,6 +62,8 @@ INSERT INTO trade (trade_id, portfolio_id, stock_id, type, quantity, date_of_pur
 --Might actually not need this, users_game seems to take care of invited users
 BEGIN TRANSACTION;
 ALTER TABLE portfolio ALTER COLUMN  portfolio_id serial;
+
+ALTER TABLE 
 --Portfolio_id is a serial data type. How can we make sure that a user that doesn't accept the invite DOESN'T get placed in here or trade table?
 ROLLBACK;
 COMMIT;

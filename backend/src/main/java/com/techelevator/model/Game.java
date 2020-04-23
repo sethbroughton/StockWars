@@ -3,6 +3,8 @@ package com.techelevator.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Game {
 
     private long gameId;
@@ -11,15 +13,17 @@ public class Game {
     private int numberOfPlayers;
     //private List<Portfolio> portfolios;
     private int lengthInDays;
+    
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'hh:mm:ss.SSSXXX")
     private LocalDate startDate;
+    
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'hh:mm:ss.SSSXXX")
     private LocalDate endDate;
+    
     private boolean publicGame;
     private long organizerId;
     private long winnerId;
     
-    public Game() {
-    	
-    }
 
     public long getGameId() {
         return gameId;

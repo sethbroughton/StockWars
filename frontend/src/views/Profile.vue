@@ -7,6 +7,13 @@
     <leader-board/>
     <active-games/>
     <user-statistics/>
+   <ul>
+     <li v-for="game in games" v-bind:key="game.gameId">
+       {{game.name}}
+  
+       </li>
+   </ul>
+   
   </div>
 </template>
 
@@ -28,8 +35,9 @@ export default {
   data() {
     return {
       user: {
-        name: ''
-      }
+          name: ''
+        },
+      games: []
     }
   },
   created() {
@@ -47,6 +55,27 @@ export default {
       .then((currentUser) => {
         this.user.name = currentUser.username;
       });
+
+fetch(`${process.env.VUE_APP_REMOTE_API}/api/game`,{
+      method: 'GET',
+      headers:{
+      Authorization: `Bearer ${authToken}`,
+
+        'Accept': 'application/json'
+      }
+    })
+      .then((response) => {
+         console.log(response)
+        //return response.json();
+      })
+      .then((games) => {
+        console.log(games);
+        this.games = games;
+
+
+      });
+
+
   }
 }
 
