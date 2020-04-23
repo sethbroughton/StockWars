@@ -5,12 +5,29 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import com.techelevator.authentication.AuthProvider;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 
+
+@Component
 public class JdbcTradeDao implements TradeDao {
 
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private AuthProvider auth;
+
+    @Autowired
+    public JdbcTradeDao(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+   
 
     //inserts a new trade into the database -Kevin 
     @Override
@@ -48,13 +65,13 @@ public class JdbcTradeDao implements TradeDao {
             Trade theTrade = new Trade();
 
             theTrade.setTradeId(results.getLong("trade_id"));
-            theTrade.setPortfolioId(results.getLong("portfolio_id"));
-            theTrade.setType(results.getString("type"));
-            theTrade.setTicker(results.getString("ticker"));
-            theTrade.setQuantity(results.getInt("quantity"));
-            theTrade.setStockValue(new BigDecimal(results.getString("stockValue")));
-            theTrade.setCommission(new BigDecimal(results.getString("commission")));
-            theTrade.setDateOfPurchase(LocalDate.parse(results.getString("trade_id")));
+            // theTrade.setPortfolioId(results.getLong("portfolio_id"));
+            // theTrade.setType(results.getString("type"));
+            // //theTrade.setTicker(results.getString("ticker"));
+            // theTrade.setQuantity(results.getInt("quantity"));
+            // theTrade.setStockValue(new BigDecimal(results.getString("stockValue")));
+            // theTrade.setCommission(new BigDecimal(results.getString("commission")));
+            // theTrade.setDateOfPurchase(LocalDate.parse(results.getString("trade_id")));
 
             return theTrade;
 
