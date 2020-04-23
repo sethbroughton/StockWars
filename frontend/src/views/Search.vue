@@ -20,8 +20,6 @@
       <button type="submit" id="search" class="button">Search</button>
       </form>
 
-          <h3>{{data[0].name}}</h3>
-
       <form @submit.prevent="findCompany" class="form u-margin-bottom">
         <div class="input-fields">
           <div class="form-group u-margin-bottom-small">
@@ -50,7 +48,8 @@
 
     
 
-    {{data[0].price}}
+    {{quote.latestPrice}}
+    {{quote.companyName}} {{quote.symbol}}
 
     {{bestMatches[0].name}}
    
@@ -77,11 +76,17 @@ export default {
             name: '',
             price: ''
           }],
+          quote: {
+            price: '',
+            symbol: '',
+            companyName: ''
+          },
           query: '',
           companyQuery: '',
           stockExchange: 'NASDAQ',
           bestMatches: [{
             name: '',
+            
           }
           ]
         }
@@ -90,13 +95,15 @@ export default {
     searchStocks(){
       const query = this.query
       console.log(query);
-      const apikey = 'a7f7aa92b83ad64df4f2f540028a9880';
-      fetch(`https://fmpcloud.io/api/v3/quote/${query}?apikey=${apikey}`)
+      const apikey = 'sk_3fbcd0adaf6a487c88f78c0027a39813';
+     
+      fetch(`https://cloud.iexapis.com/stable/stock/${query}/quote?token=sk_3fbcd0adaf6a487c88f78c0027a39813`)
         .then((response) => {
           return response.json();
         })
-        .then((data) => {
-          this.data = data;
+        .then((quote) => {
+          this.quote = quote;
+          console.log(quote.latestPrice)
         })
   }, 
     findCompany(){
