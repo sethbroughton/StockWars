@@ -1,10 +1,10 @@
 <template>
-  <div class="container">
+  <div id="create">
     <user-header></user-header>
-    <div id="create">
+    <div class="container">
       <h1 class="u-margin-bottom">Create Game</h1>
       <div class="new-game">
-        <form class="form" @submit.prevent="login">
+        <form class="form" @submit.prevent="createGame">
           <div class="form-group u-margin-bottom">
             <label for="name" class="label">Game Name</label>
             <input
@@ -12,12 +12,14 @@
             id="name"
             v-model="game.name"
             required
+            autofocus
             />
           </div>
           <div class="form-group u-margin-bottom">
             <label for="numberOfPlayer" class="label">Number of Players</label>
             <input
             type="number"
+            id="numberOfPlayers"
             v-model="game.numberOfPlayers"
             required
             />
@@ -26,11 +28,14 @@
             <label for="lengthInDays" class="label">Game Length (in days)</label>
             <input
             type="number"
+            id="lengthInDays"
             v-model="game.lengthInDays"
             required          
             />
           </div>
-          <router-link :to="{ name: 'game' }" id="create-game" class="button">Create Game</router-link>
+          <button id="create-game" class="button" type="submit">
+            Create game
+          </button>              
         </form>
       </div>
     </div>
@@ -42,25 +47,38 @@ import UserHeader from '@/components/UserHeader'
 import auth from '../auth.js'
 export default {
   name: 'create',
-
   data() {
     return {
       game: {
+        organizerId: '',
         name: '',
         lengthInDays: '',
         numberOfPlayers: ''
-      },
-      header: true
+      }
     }
-  },
- 
+  }, 
   components: {
     UserHeader    
+  },
+  created() {
+    const authToken = auth.getToken();
+
+    fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`,{
+      method: 'GET',
+      headers:{
+      Authorization: `Bearer ${authToken}`
+      }
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((user) => {
+        this.game.organizerId = user.id;
+      });
   },
   methods: {
     createGame() {
       const authToken = auth.getToken();
-
       fetch(`${process.env.VUE_APP_REMOTE_API}/api/game`, {
         method: 'POST',
         headers: {
@@ -84,11 +102,11 @@ export default {
 
 <style scoped>
 
-.container {
+#create {
   height: 100vh;
 }
 
-#create {
+.container {
   display: flex;
   flex-direction: column;
   justify-content: center;

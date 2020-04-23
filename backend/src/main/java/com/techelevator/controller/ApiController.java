@@ -33,7 +33,7 @@ public class ApiController {
 	@Autowired
 	private GameDao gameDao;
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
+    @GetMapping("/")
     public String authorizedOnly() throws UnauthorizedException {
         /*
         You can lock down which roles are allowed by checking
@@ -53,15 +53,10 @@ public class ApiController {
         return gameDao.listAllGames();
     }
     
-    // @GetMapping("/currentUser")
-	// public User currentUser() {
-	// 	User currentUser = auth.getCurrentUser();
-	// 	return currentUser;
-	// }
-    
-	// @PostMapping("/game")
-	// @ResponseStatus(HttpStatus.CREATED)
-	// public Game create(@RequestBody Game game) {
-	// 	return gameDao.createGame(game);
-	// }
+	@PostMapping("/game")
+	@ResponseStatus(HttpStatus.CREATED)
+	public String create(@RequestBody Game game) {
+        gameDao.createGame(game.getOrganizerId(), game.getName(), game.getNumberOfPlayers(), game.getLengthInDays());
+        return "{\"success\":true}";
+	}
 }

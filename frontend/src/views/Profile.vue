@@ -1,5 +1,6 @@
 <template>
   <div id="profile">
+    <user-header> </user-header>
     <h1>{{ user.name }}</h1>
     <routes/>
     <router-link v-bind:to="{name: 'create-game'}" tag="button">Create a New Game</router-link>
@@ -22,6 +23,7 @@ import Routes from '@/components/Routes';
 import LeaderBoard from '@/components/LeaderBoard';
 import ActiveGames from '@/components/ActiveGames';
 import UserStatistics from '@/components/UserStatistics';
+import UserHeader from '@/components/UserHeader';
 import auth from '../auth';
 
 export default {
@@ -30,7 +32,8 @@ export default {
     Routes,
     LeaderBoard, 
     ActiveGames,
-    UserStatistics
+    UserStatistics,
+    UserHeader
   },
   data() {
     return {
