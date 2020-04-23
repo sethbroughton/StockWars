@@ -25,7 +25,6 @@ export default {
      methods: {
 
     logout() {
-      console.log('hi');
       const authToken = auth.getToken();
       const fetchConfig = {
         method : "DELETE",

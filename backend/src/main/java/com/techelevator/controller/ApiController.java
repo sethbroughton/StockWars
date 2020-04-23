@@ -4,6 +4,8 @@ import com.techelevator.authentication.AuthProvider;
 import com.techelevator.authentication.UnauthorizedException;
 import com.techelevator.model.Game;
 import com.techelevator.model.GameDao;
+import com.techelevator.model.Trade;
+import com.techelevator.model.TradeDao;
 
 import java.util.List;
 
@@ -31,7 +33,10 @@ public class ApiController {
     private AuthProvider authProvider;
     
 	@Autowired
-	private GameDao gameDao;
+    private GameDao gameDao;
+
+    @Autowired
+    private TradeDao tradeDao;
 
     @GetMapping("/")
     public String authorizedOnly() throws UnauthorizedException {
@@ -58,5 +63,11 @@ public class ApiController {
 	public String create(@RequestBody Game game) {
         gameDao.createGame(game.getOrganizerId(), game.getName(), game.getNumberOfPlayers(), game.getLengthInDays());
         return "{\"success\":true}";
-	}
+    }
+    
+    @GetMapping("/tradeHistory")
+	public List<Trade> getAllTrades() {
+        return tradeDao.listAllTrades();
+    }
+
 }
