@@ -22,9 +22,9 @@ CREATE TABLE game
 	name varchar(64) not null,
 	number_of_players int not null,
 	length_in_days int not null,
-	start_date date not null,
-        end_date date not null,
-        public_game boolean not null,
+	start_date date,
+        end_date date,
+        public_game boolean,
 
 	constraint pk_game primary key (game_id)
 	

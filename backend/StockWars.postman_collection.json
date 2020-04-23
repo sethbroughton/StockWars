@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "c69792c7-2199-4719-8b40-e07f11f29e30",
+		"name": "StockWars",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "current user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/AuthenticationApplication/currentUser",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"AuthenticationApplication",
+						"currentUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4949e811-e241-484e-b9f2-262b70076bf6",
+						"exec": [
+							"postman.setEnvironmentVariable(\"token\", responseBody);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"Vermin Supreme\",\n    \"password\": \"ponies\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/AuthenticationApplication/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"AuthenticationApplication",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"Vermin Supreme\",\n    \"password\": \"ponies\",\n    \"confirmPassword\": \"ponies\",\n    \"role\": \"user\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/AuthenticationApplication/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"AuthenticationApplication",
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
