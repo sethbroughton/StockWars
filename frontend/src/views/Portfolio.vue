@@ -1,9 +1,6 @@
 <template>
   <div id="portfolio">
-    <div class = "header">
-      <h3>Username</h3>
-        <li>Avatar</li>
-    </div>
+    <user-header/>
 
     <div class = "return-to-game-btn">
         <button>Return to Game</button>
@@ -20,21 +17,17 @@
             <li>Stock # 4 - Ticker - Shares - Current$ - Total$</li>
           </ul>
         </p>
-
-
-    <p>You must be authenticated to see this</p>
-    <routes/>
+    </div>
   </div>
 </template>
 
 <script>
-import Routes from '@/components/Routes'
 import UserHeader from '@/components/UserHeader'
 
 export default {
   name: 'portfolio',
   components: {
-    Routes
+    UserHeader
   },
   data() {
     return {}
