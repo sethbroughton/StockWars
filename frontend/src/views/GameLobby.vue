@@ -1,12 +1,6 @@
 <template>
   <div id="lobby">
     <user-header></user-header>
-<<<<<<< HEAD
-    <div class = "lobby-of-game">
-    <h1>New Stock Wars</h1>
-
-    <game-lobby/>
-=======
     <h1>New Stock Wars</h1>
     <div class="open-games">
       <h2>Open Games</h2>
@@ -51,7 +45,6 @@
 
     <routes />
     <game-lobby />
->>>>>>> 07d874209f9f44954072b9d63bcdf056fa957a0d
   </div>
 </template>
 
