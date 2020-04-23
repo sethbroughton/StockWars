@@ -40,6 +40,41 @@
 			"response": []
 		},
 		{
+			"name": "all games",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/AuthenticationApplication/api/games",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"AuthenticationApplication",
+						"api",
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "login",
 			"event": [
 				{

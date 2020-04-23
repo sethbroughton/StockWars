@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.http.HttpStatus;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,10 +48,16 @@ public class ApiController {
         return "Success";
     }
 	
-	@GetMapping("/game")
-	public List<Game> list(){
-		return gameDao.listAllGames();
-	}
+	@GetMapping("/games")
+	public List<Game> getAllGames() {
+        return gameDao.listAllGames();
+    }
+    
+    // @GetMapping("/currentUser")
+	// public User currentUser() {
+	// 	User currentUser = auth.getCurrentUser();
+	// 	return currentUser;
+	// }
     
 	// @PostMapping("/game")
 	// @ResponseStatus(HttpStatus.CREATED)

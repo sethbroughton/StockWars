@@ -1,19 +1,19 @@
 package com.techelevator.model;
 
-
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
 import org.bouncycastle.util.test.Test;
 import org.springframework.stereotype.Component;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
@@ -23,6 +23,11 @@ import io.jsonwebtoken.io.IOException;
 public class JdbcGameDao implements GameDao {
 
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public JdbcGameDao(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
     
 	private Map<Long, Game> games = new HashMap<>();
     public void GameDao() throws IOException, java.io.IOException {
@@ -53,7 +58,6 @@ public class JdbcGameDao implements GameDao {
             theGame = mapRowSetToGame(results);
             allGames.add(theGame);
         }
-
         return allGames;
     }
 
@@ -74,9 +78,9 @@ public class JdbcGameDao implements GameDao {
 		ObjectMapper mapper = new ObjectMapper();
 		InputStream inputStream = Test.class.getResourceAsStream("/data.json");
 		Game[] jsondata = mapper.readValue(inputStream, Game[].class);
-		//for (Game game : jsondata) {
-		//	games.put(game.getGameId(), game);
-		//}
+		for (Game game : jsondata) {
+			games.put(game.getGameId(), game);
+		}
 	}
 
 

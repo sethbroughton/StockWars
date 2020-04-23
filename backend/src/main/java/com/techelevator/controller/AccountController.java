@@ -2,8 +2,6 @@ package com.techelevator.controller;
 
 import javax.validation.Valid;
 
-
-
 import org.springframework.http.HttpStatus;
 import com.techelevator.authentication.AuthProvider;
 import com.techelevator.authentication.JwtTokenHandler;
