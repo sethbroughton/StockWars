@@ -13,11 +13,14 @@
               id="search"
               v-model="query"
               autofocus
+              required
             />
           </div>
         </div>
       <button type="submit" id="search" class="button">Search</button>
       </form>
+
+          <h3>{{data[0].name}}</h3>
 
       <form @submit.prevent="findCompany" class="form u-margin-bottom">
         <div class="input-fields">
@@ -28,6 +31,17 @@
               id="search"
               v-model="companyQuery"
               autofocus
+              required
+            />
+          </div>
+          <div class="form-group u-margin-bottom-small">
+            <label for="search" class="label">Select Exchange</label>
+            <input
+              type="text"
+              id="search"
+              v-model="stockExchange"
+              autofocus
+              required
             />
           </div>
         </div>
@@ -35,11 +49,13 @@
       </form>
 
     
-    <h3>{{data[0].name}}</h3>
+
     {{data[0].price}}
+
+    {{bestMatches[0].name}}
    
 
-{{bestMatches[0]['2. name']}}
+
 
 
   </div>
@@ -63,8 +79,11 @@ export default {
           }],
           query: '',
           companyQuery: '',
-          obj: {},
-          bestMatches: []
+          stockExchange: 'NASDAQ',
+          bestMatches: [{
+            name: '',
+          }
+          ]
         }
     },
   methods: {
@@ -81,19 +100,19 @@ export default {
         })
   }, 
     findCompany(){
+      console.log('hi')
       const companyQuery = this.companyQuery;
-      const apikey = 'H0HZ222NMZ40ICTV';
-    fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${companyQuery}&apikey=H0HZ222NMZ40ICTV`)
+      const stockExchange = this.stockExchange;
+      const apikey = 'a7f7aa92b83ad64df4f2f540028a9880';
+    fetch(`https://fmpcloud.io/api/v3/search?query=${companyQuery}&limit=10&exchange=${stockExchange}&apikey=a7f7aa92b83ad64df4f2f540028a9880`)
         .then((response) => {
           return response.json();
         })
-        .then((obj) => {
-          this.obj = obj;
-          this.bestMatches = obj.bestMatches;
-          console.log(this.bestMatches[0]['2. name'])
+        .then((bestMatches) => {
+          this.bestMatches = bestMatches
         })
 
     }
-  },
+   },
   }
 </script>
