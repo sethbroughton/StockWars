@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import Routes from "@/components/Routes";
 import OpenGames from "@/components/OpenGames";
 import PendingGames from "@/components/PendingGames";
 import UserHeader from "@/components/UserHeader";
@@ -20,8 +19,7 @@ export default {
   components: {
     UserHeader,
     OpenGames,
-    PendingGames,
-    Routes 
+    PendingGames
   }
 };
 </script>
