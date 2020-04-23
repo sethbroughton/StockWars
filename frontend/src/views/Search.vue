@@ -2,7 +2,7 @@
   <div id="search">
     <user-header></user-header>
     <h1>Search</h1>
-    <p>{{quote["05. price"]}}</p>
+    <p>{{data[0].name}}</p>
 
     <routes/>
   </div>
@@ -16,8 +16,8 @@ export default {
   name: 'search',
     data() {
         return {
-        
-            quote: ''
+          data: []
+
         }
     },
   components: {
@@ -25,13 +25,13 @@ export default {
     UserHeader
   }, 
     created() {
-      fetch('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=F&apikey=PM87ANKO1HGLIBFA')
+      fetch('https://fmpcloud.io/api/v3/quote/AAPL?apikey=a7f7aa92b83ad64df4f2f540028a9880')
         .then((response) => {
           return response.json();
         })
-        .then((quote) => {
-          this.quote = quote;
-          console.log('hi');
+        .then((data) => {
+          this.data = data
+
         });
     }
 }
