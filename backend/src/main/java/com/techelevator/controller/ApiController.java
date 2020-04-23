@@ -10,8 +10,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -46,9 +50,11 @@ public class ApiController {
 	@GetMapping("/game")
 	public List<Game> list(){
 		return gameDao.listAllGames();
-	
 	}
     
-	
-
+	// @PostMapping("/game")
+	// @ResponseStatus(HttpStatus.CREATED)
+	// public Game create(@RequestBody Game game) {
+	// 	return gameDao.createGame(game);
+	// }
 }
