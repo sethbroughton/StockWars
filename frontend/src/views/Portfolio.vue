@@ -29,6 +29,7 @@
 
 <script>
 import Routes from '@/components/Routes'
+import UserHeader from '@/components/UserHeader'
 
 export default {
   name: 'portfolio',

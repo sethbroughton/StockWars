@@ -1,4 +1,4 @@
-<template>
+<template v-if="header">
   <header class="header">
     <h1 class="title">Stock Wars</h1>
     <div class="user-info">
@@ -15,6 +15,7 @@ export default {
     name: 'user-header',
     data() {
       return {
+        header: true,
         user: {
           name: ''
         }
@@ -41,8 +42,8 @@ export default {
 
 <style scoped>
 .header {
-    background-image: linear-gradient(to right, var(--color-blue-6), var(--color-blue-5));
-    height: 7rem;
+    background-image: linear-gradient(to right, var(--color-primary-1), var(--color-primary-2));
+    height: 5rem;
     color: var(--color-grey-light-1);
 
     padding: 1%;
@@ -69,7 +70,7 @@ img {
 }
 
 .title {
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 a {

@@ -83,19 +83,19 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  color: var(--color-grey-light-1);
-  font-size: 13rem;
-  font-weight: 300;
-}
-
 #register {
   height: 100vh;
-
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+h1 {
+  color: var(--color-grey-light-1);
+  font-size: 13rem;
+  font-weight: 300;
 }
 
 #create-account {
