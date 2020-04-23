@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <user-header></user-header>
+    <user-header v-if="header"></user-header>
     <router-view/>
   </div>
 </template>
