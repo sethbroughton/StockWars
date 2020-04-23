@@ -1,5 +1,6 @@
 <template>
-  <div id="lobby">> 
+  <div id="lobby">
+    <user-header></user-header>
     <h1>Lobby</h1>
     <p>You must be authenticated to see this</p>
     <routes/>
@@ -10,12 +11,14 @@
 <script>
 import Routes from '@/components/Routes'
 import GameLobby from '@/components/GameLobby'
+import UserHeader from '@/components/UserHeader'
 
 export default {
   name: 'lobby',
   components: {
     Routes,
-    GameLobby
+    GameLobby,
+    UserHeader
   }
 }
 </script>

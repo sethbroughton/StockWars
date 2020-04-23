@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import Routes from '@/components/Routes'
 import UserHeader from '@/components/UserHeader'
 import auth from '../auth.js'
 export default {
@@ -56,7 +55,6 @@ export default {
   },
  
   components: {
-    Routes,
     UserHeader    
   },
   methods: {
