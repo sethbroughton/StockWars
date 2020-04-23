@@ -56,10 +56,10 @@ public class DaoGameIntegrationTest {
 	}
 	
 	@Test
-	public void listAllCampgrounds() throws SQLException {
+	public void listAllGames() throws SQLException {
 		Long id = 1l;
-		List<Game> campgrounds = gameDao.listAllGames();
-		Assert.assertNotNull(campgrounds);
+		List<Game> games = gameDao.listAllGames();
+		Assert.assertNotNull(games);
 	}
 
 }
