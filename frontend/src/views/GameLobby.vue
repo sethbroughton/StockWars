@@ -1,9 +1,9 @@
 <template>
   <div id="lobby">
     <user-header></user-header>
-    <h1>Lobby</h1>
-    <p>You must be authenticated to see this</p>
-    <routes/>
+    <div class = "lobby-of-game">
+    <h1>New Stock Wars</h1>
+
     <game-lobby/>
   </div>
 </template>
