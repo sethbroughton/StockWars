@@ -25,6 +25,7 @@
     <p>You must be authenticated to see this</p>
     <routes/>
   </div>
+  </div>
 </template>
 
 <script>
