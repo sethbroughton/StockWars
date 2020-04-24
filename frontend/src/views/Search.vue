@@ -95,9 +95,8 @@ export default {
     searchStocks(){
       const query = this.query
       console.log(query);
-      const apikey = 'sk_3fbcd0adaf6a487c88f78c0027a39813';
-     
-      fetch(`https://cloud.iexapis.com/stable/stock/${query}/quote?token=sk_3fbcd0adaf6a487c88f78c0027a39813`)
+     console.log(process.env.VUE_APP_API_KEY)
+      fetch(`https://cloud.iexapis.com/stable/stock/${query}/quote?token=${process.env.VUE_APP_API_KEY}`)
         .then((response) => {
           return response.json();
         })
@@ -107,7 +106,6 @@ export default {
         })
   }, 
     findCompany(){
-      console.log('hi')
       const companyQuery = this.companyQuery;
       const stockExchange = this.stockExchange;
       const apikey = 'a7f7aa92b83ad64df4f2f540028a9880';
