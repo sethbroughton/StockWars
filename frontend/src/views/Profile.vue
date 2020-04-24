@@ -1,18 +1,18 @@
 <template>
   <div id="profile">
-    <user-header> </user-header>
-    <router-link v-bind:to="{name: 'create-game'}" id="create-game" class="button">Create a New Game</router-link>
-    <router-link v-bind:to="{name: 'lobby'}" id="join-game" class="button">Join New Game</router-link>
-    <leader-board/>
-    <active-games/>
-    <user-statistics/>
-    <routes/>
-   <ul>
-     <li v-for="game in games" v-bind:key="game.gameId">
-       {{game.name}}
-  
-       </li>
-   </ul>
+    <user-header></user-header>
+    <div class="container">
+      <active-games/>
+      <leader-board/>
+      <user-statistics/>
+      <routes/>
+      <ul>
+        <li v-for="game in games" v-bind:key="game.gameId">
+          {{game.name}}
+      
+          </li>
+      </ul>
+    </div>
    
   </div>
 </template>
@@ -73,8 +73,6 @@ fetch(`${process.env.VUE_APP_REMOTE_API}/api/game`,{
       .then((games) => {
         console.log(games);
         this.games = games;
-
-
       });
 
 
@@ -85,9 +83,11 @@ fetch(`${process.env.VUE_APP_REMOTE_API}/api/game`,{
 
 <style scoped>
 
-#profile {
+.container {
   color: var(--color-grey-light-1);
   font-size: 4rem;
+
+  padding: 3%;
 }
 
 #create-game {background-color: var(--color-complementary-2);}

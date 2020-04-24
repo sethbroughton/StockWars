@@ -90,6 +90,9 @@ body {
   --color-complementary-1: var(--color-green-1);
   --color-complementary-2: var(--color-green-2);
 
+  --color-table-header: var(--color-blue-4);
+  --color-table-row: var(--color-grey-medium-2);
+
   /* SHADOWS */
   --shadow: 0 2rem 2rem rgba(0,0,0,0.2);
   --shadow-small: 0 1rem 1rem rgba(0,0,0,0.2);
@@ -149,19 +152,18 @@ body {
 .button-small {
   padding: 1rem 2rem;
   text-decoration: none;
-  color: var(--color-grey-light-2);
-  background-color: var(--color-complementary-2);
+  color: var(--color-grey-light-1);
   border: none;
-  font-size: 1.5rem;
-  font-weight: 900;
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
   border-radius: 500px;
   transition: all .2s;
   
 }
 
-.button-small:hover {
-  background-color: red;
+.button-small:not(:last-child) {
+  margin-right: 2rem;
 }
 /***************************************************
 ******* UTILITIES ***********************

@@ -21,6 +21,8 @@
         <label for="num-shares">Shares</label>        
         <p><button class = "sell-btn"> SELL</button></p>
     </div>
+    <stock-chart></stock-chart>
+
 
   </div>
 </template>
@@ -29,13 +31,15 @@
 import Routes from '@/components/Routes'
 import UserHeader from '@/components/UserHeader'
 import TickerLookup from '@/components/TickerLookup'
+import StockChart from '@/components/StockChart'
 
 export default {
   name: 'stock',
   components: {
     Routes,
     UserHeader,
-    TickerLookup
+    TickerLookup,
+    StockChart
   },
  data() {
         return {

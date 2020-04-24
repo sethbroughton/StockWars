@@ -43,10 +43,16 @@ public class JdbcGameDao implements GameDao {
     public void createGame(long organizerId, String name, int numberOfPlayers, int lengthInDays) {
 
         String sqlInsertNewGame = "INSERT INTO game "
-                + "(organizer_id, name, number_of_players, length_in_days) "
-                + " VALUES (?, ?, ?, ?)";
+                                    + "(organizer_id, name, number_of_players, length_in_days) "
+                                    + " VALUES (?, ?, ?, ?) RETURNING game_id";
+        
+        String sqlAddCurrentUserToNewGame = "INSERT INTO users_game "
+                                            + "(user_id, game_id, invite_accepted) "
+                                            + "VALUES (?, ?, ?)";
 
-        jdbcTemplate.update(sqlInsertNewGame, organizerId, name, numberOfPlayers, lengthInDays);
+        long gameId = jdbcTemplate.queryForObject(sqlInsertNewGame, Long.class, organizerId, name, numberOfPlayers, lengthInDays);
+
+        jdbcTemplate.update(sqlAddCurrentUserToNewGame, organizerId, gameId, true);
     }
 
   
