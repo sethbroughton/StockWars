@@ -69,9 +69,9 @@ public class JdbcTradeDao implements TradeDao {
             theTrade.setType(results.getString("type"));
             //theTrade.setTicker(results.getString("ticker"));
             theTrade.setQuantity(results.getInt("quantity"));
-            //theTrade.setStockValue(new BigDecimal(results.getString("stockValue")));
+            theTrade.setStockValue(new BigDecimal(results.getString("stock_value")));
             theTrade.setCommission(new BigDecimal(results.getString("commission")));
-            //theTrade.setDateOfPurchase(LocalDate.parse(results.getString("trade_id")));
+            theTrade.setDateOfPurchase(LocalDate.parse(results.getString("date_of_purchase")));
             return theTrade;
 
         }

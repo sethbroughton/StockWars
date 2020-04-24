@@ -6,11 +6,24 @@
     <div class="trade-history">
       <button class="return-to-game-btn">Return New Game</button>
       <table class="trade-history-list" >
-        <table v-for="trade in trades" v-bind:key="trade.tradeId">
-          <tr>{{trade.portfolioId}} {{trade.type}} {{trade.quantity}}</tr>
-           
-          <!-- (name of stock) - ticker symbol - buy or sell 
-          - num of shares - purchase price - date purchases -->
+        <table>
+          <tr> 
+            <th>Stock Name</th>
+            <th>Ticker</th>
+            <th>Buy/Sell </th>
+            <th>Shares</th>
+            <th>Value</th>
+            <th>Date</th>
+          </tr>
+          <tr v-for="trade in trades" v-bind:key="trade.tradeId">
+            <td> Name </td>
+            <td> {{trade.ticker}}</td>
+            <td> {{trade.type}} </td>
+            <td>{{trade.quantity}}</td>
+            <td>${{trade.stockValue}}</td>
+            <td>{{trade.dateOfPurchase.month}}, {{trade.dateOfPurchase.dayOfMonth}}{{trade.dateOfPurchase.year}} </td>
+             </tr>
+          
         </table>       
       </table>
       <routes/>

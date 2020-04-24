@@ -1,17 +1,16 @@
 <template>
-  <div id="open-games">
-    <div class="header">
-      <h2 class = "open-title">Open Games</h2>
-      <button class="button-small">Create New Game</button>
+  <div id="open-games" class="table">
+    <div class="table-header">
+      <h2 class = "table-title">Open Games</h2>
+      <div class="table-buttons">
+        <router-link v-bind:to="{name: 'create-game'}" id="create-game" class="button-small">Create a New Game</router-link>
+      </div>
     </div>
-    <ul class="open-games-list">
-      <li class = "game-row" v-for="game in openGames" :key="game.gameId">
-        {{game.name}} - Organizer: {{game.organizerId}}
-        - Players: ((# of players)/(max # of players)) -
-        {{game.lengthInDays}} Days
-        <button class="button-small">Join</button>
-      </li>
-    </ul>
+    <div v-for="game in activeGames" :key="game.gameId" class="table-row">
+      <span class="table-item">{{game.name}}</span>
+      <span class="table-item">{{game.organizer_id}}</span>
+      <button class="button-small">Join</button>
+    </div>
   </div>
 </template>
 
@@ -45,7 +44,7 @@ export default {
 </script>
 
 <style scoped>
-.game-row {
+/* .game-row {
 border-bottom: solid;
 padding-bottom: 1rem;
 border-color: steelblue;
@@ -55,15 +54,6 @@ border-color: steelblue;
   margin-left: 8.5rem;
 }
 
-#open-games {
-  color: var(--color-grey-light-1);
-  background-color: var(--color-primary-2);
-  margin: 3%;
-  padding: 2%;
-  width: 70%;
-  font-size: 3rem;
-  font-weight: 500;
-}
 
 .header {
   display: flex;
@@ -87,6 +77,6 @@ border-color: steelblue;
 ul {
   list-style: none;
   
-}
+} */
 
 </style>
