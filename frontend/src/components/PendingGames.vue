@@ -68,5 +68,8 @@ export default {
   .pending-title {
     border:solid;
   }
+  .start-game-btn {
+    border-radius: 15px 50px 30px 5px;
+  }
 
 </style>

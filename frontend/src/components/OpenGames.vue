@@ -2,10 +2,10 @@
   <div id="open-games">
     <div class="header">
       <h2 class = "open-title">Open Games</h2>
-      <button class="new-game-btn">Create New Game</button>
+      <button class="button">Create New Game</button>
     </div>
     <ul class="open-games-list">
-      <li v-for="game in openGames" :key="game.gameId">
+      <li class = "game-row" v-for="game in openGames" :key="game.gameId">
         {{game.name}} - Organizer: {{game.organizerId}}
         - Players: ((# of players)/(max # of players)) -
         {{game.lengthInDays}} Days
@@ -45,7 +45,11 @@ export default {
 </script>
 
 <style scoped>
+.game-row {
+border: solid;
+background-color: red;
 
+}
 #open-games {
   color: var(--color-grey-light-1);
   background-color: var(--color-grey-dark-1);
@@ -53,6 +57,7 @@ export default {
   padding: 2%;
   width: 500px;
   height: 200px;
+  font-size: 2rem;
 }
 
 .header {
@@ -67,6 +72,10 @@ export default {
 }
 
 .join-game-btn {
+  border-radius: 15px 50px 30px 5px;
+  
+}
+.new-game-btn {
   border-radius: 15px 50px 30px 5px;
 }
 
