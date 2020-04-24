@@ -12,4 +12,6 @@ public interface TradeDao {
                                  String ticker, int quantity, BigDecimal stockValue,
                                  BigDecimal commission, LocalDate dateOfPurchase);
 
+    // public List<Trade> listSpecificTrades();                      
+
 }
