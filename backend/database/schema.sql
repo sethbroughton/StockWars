@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS portfolio;
 DROP TABLE IF EXISTS trade;
 
 CREATE TABLE users (
-  user_id serial PRIMARY KEY,
+  id serial PRIMARY KEY,
   username varchar(255) NOT NULL UNIQUE,     -- Username
   password varchar(32) NOT NULL,      -- Password
   salt varchar(256) NOT NULL,          -- Password Salt
@@ -30,13 +30,13 @@ CREATE TABLE game
 	
 );
 
-CREATE TABLE user_game
+CREATE TABLE users_game
 (
         user_id int not null,
         game_id int not null,
         invite_accepted boolean not null,
         
-        constraint fk_users_game_users foreign key (user_id) references users (user_id),
+        constraint fk_users_game_users foreign key (user_id) references users (id),
         constraint fk_users_game_game foreign key (game_id) references game (game_id)
 
 );
@@ -49,7 +49,7 @@ CREATE TABLE portfolio
         total_value money not null,
         
         constraint pk_portfolio primary key (portfolio_id),
-        constraint fk_portfolio_users foreign key (user_id) references users (user_id),
+        constraint fk_portfolio_users foreign key (user_id) references users (id),
         constraint fk_portfolio_game foreign key (game_id) references game (game_id)
              
 );
