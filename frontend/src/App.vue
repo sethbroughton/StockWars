@@ -146,7 +146,23 @@ body {
 
 }
 
+.button-small {
+  padding: 1rem 2rem;
+  text-decoration: none;
+  color: var(--color-grey-light-2);
+  background-color: var(--color-complementary-2);
+  border: none;
+  font-size: 1.5rem;
+  font-weight: 900;
+  cursor: pointer;
+  border-radius: 500px;
+  transition: all .2s;
+  
+}
 
+.button-small:hover {
+  background-color: red;
+}
 /***************************************************
 ******* UTILITIES ***********************
 ****************************************************/

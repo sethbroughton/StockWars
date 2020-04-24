@@ -2,14 +2,14 @@
   <div id="open-games">
     <div class="header">
       <h2 class = "open-title">Open Games</h2>
-      <button class="button">Create New Game</button>
+      <button class="button-small">Create New Game</button>
     </div>
     <ul class="open-games-list">
       <li class = "game-row" v-for="game in openGames" :key="game.gameId">
         {{game.name}} - Organizer: {{game.organizerId}}
         - Players: ((# of players)/(max # of players)) -
         {{game.lengthInDays}} Days
-        <button class="join-game-btn">Join</button>
+        <button class="button-small">Join</button>
       </li>
     </ul>
   </div>
@@ -46,28 +46,35 @@ export default {
 
 <style scoped>
 .game-row {
-border: solid;
-background-color: red;
-
+border-bottom: solid;
+padding-bottom: 1rem;
 }
+
+h2 {
+  color: red;
+}
+
+.button-small {
+  margin-left: 8.5rem;
+}
+
 #open-games {
   color: var(--color-grey-light-1);
-  background-color: var(--color-grey-dark-1);
+  background-color: rgb(43, 86, 146);
   margin: 3%;
   padding: 2%;
-  width: 500px;
-  height: 200px;
-  font-size: 2rem;
+  width: 70%;
+  font-size: 3rem;
+  font-weight: 500;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
-  border:solid;
+  border: solid 5px black;
  
 }
 .open-games-list {
-  border:solid;
   height: 80%;
 }
 
