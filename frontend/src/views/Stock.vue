@@ -79,16 +79,13 @@ export default {
         })
 
       const timePeriod = this.timePeriod
-      fetch(`https://cloud.iexapis.com/v1/stock/${ticker}/chart/${timePeriod}?token=${process.env.VUE_APP_API_KEY}`)
+      fetch(`https://cloud.iexapis.com/v1/stock/AAPL/chart/${timePeriod}?token=${process.env.VUE_APP_API_KEY}`)
         .then((response) => {
           return response.json();
         })
         .then((priceDataPoints) => {
           this.priceDataPoints = priceDataPoints;
-        })
-        console.log('hi')
-        this.priceDataPoints.forEach(element => {
-            console.log(element.close)
+          console.log(this.priceDataPoints[0].close)
         })
     },
     methods: {
