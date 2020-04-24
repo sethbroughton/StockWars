@@ -103,7 +103,7 @@ body {
 
 body {
   background-image: linear-gradient(var(--hero-image-overlay)), url(assets/img/hero.jpg);
-  background-position: center;
+  background-position: fixed;
   background-size: cover;
 }
 

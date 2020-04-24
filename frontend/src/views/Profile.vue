@@ -1,13 +1,12 @@
 <template>
   <div id="profile">
     <user-header> </user-header>
-    <h1>{{ user.name }}</h1>
-    <routes/>
-    <router-link v-bind:to="{name: 'create-game'}" tag="button">Create a New Game</router-link>
-    <router-link v-bind:to="{name: 'lobby'}" tag="button">Join New Game</router-link>
+    <router-link v-bind:to="{name: 'create-game'}" id="create-game" class="button">Create a New Game</router-link>
+    <router-link v-bind:to="{name: 'lobby'}" id="join-game" class="button">Join New Game</router-link>
     <leader-board/>
     <active-games/>
     <user-statistics/>
+    <routes/>
    <ul>
      <li v-for="game in games" v-bind:key="game.gameId">
        {{game.name}}
@@ -90,5 +89,12 @@ fetch(`${process.env.VUE_APP_REMOTE_API}/api/game`,{
   color: var(--color-grey-light-1);
   font-size: 4rem;
 }
+
+#create-game {background-color: var(--color-complementary-2);}
+#create-game:hover {background-color: var(--color-complementary-1);}
+
+#join-game {background-color: var(--color-tertiary-2);}
+#join-game:hover {background-color: var(--color-tertiary-1);}
+
 
 </style>

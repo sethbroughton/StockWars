@@ -99,18 +99,18 @@ h1 {
 }
 
 #create-account {
-  background-color: var(--color-green-2);
+  background-color: var(--color-complementary-2);
 }
 
 #create-account:hover {
-  background-color: var(--color-green-1);
+  background-color: var(--color-complementary-1);
 }
 
 #login {
-  background-color: var(--color-purple-2);
+  background-color: var(--color-tertiary-2);
 }
 
 #login:hover {
-  background-color: var(--color-purple-1);
+  background-color: var(--color-tertiary-1);
 }
 </style>

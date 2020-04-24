@@ -2,11 +2,9 @@
   <header class="header">
     <h1 class="title">Stock Wars</h1>
     <div class="user-info">
-      <router-link :to="{ name: 'profile' }" class="user-name">{{ user.name }}</router-link>
+      <router-link :to="{ name: 'profile' }" class="header-link">{{ user.name }}</router-link>
+      <form v-on:click="logout" class="header-link">Sign out</form>
       <img src="../assets/img/sample-user-avi.jpg" alt="user avi">
-      <form v-on:submit.prevent="logout">
-        <button type="submit"  class="button">Sign out</button>
-      </form>
     </div>
   </header>
 </template>
@@ -27,7 +25,6 @@ export default {
      methods: {
 
     logout() {
-      console.log('hi');
       const authToken = auth.getToken();
       const fetchConfig = {
         method : "DELETE",
@@ -100,10 +97,13 @@ img {
   font-size: 3rem;
 }
 
-a {
+.header-link {
   text-decoration: none;
-  color: var(--color-grey-light);
   font-size: 2rem;
+  color: var(--color-grey-light);
   font-weight: 500;
+  margin-left: 2rem;
+  cursor: pointer;
 }
+
 </style>
