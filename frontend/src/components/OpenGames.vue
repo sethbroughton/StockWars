@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style scoped>
-/* .game-row {
+.game-row {
 border-bottom: solid;
 padding-bottom: 1rem;
 border-color: steelblue;
@@ -77,6 +77,6 @@ border-color: steelblue;
 ul {
   list-style: none;
   
-} */
+} 
 
 </style>

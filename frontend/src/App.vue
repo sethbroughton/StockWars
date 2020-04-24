@@ -139,27 +139,28 @@ body {
   margin: 3%;
   padding: 2%;
   width: 70%;
+  padding: 9rem;
 }
 
 .table-header {
-  /* padding: 1% 2%;
+  padding: 1% 2%;
   background-color: var(--color-blue-4);
 
   display: flex;
   justify-content: space-between;
-  align-items: center; */
+  align-items: center; 
 }
 
 .table-buttons {
-  /* display: flex; */
+  display: flex; 
 }
 
 .table-title {
-  /* font-size: 3rem; */
+  font-size: 3rem; 
 }
 
 .table-row {
-
+size: 1rem;
 }
 
 .table-item {
