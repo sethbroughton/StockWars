@@ -1,8 +1,15 @@
 <template>
   <div id="active-games">
-    <p v-for="game in activeGames" :key="game.gameId">
+    <div class="table-header">
+      <h3 class="table-title">Active Games</h3>
+      <div class="table-buttons">
+        <router-link v-bind:to="{name: 'create-game'}" id="create-game" class="button-small">Create a New Game</router-link>
+        <router-link v-bind:to="{name: 'lobby'}" id="join-game" class="button-small">Join New Game</router-link>
+      </div>
+    </div>
+    <div v-for="game in activeGames" :key="game.gameId" class="table-row">
       {{game.name}}
-    </p>
+    </div>
   </div>
 </template>
 
@@ -36,5 +43,32 @@ export default {
 </script>
 
 <style>
+
+.table-header {
+  padding: 1% 2%;
+  background-color: var(--color-blue-4);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-buttons {
+  display: flex;
+}
+
+.table-title {
+  font-size: 3rem;
+}
+
+.table-row {
+  
+}
+
+#create-game { background-color: var(--color-complementary-2);}
+#create-game:hover { background-color: var(--color-complementary-1);}
+
+#join-game { background-color: var(--color-tertiary-2); }
+#join-game:hover { background-color: var(--color-tertiary-1); }
 
 </style>

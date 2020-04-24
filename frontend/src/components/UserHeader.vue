@@ -72,6 +72,9 @@ export default {
 
     padding: 1%;
 
+    position: sticky;
+    top: 0;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
