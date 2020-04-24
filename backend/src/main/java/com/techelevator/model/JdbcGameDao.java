@@ -1,6 +1,7 @@
 package com.techelevator.model;
 
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -147,8 +148,16 @@ public class JdbcGameDao implements GameDao {
         theGame.setName(results.getString("name"));
         theGame.setNumberOfPlayers(results.getInt("number_of_players"));
         theGame.setLengthInDays(results.getInt("length_in_days"));
-        theGame.setStartDate(results.getDate("start_date").toLocalDate());
-        theGame.setEndDate(results.getDate("end_date").toLocalDate());
+        // if (results.getString("start_date").isEmpty()) {
+        //     theGame.setStartDate(null);
+        // } else {
+        //     theGame.setStartDate(LocalDate.parse(results.getString("start_date")));
+        // }
+        // if (results.getString("end_date").isEmpty()) {
+        //     theGame.setEndDate(null);
+        // } else {
+        //     theGame.setEndDate(LocalDate.parse(results.getString("end_date")));
+        // }
         theGame.setPublicGame(results.getBoolean("public_game"));
 
         return theGame;
