@@ -104,6 +104,8 @@ body {
 ******* UNIVERSAL STYLES ***********************
 ****************************************************/
 
+
+
 body {
   background-image: linear-gradient(var(--hero-image-overlay)), url(assets/img/hero.jpg);
   background-position: fixed;
