@@ -5,14 +5,13 @@
       <h1>{{quote.companyName}} ({{ticker}})</h1>
       <h3>you own (XX) shares</h3>
         <ul>          
-          <li> (Graph) </li>
           <li> Current Price: ${{quote.latestPrice}}</li>
-          <li> {{company.symbol}}
-    {{company.companyName}}
-    {{company.exchange}}
-    {{company.industry}}
-    {{company.website}}
-    {{company.description}} </li>
+            <li> Company Name: {{company.companyName}} ({{company.symbol}})</li>
+            <li> Website: {{company.website}} </li>
+            <li> Primary Exchange: {{company.exchange}} </li>
+            <li> Industry: {{company.industry}} </li>
+            <li> Description: {{company.description}} 
+            </li>
         </ul>  
       <div class="buy-sell-buttons">
         <input type="text" id="buy-shares" name="buy-shares"/>
@@ -45,7 +44,7 @@ export default {
             symbol: '',
             companyName: ''
           },
-          ticker: 'AAPL',
+          ticker: 'F',
           company: {
             symbol: '',
             companyName: '',
@@ -54,7 +53,10 @@ export default {
             website: '',
             description: '', 
           },
-
+          timePeriod: '1m',
+          priceDataPoints: [{
+            close: ''
+          }]
         }
     },
   created(){
@@ -75,15 +77,22 @@ export default {
         .then((company) => {
           this.company = company;
         })
+
+      const timePeriod = this.timePeriod
+      fetch(`https://cloud.iexapis.com/v1/stock/${ticker}/chart/${timePeriod}?token=${process.env.VUE_APP_API_KEY}`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((priceDataPoints) => {
+          this.priceDataPoints = priceDataPoints;
+        })
+        console.log('hi')
+        this.priceDataPoints.forEach(element => {
+            console.log(element.close)
+        })
     },
     methods: {
-
-
-
-
-
-
-
+      
 
     }
 

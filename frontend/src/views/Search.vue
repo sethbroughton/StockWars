@@ -50,7 +50,6 @@ export default {
             companyName: ''
           },
           query: '',
-
         }
     },
   methods: {
