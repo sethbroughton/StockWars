@@ -65,16 +65,36 @@ public class JdbcTradeDao implements TradeDao {
             Trade theTrade = new Trade();
 
             theTrade.setTradeId(results.getLong("trade_id"));
-            // theTrade.setPortfolioId(results.getLong("portfolio_id"));
-            // theTrade.setType(results.getString("type"));
-            // //theTrade.setTicker(results.getString("ticker"));
-            // theTrade.setQuantity(results.getInt("quantity"));
-            // theTrade.setStockValue(new BigDecimal(results.getString("stockValue")));
-            // theTrade.setCommission(new BigDecimal(results.getString("commission")));
-            // theTrade.setDateOfPurchase(LocalDate.parse(results.getString("trade_id")));
-
+            theTrade.setPortfolioId(results.getLong("portfolio_id"));
+            theTrade.setType(results.getString("type"));
+            //theTrade.setTicker(results.getString("ticker"));
+            theTrade.setQuantity(results.getInt("quantity"));
+            //theTrade.setStockValue(new BigDecimal(results.getString("stockValue")));
+            theTrade.setCommission(new BigDecimal(results.getString("commission")));
+            //theTrade.setDateOfPurchase(LocalDate.parse(results.getString("trade_id")));
             return theTrade;
 
         }
+        //this is similar to what I was trying to do with the portfolio pages
+        //hoping we can work thru this later - Kevin 
+        // @Override
+        // public List<Trade> listSpecificTrades() {
+        //     Trade theTrade = null;
+        //     String sqlGetAllTrades = "SELECT type, quantity, (quantity * stock_value), date_of_purchase  FROM trade " +
+        //                             "INNER JOIN portfolio " + 
+        //                             "ON portfolio.portfolio_id = trade.portfolio_id " +
+        //                             "INNER JOIN users " +
+        //                             "ON users.user_id = portfolio.portfolio_id " +
+        //                             "WHERE user = ? ";
+
+        //     ArrayList<Trade> allTheTrades = new ArrayList<Trade>(); 
+        //     SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllTrades); 
+        //     while (results.next()) {
+        //         theTrade = mapRowSetToTrade(results);
+        //         allTheTrades.add(theTrade);
+        //     }
+
+        //     return allTheTrades;
+        // }
     
 }

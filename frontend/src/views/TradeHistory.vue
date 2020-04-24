@@ -7,7 +7,7 @@
       <button class="return-to-game-btn">Return New Game</button>
       <table class="trade-history-list" >
         <table v-for="trade in trades" v-bind:key="trade.tradeId">
-          <tr>{{trade.tradeId}} {{trade.portfolioId}} {{trade.type}} {{trade.quantity}}</tr>
+          <tr>{{trade.portfolioId}} {{trade.type}} {{trade.quantity}}</tr>
            
           <!-- (name of stock) - ticker symbol - buy or sell 
           - num of shares - purchase price - date purchases -->

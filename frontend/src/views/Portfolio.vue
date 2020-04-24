@@ -48,13 +48,12 @@ export default {
     
   },
   created(){
-    //Create a query - 
+    //Batch API call - Seth
     let query = "";
     let symbols = this.symbols;
     for(let i = 0; i<symbols.length; i++){
         query += symbols[i] + ','
     }
-      console.log(query)
       fetch(`https://cloud.iexapis.com/v1/stock/market/batch?&types=price&symbols=${query}&token=${process.env.VUE_APP_API_KEY}`)
         .then((response) => {
           return response.json();
@@ -62,7 +61,6 @@ export default {
         .then((quotes) => {
           this.quotes = quotes;
         })
-      
 }
 }
 
