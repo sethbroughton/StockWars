@@ -60,7 +60,7 @@ h2 {
 
 #open-games {
   color: var(--color-grey-light-1);
-  background-color: rgb(43, 86, 146);
+  background-color: var(--color-primary-2);
   margin: 3%;
   padding: 2%;
   width: 70%;
@@ -71,7 +71,8 @@ h2 {
 .header {
   display: flex;
   justify-content: space-between;
-  border: solid 5px black;
+  border: solid 5px;
+  border-color: var(--color-grey-dark-2);
  
 }
 .open-games-list {
