@@ -15,6 +15,7 @@
         <label for="num-shares">Shares</label>        
         <p><button class = "sell-btn"> SELL</button></p>
     </div>
+  <routes/>
   </div>
 </template>
 
