@@ -146,11 +146,7 @@ body {
   transform: translateY(-.3rem);
   box-shadow: var(--shadow-small);
   color: var(--color-grey-dark-1);
-}
 
-.alert {
-  text-align: center;
-  font-size: 2.5rem;
 }
 
 .button-small {
@@ -163,6 +159,7 @@ body {
   cursor: pointer;
   border-radius: 500px;
   transition: all .2s;
+  
 }
 
 .button-small:not(:last-child) {

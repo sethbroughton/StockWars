@@ -21,6 +21,8 @@
         <label for="num-shares">Shares</label>        
         <p><button class = "sell-btn"> SELL</button></p>
     </div>
+    <stock-chart></stock-chart>
+
 
   </div>
 </template>
@@ -29,13 +31,15 @@
 import Routes from '@/components/Routes'
 import UserHeader from '@/components/UserHeader'
 import TickerLookup from '@/components/TickerLookup'
+import StockChart from '@/components/StockChart'
 
 export default {
   name: 'stock',
   components: {
     Routes,
     UserHeader,
-    TickerLookup
+    TickerLookup,
+    StockChart
   },
  data() {
         return {
@@ -79,16 +83,13 @@ export default {
         })
 
       const timePeriod = this.timePeriod
-      fetch(`https://cloud.iexapis.com/v1/stock/${ticker}/chart/${timePeriod}?token=${process.env.VUE_APP_API_KEY}`)
+      fetch(`https://cloud.iexapis.com/v1/stock/AAPL/chart/${timePeriod}?token=${process.env.VUE_APP_API_KEY}`)
         .then((response) => {
           return response.json();
         })
         .then((priceDataPoints) => {
           this.priceDataPoints = priceDataPoints;
-        })
-        console.log('hi')
-        this.priceDataPoints.forEach(element => {
-            console.log(element.close)
+          console.log(this.priceDataPoints[0].close)
         })
     },
     methods: {
