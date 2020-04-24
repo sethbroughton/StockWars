@@ -6,12 +6,6 @@
       <leader-board/>
       <user-statistics/>
       <routes/>
-      <ul>
-        <li v-for="game in games" v-bind:key="game.gameId">
-          {{game.name}}
-      
-          </li>
-      </ul>
     </div>
    
   </div>
@@ -85,7 +79,6 @@ fetch(`${process.env.VUE_APP_REMOTE_API}/api/game`,{
 
 .container {
   color: var(--color-grey-light-1);
-  font-size: 4rem;
 
   padding: 3%;
 }
