@@ -131,6 +131,39 @@ body {
   margin-right: 2rem;
 }
 
+.table {
+  color: var(--color-grey-light-1);
+  background-color: var(--color-primary-2);
+  margin: 3%;
+  padding: 2%;
+  width: 70%;
+}
+
+.table-header {
+  /* padding: 1% 2%;
+  background-color: var(--color-blue-4);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center; */
+}
+
+.table-buttons {
+  /* display: flex; */
+}
+
+.table-title {
+  /* font-size: 3rem; */
+}
+
+.table-row {
+
+}
+
+.table-item {
+
+}
+
 .button {
   padding: 1.5rem 3.5rem;
   text-decoration: none;
@@ -165,6 +198,13 @@ body {
 .button-small:not(:last-child) {
   margin-right: 2rem;
 }
+
+.alert {
+  color: var(--color-grey-light);
+  font-size: 3rem;
+  text-align: center;
+}
+
 /***************************************************
 ******* UTILITIES ***********************
 ****************************************************/

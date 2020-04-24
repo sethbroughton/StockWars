@@ -1,5 +1,5 @@
 <template>
-  <div id="active-games">
+  <div id="active-games" class="table">
     <div class="table-header">
       <h3 class="table-title">Active Games</h3>
       <div class="table-buttons">
@@ -8,7 +8,7 @@
       </div>
     </div>
     <div v-for="game in activeGames" :key="game.gameId" class="table-row">
-      {{game.name}}
+      <span class="table-item">{{game.name}}</span>
     </div>
   </div>
 </template>
@@ -42,28 +42,7 @@ export default {
 }
 </script>
 
-<style>
-
-.table-header {
-  padding: 1% 2%;
-  background-color: var(--color-blue-4);
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.table-buttons {
-  display: flex;
-}
-
-.table-title {
-  font-size: 3rem;
-}
-
-.table-row {
-  
-}
+<style scoped>
 
 #create-game { background-color: var(--color-complementary-2);}
 #create-game:hover { background-color: var(--color-complementary-1);}
