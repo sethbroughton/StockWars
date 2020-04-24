@@ -44,12 +44,17 @@ public class JdbcGameDao implements GameDao {
 
         String sqlInsertNewGame = "INSERT INTO game "
                 + "(organizer_id, name, number_of_players, length_in_days) "
-                + " VALUES (?, ?, ?, ?)";
+                + " VALUES (?, ?, ?, ?) RETURNING game_id";
 
-        jdbcTemplate.update(sqlInsertNewGame, organizerId, name, numberOfPlayers, lengthInDays);
+        String sqlAddCurrentPlayerToNewGame = "INSERT INTO users_game "
+                + "(user_id, game_id, invite_accepted) "
+                + " VALUES (?, ?, ?)";
+
+        long gameId = jdbcTemplate.queryForObject(sqlInsertNewGame, Long.class, organizerId, name, numberOfPlayers, lengthInDays);
+        
+        jdbcTemplate.update(sqlAddCurrentPlayerToNewGame, organizerId, gameId, true);
     }
 
-    //gets all games, hopefully -Kevin 
     @Override 
     public List<Game> listAllGames() {
         Game theGame = null;
@@ -63,6 +68,25 @@ public class JdbcGameDao implements GameDao {
         return allGames;
     }
 
+    @Override
+    public List<Game> listAvailableGames() {
+        
+        User currentUser = auth.getCurrentUser();
+        long userId = currentUser.getId();
+
+        Game theGame = null;
+        String sqlGetAvailableGames = "SELECT * " +
+                                        "FROM game " +
+                                        "WHERE ";
+        List<Game> availableGames = new ArrayList<Game>();
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAvailableGames);
+        while (results.next()) {
+            theGame = mapRowSetToGame(results);
+            availableGames.add(theGame);
+        }
+        return availableGames;
+    }
+
     //still need to fix the setPlayers section -Kevin 
     private Game mapRowSetToGame(SqlRowSet results) {
         Game theGame = new Game();
@@ -73,8 +97,8 @@ public class JdbcGameDao implements GameDao {
         theGame.setName(results.getString("name"));
         theGame.setNumberOfPlayers(results.getInt("number_of_players"));
         theGame.setLengthInDays(results.getInt("length_in_days"));
-        theGame.setStartDate(results.getDate("start_date").toLocalDate());
-        theGame.setEndDate(results.getDate("end_date").toLocalDate());
+        // theGame.setStartDate(results.getDate("start_date").toLocalDate());
+        // theGame.setEndDate(results.getDate("end_date").toLocalDate());
         theGame.setPublicGame(results.getBoolean("public_game"));
 
         return theGame;
