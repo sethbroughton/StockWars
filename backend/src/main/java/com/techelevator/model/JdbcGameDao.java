@@ -51,7 +51,7 @@ public class JdbcGameDao implements GameDao {
                 + " VALUES (?, ?, ?)";
 
         long gameId = jdbcTemplate.queryForObject(sqlInsertNewGame, Long.class, organizerId, name, numberOfPlayers, lengthInDays);
-        
+
         jdbcTemplate.update(sqlAddCurrentPlayerToNewGame, organizerId, gameId, true);
     }
 
@@ -86,6 +86,29 @@ public class JdbcGameDao implements GameDao {
         }
         return availableGames;
     }
+
+    @Override
+    public List<Game> listActiveGames() {
+        
+        User currentUser = auth.getCurrentUser();
+        long userId = currentUser.getId();
+
+        Game theGame = null;
+        String sqlGetActiveGames = "SELECT game.* " +
+                                        "FROM game " +
+                                        "INNER JOIN users_game ON (game.game_id = users_game.game_id) " +
+                                        "INNER JOIN users ON (users_game.user_id = users.id) " +
+                                        "WHERE users.id = ? " +
+                                        "GROUP BY game.game_id ";        
+        List<Game> activeGames = new ArrayList<Game>();
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetActiveGames, userId);
+        while (results.next()) {
+            theGame = mapRowSetToGame(results);
+            activeGames.add(theGame);
+        }
+        return activeGames;
+    }
+
 
     //still need to fix the setPlayers section -Kevin 
     private Game mapRowSetToGame(SqlRowSet results) {
