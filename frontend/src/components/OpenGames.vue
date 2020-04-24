@@ -56,7 +56,10 @@ export default {
 .header {
   display: flex;
   justify-content: space-between;
-  
+  border: solid;
+}
+.open-games-list {
+  border:solid;
 }
 
 ul {

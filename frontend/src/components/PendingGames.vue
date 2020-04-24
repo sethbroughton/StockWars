@@ -55,9 +55,15 @@ export default {
     display: flex;
     justify-content: space-between;
   }
+  .pending-games-list {
+    border:solid;
+  }
 
   ul {
     list-style: none;
+  }
+  h2 {
+    border:solid;
   }
 
 </style>
