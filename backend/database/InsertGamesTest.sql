@@ -69,3 +69,13 @@ ROLLBACK;
 COMMIT;
 
 
+--Delete stock_id from trade table
+BEGIN TRANSACTION;
+ALTER TABLE trade DROP COLUMN stock_id;
+ROLLBACK;
+COMMIT;
+--Add ticker column to trade table 
+ALTER TABLE trade ADD COLUMN ticker varchar(10);
+--Add stock name to trade table
+ALTER TABLE trade ADD COLUMN stock_name varchar(64);
+

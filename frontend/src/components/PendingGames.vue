@@ -2,11 +2,11 @@
   <div id="pending-games">
     <h2 class = "pending-title">Pending Games</h2>
     <ul class="pending-games-list">
-      <li v-for="game in pendingGames" :key="game.gameId">
+      <li class = "pending-game-row" v-for="game in pendingGames" :key="game.gameId">
         {{game.name}} - Organizer: {{game.organizerId}}
         - Players: ((# of players)/(max # of players)) -
         {{game.lengthInDays}} Days
-        <button class="start-game-btn">Start Game</button>
+        <button class="button-small">Start Game</button>
       </li>
     </ul>
   </div>
@@ -52,6 +52,10 @@ export default {
     width: 500px;
     height: 200px;
   }
+  .pending-game-row {
+    border: solid;
+   
+  }
 
   .header {
     display: flex;
@@ -67,6 +71,9 @@ export default {
   }
   .pending-title {
     border:solid;
+  }
+  .start-game-btn {
+    border-radius: 15px 50px 30px 5px;
   }
 
 </style>

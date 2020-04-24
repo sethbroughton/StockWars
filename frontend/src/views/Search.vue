@@ -4,7 +4,7 @@
     <routes/>
 
 <h1>Search</h1>
- <form @submit.prevent="searchStocks" class="form u-margin-bottom">
+ <form @submit.prevent="stockQuote" class="form u-margin-bottom">
         <div class="input-fields">
           <div class="form-group u-margin-bottom-small">
             <label for="search" class="label">Search by Ticker</label>
@@ -19,43 +19,24 @@
         </div>
       <button type="submit" id="search" class="button">Search</button>
       </form>
+         {{quote.latestPrice}}
 
-      <form @submit.prevent="findCompany" class="form u-margin-bottom">
-        <div class="input-fields">
-          <div class="form-group u-margin-bottom-small">
-            <label for="search" class="label">Find a Company</label>
-            <input
-              type="text"
-              id="search"
-              v-model="companyQuery"
-              autofocus
-              required
-            />
-          </div>
-        </div>
-      <button type="submit" id="search" class="button">Search</button>
-      </form>
-
-    {{quote.latestPrice}}
-    {{company.symbol}}
-    {{company.companyName}}
-    {{company.exchange}}
-    {{company.industry}}
-    {{company.website}}
-    {{company.description}}
-    
+<ticker-lookup></ticker-lookup>
+  
   </div>
 </template>
 
 <script>
 import Routes from '@/components/Routes'
 import UserHeader from '@/components/UserHeader'
+import TickerLookup from '@/components/TickerLookup'
 
 export default {
   name: 'search',
   components: {
     Routes,
-    UserHeader
+    UserHeader,
+    TickerLookup
   }, 
   data() {
         return {
@@ -64,24 +45,16 @@ export default {
             price: ''
           }],
           quote: {
-            price: '',
+            latestPrice: '',
             symbol: '',
             companyName: ''
           },
           query: '',
-          company: {
-            symbol: '',
-            companyName: '',
-            exchange: '', 
-            industry: '',
-            website: '',
-            description: '', 
-          }
 
         }
     },
   methods: {
-    searchStocks(){
+    stockQuote(){
     const query = this.query
       fetch(`https://cloud.iexapis.com/stable/stock/${query}/quote?token=${process.env.VUE_APP_API_KEY}`)
         .then((response) => {
@@ -91,17 +64,6 @@ export default {
           this.quote = quote;
         })
   }, 
-    findCompany(){
-      //GET /stock/{symbol}/company
-      const query = this.companyQuery
-    fetch(`https://cloud.iexapis.com/stable/stock/${query}/company?token=${process.env.VUE_APP_API_KEY}`)
-        .then((response) => {
-          return response.json();
-        })
-        .then((company) => {
-          this.company = company;
-        })
-    },
 
    },
   }
