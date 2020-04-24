@@ -1,6 +1,6 @@
 <template>
   <div id="pending-games">
-    <h2>Pending Games</h2>
+    <h2 class = "pending-title">Pending Games</h2>
     <ul class="pending-games-list">
       <li v-for="game in pendingGames" :key="game.gameId">
         {{game.name}} - Organizer: {{game.organizerId}}
@@ -49,15 +49,24 @@ export default {
     background-color: var(--color-grey-dark-1);
     margin: 3%;
     padding: 2%;
+    width: 500px;
+    height: 200px;
   }
 
   .header {
     display: flex;
     justify-content: space-between;
   }
+  .pending-games-list {
+    border:solid;
+    height: 80%;
+  }
 
   ul {
     list-style: none;
+  }
+  .pending-title {
+    border:solid;
   }
 
 </style>

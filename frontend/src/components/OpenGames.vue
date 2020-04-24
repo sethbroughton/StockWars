@@ -1,7 +1,7 @@
 <template>
   <div id="open-games">
     <div class="header">
-      <h2>Open Games</h2>
+      <h2 class = "open-title">Open Games</h2>
       <button class="new-game-btn">Create New Game</button>
     </div>
     <ul class="open-games-list">
@@ -51,15 +51,28 @@ export default {
   background-color: var(--color-grey-dark-1);
   margin: 3%;
   padding: 2%;
+  width: 500px;
+  height: 200px;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
+  border:solid;
+ 
+}
+.open-games-list {
+  border:solid;
+  height: 80%;
+}
+
+.join-game-btn {
+  border-radius: 15px 50px 30px 5px;
 }
 
 ul {
   list-style: none;
+  
 }
 
 </style>

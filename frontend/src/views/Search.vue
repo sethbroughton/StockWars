@@ -20,8 +20,6 @@
       <button type="submit" id="search" class="button">Search</button>
       </form>
 
-          <h3>{{data[0].name}}</h3>
-
       <form @submit.prevent="findCompany" class="form u-margin-bottom">
         <div class="input-fields">
           <div class="form-group u-margin-bottom-small">
@@ -34,30 +32,18 @@
               required
             />
           </div>
-          <div class="form-group u-margin-bottom-small">
-            <label for="search" class="label">Select Exchange</label>
-            <input
-              type="text"
-              id="search"
-              v-model="stockExchange"
-              autofocus
-              required
-            />
-          </div>
         </div>
       <button type="submit" id="search" class="button">Search</button>
       </form>
 
+    {{quote.latestPrice}}
+    {{company.symbol}}
+    {{company.companyName}}
+    {{company.exchange}}
+    {{company.industry}}
+    {{company.website}}
+    {{company.description}}
     
-
-    {{data[0].price}}
-
-    {{bestMatches[0].name}}
-   
-
-
-
-
   </div>
 </template>
 
@@ -77,42 +63,46 @@ export default {
             name: '',
             price: ''
           }],
+          quote: {
+            price: '',
+            symbol: '',
+            companyName: ''
+          },
           query: '',
-          companyQuery: '',
-          stockExchange: 'NASDAQ',
-          bestMatches: [{
-            name: '',
+          company: {
+            symbol: '',
+            companyName: '',
+            exchange: '', 
+            industry: '',
+            website: '',
+            description: '', 
           }
-          ]
+
         }
     },
   methods: {
     searchStocks(){
-      const query = this.query
-      console.log(query);
-      const apikey = 'a7f7aa92b83ad64df4f2f540028a9880';
-      fetch(`https://fmpcloud.io/api/v3/quote/${query}?apikey=${apikey}`)
+    const query = this.query
+      fetch(`https://cloud.iexapis.com/stable/stock/${query}/quote?token=${process.env.VUE_APP_API_KEY}`)
         .then((response) => {
           return response.json();
         })
-        .then((data) => {
-          this.data = data;
+        .then((quote) => {
+          this.quote = quote;
         })
   }, 
     findCompany(){
-      console.log('hi')
-      const companyQuery = this.companyQuery;
-      const stockExchange = this.stockExchange;
-      const apikey = 'a7f7aa92b83ad64df4f2f540028a9880';
-    fetch(`https://fmpcloud.io/api/v3/search?query=${companyQuery}&limit=10&exchange=${stockExchange}&apikey=a7f7aa92b83ad64df4f2f540028a9880`)
+      //GET /stock/{symbol}/company
+      const query = this.companyQuery
+    fetch(`https://cloud.iexapis.com/stable/stock/${query}/company?token=${process.env.VUE_APP_API_KEY}`)
         .then((response) => {
           return response.json();
         })
-        .then((bestMatches) => {
-          this.bestMatches = bestMatches
+        .then((company) => {
+          this.company = company;
         })
+    },
 
-    }
    },
   }
 </script>

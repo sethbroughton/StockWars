@@ -10,7 +10,7 @@
       <div class="buy-sell-buttons">
         <input type="text" id="buy-shares" name="buy-shares"/>
         <label for="num-shares">Shares</label>
-        <p><button class = "buy-btn"> BUY</button></p>
+        <p><button class = "buy-btn">BUY</button></p>
         <input type="text" id="sell-shares" name="sell-shares"/>
         <label for="num-shares">Shares</label>        
         <p><button class = "sell-btn"> SELL</button></p>
