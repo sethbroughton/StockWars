@@ -48,10 +48,7 @@ export default {
 .game-row {
 border-bottom: solid;
 padding-bottom: 1rem;
-}
-
-h2 {
-  color: red;
+border-color: steelblue;
 }
 
 .button-small {
@@ -72,7 +69,7 @@ h2 {
   display: flex;
   justify-content: space-between;
   border: solid 5px;
-  border-color: var(--color-grey-dark-2);
+  border-color: steelblue;
  
 }
 .open-games-list {
