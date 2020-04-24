@@ -24,7 +24,7 @@ export default {
   },
   created() {
     const authToken = auth.getToken();
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/games`,{
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/pendingGames`,{
        method: 'GET',
        headers:{
         Authorization: `Bearer ${authToken}`

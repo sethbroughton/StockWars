@@ -75,11 +75,16 @@ public class JdbcGameDao implements GameDao {
         long userId = currentUser.getId();
 
         Game theGame = null;
-        String sqlGetAvailableGames = "SELECT * " +
-                                        "FROM game " +
-                                        "WHERE ";
+        String sqlGetAvailableGames = "SELECT DISTINCT users_game.game_id, game.* "
+                                        + "FROM users_game "
+                                        + "LEFT OUTER JOIN game ON (users_game.game_id = game.game_id) "
+                                        + "WHERE users_game.game_id NOT IN "
+                                            + "(SELECT game_id "
+                                            + "FROM users_game "
+                                            + "WHERE user_id = ?) "
+                                        + "ORDER BY game.game_id";
         List<Game> availableGames = new ArrayList<Game>();
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAvailableGames);
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAvailableGames, userId);
         while (results.next()) {
             theGame = mapRowSetToGame(results);
             availableGames.add(theGame);
@@ -98,7 +103,29 @@ public class JdbcGameDao implements GameDao {
                                         "FROM game " +
                                         "INNER JOIN users_game ON (game.game_id = users_game.game_id) " +
                                         "INNER JOIN users ON (users_game.user_id = users.id) " +
-                                        "WHERE users.id = ? " +
+                                        "WHERE users.id = ? AND game.start_date IS NOT NULL " +
+                                        "GROUP BY game.game_id";
+        List<Game> activeGames = new ArrayList<Game>();
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetActiveGames, userId);
+        while (results.next()) {
+            theGame = mapRowSetToGame(results);
+            activeGames.add(theGame);
+        }
+        return activeGames;
+    }
+
+    @Override
+    public List<Game> listPendingGames() {
+        
+        User currentUser = auth.getCurrentUser();
+        long userId = currentUser.getId();
+
+        Game theGame = null;
+        String sqlGetActiveGames = "SELECT game.* " +
+                                        "FROM game " +
+                                        "INNER JOIN users_game ON (game.game_id = users_game.game_id) " +
+                                        "INNER JOIN users ON (users_game.user_id = users.id) " +
+                                        "WHERE users.id = ? AND game.start_date IS NULL " +
                                         "GROUP BY game.game_id ";        
         List<Game> activeGames = new ArrayList<Game>();
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetActiveGames, userId);

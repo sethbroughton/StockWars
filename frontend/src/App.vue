@@ -143,9 +143,12 @@ body {
   transform: translateY(-.3rem);
   box-shadow: var(--shadow-small);
   color: var(--color-grey-dark-1);
-
 }
 
+.alert {
+  text-align: center;
+  font-size: 2.5rem;
+}
 
 /***************************************************
 ******* UTILITIES ***********************

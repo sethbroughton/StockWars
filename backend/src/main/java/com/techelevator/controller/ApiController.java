@@ -62,6 +62,16 @@ public class ApiController {
     public List<Game> getActiveGames() {
         return gameDao.listActiveGames();
     }
+
+    @GetMapping("/availableGames")
+    public List<Game> getAvailableGames() {
+        return gameDao.listAvailableGames();
+    }
+
+    @GetMapping("/pendingGames")
+    public List<Game> getPendingGames() {
+        return gameDao.listPendingGames();
+    }    
     
 	@PostMapping("/game")
 	@ResponseStatus(HttpStatus.CREATED)

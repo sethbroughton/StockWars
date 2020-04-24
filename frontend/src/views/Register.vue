@@ -2,7 +2,7 @@
   <div id="register">
     <h1 class="u-margin-bottom">Stock Wars</h1>
     <form @submit.prevent="register" class="form u-margin-bottom">
-      <div class="alert alert-danger" role="alert" v-if="registrationErrors">
+      <div class="alert alert-danger u-margin-bottom-small" role="alert" v-if="registrationErrors">
         There were problems registering this user.
       </div>
       <div class="form-group u-margin-bottom-small">
