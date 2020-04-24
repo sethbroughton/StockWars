@@ -4,7 +4,7 @@
     <routes/>
 
 <h1>Search</h1>
- <form @submit.prevent="searchStocks" class="form u-margin-bottom">
+ <form @submit.prevent="stockQuote" class="form u-margin-bottom">
         <div class="input-fields">
           <div class="form-group u-margin-bottom-small">
             <label for="search" class="label">Search by Ticker</label>
@@ -90,7 +90,7 @@ export default {
             price: ''
           }],
           quote: {
-            price: '',
+            latestPrice: '',
             symbol: '',
             companyName: ''
           },
@@ -112,7 +112,7 @@ export default {
         }
     },
   methods: {
-    searchStocks(){
+    stockQuote(){
     const query = this.query
       fetch(`https://cloud.iexapis.com/stable/stock/${query}/quote?token=${process.env.VUE_APP_API_KEY}`)
         .then((response) => {
