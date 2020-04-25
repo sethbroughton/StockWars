@@ -40,10 +40,12 @@ public class JdbcGameDao implements GameDao {
 	}	    
 
     @Override
-    public void createGame(long organizerId, String name, int numberOfPlayers, int lengthInDays) {
-
+    public void createGame(long organizerId, String organizerName, String name, int numberOfPlayers, int lengthInDays) {
+    	
+//TODO - After adding organizer_name to database, add it to query 
+    	
         String sqlInsertNewGame = "INSERT INTO game "
-                                    + "(organizer_id, name, number_of_players, length_in_days) "
+                                    + "(organizer_id, "/*organizer_name,*/+ " name, number_of_players, length_in_days) "
                                     + " VALUES (?, ?, ?, ?) RETURNING game_id";
         
         String sqlAddCurrentUserToNewGame = "INSERT INTO users_game "

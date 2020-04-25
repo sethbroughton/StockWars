@@ -69,6 +69,8 @@ CREATE TABLE trade
         constraint pk_trade primary key (trade_id),
         constraint fk_trade_portfolio foreign key (portfolio_id) references portfolio (portfolio_id)
 );
+
+ALTER TABLE game ADD COLUMN organizer_name varchar(64) not null
 ROLLBACK;
 COMMIT TRANSACTION;
 

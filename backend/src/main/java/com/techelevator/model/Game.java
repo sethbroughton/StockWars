@@ -22,7 +22,7 @@ public class Game {
     
     private boolean publicGame;
     private long organizerId;
-    
+    private String organizerName;
     private long winnerId;
     
 
@@ -113,5 +113,13 @@ public class Game {
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
     }
+
+	public String getOrganizerName() {
+		return organizerName;
+	}
+
+	public void setOrganizerName(String organizerName) {
+		this.organizerName = organizerName;
+	}
 
 }
