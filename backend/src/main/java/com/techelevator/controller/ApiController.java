@@ -109,14 +109,14 @@ public class ApiController {
     //starting a new game, updating it with start and end dates
     @PutMapping("/game/{id}")
     public String startGame(@RequestBody Game game, @PathVariable int id) {
-        // if (game.getGameId() != id) {
-        //     throw new GameNotFoundException(id, "Game not found!!!!");
-        // }
-     
-        // Game existingGame = gameDao.readGame(id);
-        // if(existingGame == null) {
-        //     throw new GameNotFoundException(id, "Game not found!!!!");
-        // }
+        if (game.getGameId() != id) {
+            throw new GameNotFoundException(id, "Game not found!!!!");
+        }
+        
+         Game existingGame = gameDao.getGameById(id);
+         if(existingGame == null) {
+             throw new GameNotFoundException(id, "Game not found!!!!");
+         }
         
         LocalDate now = LocalDate.now();  
 
