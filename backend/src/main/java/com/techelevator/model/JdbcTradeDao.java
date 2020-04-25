@@ -60,8 +60,6 @@ public class JdbcTradeDao implements TradeDao {
         }
         return allTheTrades;
     }
-
-  
     
         private Trade mapRowSetToTrade(SqlRowSet results) {
             Trade theTrade = new Trade();
