@@ -1,10 +1,10 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS game CASCADE;
-DROP TABLE IF EXISTS users_game CASCADE;
-DROP TABLE IF EXISTS portfolio CASCADE;
-DROP TABLE IF EXISTS trade CASCADE;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS game;
+DROP TABLE IF EXISTS users_game;
+DROP TABLE IF EXISTS portfolio;
+DROP TABLE IF EXISTS trade;
 
 CREATE TABLE users (
   id serial PRIMARY KEY,
@@ -80,6 +80,8 @@ SELECT DISTINCT game.*, users.username AS organizer_name
 	INNER JOIN users ON (users.id = users_game.user_id)
 	WHERE game.organizer_id = 1
 	
+COMMIT TRANSACTION;
+;
 -- COMMIT;
 -- BEGIN TRANSACTION;
 

@@ -40,7 +40,7 @@ public class JdbcGameDao implements GameDao {
 	}	    
 
     @Override
-    public void createGame(long organizerId, String organizerName, String name, int numberOfPlayers, int lengthInDays) {
+    public void createGame(long organizerId, String name, int numberOfPlayers, int lengthInDays) {
     	
     	
         String sqlInsertNewGame = "INSERT INTO game "
@@ -133,7 +133,7 @@ public class JdbcGameDao implements GameDao {
                                         "FROM game " +
                                         "INNER JOIN users_game ON (game.game_id = users_game.game_id) " +
                                         "INNER JOIN users ON (users_game.user_id = users.id) " +
-                                        "WHERE users.id = ? AND game.start_date IS NULL " +
+                                        "WHERE users.id = ? AND game.start_date IS NULL AND users.id = game.organizer_id " +
                                         "GROUP BY game.game_id ";        
         List<Game> activeGames = new ArrayList<Game>();
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetActiveGames, userId);
@@ -161,7 +161,7 @@ public class JdbcGameDao implements GameDao {
 
         theGame.setGameId(results.getLong("game_id"));
         theGame.setOrganizerId(results.getLong("organizer_id"));
-        theGame.setOrganizerName(results.getString("organizer_name"));
+        // theGame.setOrganizerName(results.getString("organizer_name"));
         theGame.setWinnerId(results.getLong("winner_id"));
         theGame.setName(results.getString("name"));
         theGame.setNumberOfPlayers(results.getInt("number_of_players"));
