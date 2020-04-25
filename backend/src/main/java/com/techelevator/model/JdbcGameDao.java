@@ -44,7 +44,7 @@ public class JdbcGameDao implements GameDao {
     	
     	
         String sqlInsertNewGame = "INSERT INTO game "
-                                    + "(organizer_id, organizer_name, name, number_of_players, length_in_days) "
+                                    + "(organizer_id, name, number_of_players, length_in_days) "
                                     + " VALUES (?, ?, ?, ?) RETURNING game_id";
         
         String sqlAddCurrentUserToNewGame = "INSERT INTO users_game "
@@ -68,7 +68,14 @@ public class JdbcGameDao implements GameDao {
         }
         return allGames;
     }
-
+    
+//Jeffs Query - Which method should we include this? - Charles
+    /*SELECT DISTINCT game.*, users.username AS organizer_name
+	FROM game
+	INNER JOIN users_game ON (game.game_id = users_game.game_id)
+	INNER JOIN users ON (users.id = users_game.user_id)
+	WHERE game.organizer_id = ?;
+     */
     @Override
     public List<Game> listAvailableGames() {
         

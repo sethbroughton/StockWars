@@ -74,7 +74,12 @@ CREATE TABLE trade
 ROLLBACK;
 COMMIT TRANSACTION;
 
-;
+SELECT DISTINCT game.*, users.username AS organizer_name
+	FROM game
+	INNER JOIN users_game ON (game.game_id = users_game.game_id)
+	INNER JOIN users ON (users.id = users_game.user_id)
+	WHERE game.organizer_id = 1
+	
 -- COMMIT;
 -- BEGIN TRANSACTION;
 
