@@ -8,7 +8,10 @@
       </div>
     </div>
     <div v-for="game in activeGames" :key="game.gameId" class="table-row">
-      <span class="table-item">{{game.name}}</span>
+      <router-link v-bind:to="{name: 'game'}" class="button-small go-to-game">{{game.name}}</router-link>      
+      <span class="table-item">[CURRENT BALANCE]</span>
+      <span class="table-item">Position: X/X</span>
+      <span class="table-item">XX Days Left</span>
     </div>
   </div>
 </template>
@@ -49,5 +52,8 @@ export default {
 
 #join-game { background-color: var(--color-tertiary-2); }
 #join-game:hover { background-color: var(--color-tertiary-1); }
+
+.go-to-game { background-color: var(--color-complementary-2);}
+.go-to-game:hover { background-color: var(--color-complementary-1);}
 
 </style>
