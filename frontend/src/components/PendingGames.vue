@@ -8,6 +8,12 @@
       <span class="table-item">Organizer: {{game.organizerId}}</span>
       <span class="table-item">Players: X/{{game.numberOfPlayers}}</span>
       <span class="table-item">{{game.lengthInDays}} Days</span>
+      
+     
+      <v-if={{ game.numberOfPlayers}}>
+      <form class="table-item" v-on:click="startGame" >Start Game</form>
+      
+      <v-else> </v-else>
     </div>
   </div>
 </template>
@@ -21,6 +27,29 @@ export default {
     return {
       pendingGames: []
     };
+  },
+  methods: {
+
+    startGame() {
+      //my attempt at a start game button, I don't think it works but I
+      //did what I could, I started the v-if statment above too, it's definitely incomplete - Kevin
+      const fetchConfig = {
+        method : "POST",
+        headers: {
+          Accept: 'application/json',
+          'Content-Type' : 'application/json',
+        },
+       
+      }
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/activeGames`, fetchConfig)
+      .then(response => {
+      if (response.ok) {
+        this.$router.push('/activeGames')
+      }
+      })
+     
+    }
+
   },
   created() {
     const authToken = auth.getToken();
