@@ -118,10 +118,10 @@ public class ApiController {
         //     throw new GameNotFoundException(id, "Game not found!!!!");
         // }
         
-        // LocalDate now = LocalDate.now();  
+        LocalDate now = LocalDate.now();  
 
-        // gameDao.startGame(now, now.plusDays(game.getLengthInDays()), id);
-        return "hello";
+        gameDao.startGame(now, now.plusDays(game.getLengthInDays()), id);
+        return "{\"success\":true}";
        
         
     }
