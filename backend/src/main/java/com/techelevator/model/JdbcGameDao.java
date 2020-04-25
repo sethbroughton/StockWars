@@ -138,24 +138,35 @@ public class JdbcGameDao implements GameDao {
 
     @Override
     public List<Game> listPendingGames() {
-        
+        List<Game> pendingGames = new ArrayList<Game>();
         User currentUser = auth.getCurrentUser();
         long userId = currentUser.getId();
 
-        Game theGame = null;
-        String sqlGetActiveGames = "SELECT game.*, users.username AS organizer_name " +
+        String sqlGetPendingGames = "SELECT game.*, users.username AS organizer_name " +
                                         "FROM game " +
                                         "INNER JOIN users_game ON (game.game_id = users_game.game_id) " +
                                         "INNER JOIN users ON (users_game.user_id = users.id) " +
-                                        "WHERE users.id = ? AND game.start_date IS NULL";                                    
-        List<Game> activeGames = new ArrayList<Game>();
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetActiveGames, userId);
-        while (results.next()) {
-            theGame = mapRowSetToGame(results);
-            theGame.setOrganizerName(results.getString("organizer_name"));
-            activeGames.add(theGame);
+                                        "WHERE users.id = ? AND game.start_date IS NULL";   
+        String sqlGetOrganizerName = "SELECT users.username AS organizer_name " 
+                                        + " FROM game "
+                                        + " INNER JOIN users ON (game.organizer_id = users.id) "
+                                        + " WHERE game_id = ? ";         
+        
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetPendingGames, userId);
+        while (results.next()) {  
+            Game theGame = mapRowSetToGame(results);
+            pendingGames.add(theGame);
         }
-        return activeGames;
+
+        for (Game game : pendingGames) {
+            SqlRowSet organizerNameResults = jdbcTemplate.queryForRowSet(sqlGetOrganizerName, game.getGameId());
+            while (organizerNameResults.next()) {
+                game.setOrganizerName(organizerNameResults.getString("organizer_name"));
+            }
+        }
+        
+
+        return pendingGames;
     }
 
     @Override
