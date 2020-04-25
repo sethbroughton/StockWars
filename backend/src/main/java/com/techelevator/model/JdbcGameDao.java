@@ -37,8 +37,7 @@ public class JdbcGameDao implements GameDao {
 	private Map<Long, Game> games = new HashMap<>();
     public void GameDao() throws IOException, java.io.IOException {
 		loadJSON();
-	}	
-    
+	}	    
 
     @Override
     public void createGame(long organizerId, String name, int numberOfPlayers, int lengthInDays) {
@@ -56,7 +55,6 @@ public class JdbcGameDao implements GameDao {
         jdbcTemplate.update(sqlAddCurrentUserToNewGame, organizerId, gameId, true);
     }
 
-  
     @Override 
     public List<Game> listAllGames() {
         Game theGame = null;
@@ -136,6 +134,17 @@ public class JdbcGameDao implements GameDao {
             activeGames.add(theGame);
         }
         return activeGames;
+    }
+
+    @Override
+    public void joinGame(long gameId) {
+        User currentUser = auth.getCurrentUser();
+        long userId = currentUser.getId();
+
+        String sqlAddPlayerToGame = "INSERT INTO users_game "
+                                    + "(user_id, game_id, invite_accepted) "
+                                    + "VALUES (?, ?, true)";
+        jdbcTemplate.update(sqlAddPlayerToGame, userId, gameId);
     }
 
     //still need to fix the setPlayers section -Kevin 

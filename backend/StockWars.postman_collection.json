@@ -88,15 +88,80 @@
 					]
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "{{url}}/AuthenticationApplication/activeGames",
+					"raw": "{{url}}/AuthenticationApplication/api/activeGames",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"AuthenticationApplication",
+						"api",
 						"activeGames"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "available games",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/AuthenticationApplication/api/availableGames",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"AuthenticationApplication",
+						"api",
+						"availableGames"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pending games",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/AuthenticationApplication/api/pendingGames",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"AuthenticationApplication",
+						"api",
+						"pendingGames"
 					]
 				}
 			},
@@ -173,7 +238,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"Superman\",\n    \"password\": \"martha\",\n    \"confirmPassword\": \"martha\",\n    \"role\": \"user\"\n}"
+					"raw": "{\n    \"username\": \"Kanye\",\n    \"password\": \"martha\",\n    \"confirmPassword\": \"martha\",\n    \"role\": \"user\"\n}"
 				},
 				"url": {
 					"raw": "{{url}}/AuthenticationApplication/register",
@@ -216,7 +281,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"organizerId\": 5,\r\n    \"name\": \"NO, REALLY, THE API WORKS!!!\",\r\n    \"lengthInDays\": 18,\r\n    \"numberOfPlayers\": 6\r\n}",
+					"raw": "{\r\n\t\"organizerId\": 1,\r\n    \"name\": \"Game Three\",\r\n    \"lengthInDays\": 7,\r\n    \"numberOfPlayers\": 2\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -232,6 +297,44 @@
 						"AuthenticationApplication",
 						"api",
 						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add current user to game",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\"gameId\": 1",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/AuthenticationApplication/api/joinGame",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"AuthenticationApplication",
+						"api",
+						"joinGame"
 					]
 				}
 			},
