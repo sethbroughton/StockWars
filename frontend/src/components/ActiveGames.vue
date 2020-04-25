@@ -4,7 +4,7 @@
       <h3 class="table-title">Active Games</h3>
       <div class="table-buttons">
         <router-link v-bind:to="{name: 'create-game'}" id="create-game" class="button-small">Create a New Game</router-link>
-        <router-link v-bind:to="{name: 'lobby'}" id="join-game" class="button-small">Join New Game</router-link>
+        <router-link v-bind:to="{name: 'lobby'}" id="join-game" class="button-small">New and Pending</router-link>
       </div>
     </div>
     <div v-for="game in activeGames" :key="game.gameId" class="table-row">

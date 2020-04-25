@@ -3,8 +3,10 @@
     <user-header></user-header>
     <div class="container">
       <active-games/>
-      <leader-board/>
-      <user-statistics/>
+      <div class="data">
+        <user-statistics/>
+        <leader-board/>
+      </div>
       <routes/>
     </div>
    
@@ -80,7 +82,17 @@ fetch(`${process.env.VUE_APP_REMOTE_API}/api/game`,{
 .container {
   color: var(--color-grey-light-1);
 
-  padding: 3%;
+  padding: 4%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.data {
+  width: 100%;
+
+  display: flex;
 }
 
 #create-game {background-color: var(--color-complementary-2);}
