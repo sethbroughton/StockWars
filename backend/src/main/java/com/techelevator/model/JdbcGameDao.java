@@ -40,9 +40,8 @@ public class JdbcGameDao implements GameDao {
 	}	    
 
     @Override
-    public void createGame(long organizerId, String organizerName, String name, int numberOfPlayers, int lengthInDays) {
-    	
-    	
+    public void createGame(long organizerId, String name, int numberOfPlayers, int lengthInDays) {
+    	   	
         String sqlInsertNewGame = "INSERT INTO game "
                                     + "(organizer_id, name, number_of_players, length_in_days) "
                                     + " VALUES (?, ?, ?, ?) RETURNING game_id";
@@ -82,7 +81,6 @@ public class JdbcGameDao implements GameDao {
         return allGames;
     }
     
-
     @Override
     public List<Game> listAvailableGames() {
         
@@ -145,21 +143,16 @@ public class JdbcGameDao implements GameDao {
         long userId = currentUser.getId();
 
         Game theGame = null;
-        String sqlGetActiveGames = "SELECT game.* " +
+        String sqlGetActiveGames = "SELECT game.*, users.username AS organizer_name " +
                                         "FROM game " +
                                         "INNER JOIN users_game ON (game.game_id = users_game.game_id) " +
                                         "INNER JOIN users ON (users_game.user_id = users.id) " +
-<<<<<<< Updated upstream
-                                        
-                                        "WHERE users.id = ? AND game.organizer_id = ? AND game.start_date IS NULL AND users.id = game.organizer_id " +
-=======
-                                        "WHERE users.id = ? AND game.start_date IS NULL " +
->>>>>>> Stashed changes
-                                        "GROUP BY game.game_id ";        
+                                        "WHERE users.id = ? AND game.start_date IS NULL";                                    
         List<Game> activeGames = new ArrayList<Game>();
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetActiveGames, userId);
         while (results.next()) {
             theGame = mapRowSetToGame(results);
+            theGame.setOrganizerName(results.getString("organizer_name"));
             activeGames.add(theGame);
         }
         return activeGames;
@@ -182,7 +175,6 @@ public class JdbcGameDao implements GameDao {
 
         theGame.setGameId(results.getLong("game_id"));
         theGame.setOrganizerId(results.getLong("organizer_id"));
-        theGame.setOrganizerName(results.getString("organizer_name"));
         theGame.setWinnerId(results.getLong("winner_id"));
         theGame.setName(results.getString("name"));
         theGame.setNumberOfPlayers(results.getInt("number_of_players"));
@@ -200,9 +192,9 @@ public class JdbcGameDao implements GameDao {
         theGame.setPublicGame(results.getBoolean("public_game"));
 
         return theGame;
-
     }
-    
+
+ 
     private void loadJSON() throws IOException, java.io.IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		InputStream inputStream = Test.class.getResourceAsStream("/data.json");
@@ -211,11 +203,6 @@ public class JdbcGameDao implements GameDao {
 			games.put(game.getGameId(), game);
 		}
 	}
-
-    @Override
-    public Game readGame(int id) {
-        return games.get(id);
-    }
 
     @Override
     public void startGame(LocalDate start_date, LocalDate end_date, int id) {

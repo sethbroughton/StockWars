@@ -10,8 +10,7 @@ public interface GameDao {
     public List<Game> listAvailableGames();
     public List<Game> listActiveGames();
     public List<Game> listPendingGames();
-    public Game readGame(int id);
     public void joinGame(long gameId);
-    public void createGame(long organizerId, String organizerName, String name, int numberOfPlayers, int lengthInDays);
+    public void createGame(long organizerId, String name, int numberOfPlayers, int lengthInDays);
     public void startGame(LocalDate start_date, LocalDate end_date, int id);
 }

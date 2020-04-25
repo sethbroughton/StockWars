@@ -70,40 +70,4 @@ CREATE TABLE trade
         constraint fk_trade_portfolio foreign key (portfolio_id) references portfolio (portfolio_id)
 );
 
-
-ROLLBACK;
 COMMIT TRANSACTION;
-
-SELECT DISTINCT game.*, users.username AS organizer_name
-	FROM game
-	INNER JOIN users_game ON (game.game_id = users_game.game_id)
-	INNER JOIN users ON (users.id = users_game.user_id)
-	WHERE game.organizer_id = 1 AND game.organizer_id = users.id
-	
-	
-SELECT DISTINCT game.*, users.username AS organizer_name
-FROM game
-INNER JOIN users_game ON (game.game_id = users_game.game_id)
-INNER JOIN users ON (users.id = users_game.user_id)
-WHERE game.game_id = 1 AND game.organizer_id = users.id
-;
-
-SELECT DISTINCT game.*, users.username AS organizer_name
-FROM game
-INNER JOIN users_game ON (game.game_id = users_game.game_id)
-INNER JOIN users ON (users.id = users_game.user_id)
-WHERE users.id = 1 AND game.organizer_id = 1 AND game.start_date IS NOT NULL
-GROUP BY game.game_id, username;
-
-COMMIT TRANSACTION;;
--- COMMIT;
--- BEGIN TRANSACTION;
-
--- ALTER TABLE users ADD avatar varchar(2048);
-
--- ROLLBACK;
--- COMMIT;
-
--- BEGIN TRANSACTION;
-
--- DROP TABLE stock;
