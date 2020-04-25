@@ -13,7 +13,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 #user-statistics {
   background-image: linear-gradient(to bottom right, var(--color-secondary-1), var(--color-secondary-2));

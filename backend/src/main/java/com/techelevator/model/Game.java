@@ -22,6 +22,7 @@ public class Game {
     
     private boolean publicGame;
     private long organizerId;
+    
     private long winnerId;
     
 

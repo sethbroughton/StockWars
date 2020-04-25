@@ -76,15 +76,13 @@ body {
   --color-grey-dark-1: rgb(53, 59, 72);
   --color-grey-dark-2: rgb(47, 54, 64);
 
-  --hero-image-overlay: to bottom right, rgb(25, 42, 86, 0.7), rgb(25, 42, 86, 0.7);
-
   --color-primary-1: var(--color-blue-5);
   --color-primary-2: var(--color-blue-6);
 
-  --color-secondary-1: var(--color-red-1);
-  --color-secondary-2: var(--color-red-2);
+  --color-secondary-1: var(--color-grey-medium-1);
+  --color-secondary-2: var(--color-grey-medium-2);
 
-  --color-tertiary-1: var(--color-purple-1);
+  --color-tertiary-1: var(--color-purle-1);
   --color-tertiary-2: var(--color-purple-2);
 
   --color-complementary-1: var(--color-green-1);
@@ -92,6 +90,13 @@ body {
 
   --color-table-header: var(--color-blue-4);
   --color-table-row: var(--color-grey-medium-2);
+
+  /* OVERLAYS */
+  --hero-image-overlay: to bottom right, rgb(39, 60, 117, 0.7), rgb(25, 42, 86, 0.7);
+  --portfolio-image-overlay: to bottom right, rgb(47, 54, 64, 0.7), rgb(47, 54, 64, 0.7);
+  --search-image-overlay: to bottom right, rgb(47, 54, 64, 0.7), rgb(47, 54, 64, 0.7);
+  --history-image-overlay: to bottom right, rgb(47, 54, 64, 0.7), rgb(47, 54, 64, 0.7);
+
 
   /* SHADOWS */
   --shadow: 0 2rem 2rem rgba(0,0,0,0.2);
@@ -105,9 +110,14 @@ body {
 ****************************************************/
 
 body {
+  min-height: 100vh;
   background-image: linear-gradient(var(--hero-image-overlay)), url(assets/img/hero.jpg);
-  background-position: fixed;
+  background-position: center;
   background-size: cover;
+}
+
+a {
+  text-decoration: none;
 }
 
 .form {
@@ -161,7 +171,7 @@ body {
 
 .table-row {
   width: 90%;
-  background-image: linear-gradient(to right, var(--color-primary-1), var(--color-primary-2));
+  background-image: linear-gradient(to right, var(--color-secondary-1), var(--color-secondary-2));
   font-size: 2rem;
   font-weight: 500;
 
@@ -226,7 +236,7 @@ body {
 
 /* MARGINS */
 
-.u-margin-bottom-small { margin-bottom: 2rem !important; }
+.u-margin-bottom-small { margin-bottom: 1rem !important; }
 .u-margin-bottom { margin-bottom: 3rem !important; }
 .u-margin-bottom-large { margin-bottom: 5rem !important; }
 
