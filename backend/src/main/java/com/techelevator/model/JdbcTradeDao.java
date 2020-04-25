@@ -31,14 +31,16 @@ public class JdbcTradeDao implements TradeDao {
 
     //inserts a new trade into the database -Kevin 
     @Override
-    public long createNewTrade(long tradeId, long portfolioId, String type, String ticker, int quantity, BigDecimal stockValue, BigDecimal commission, LocalDate dateOfPurchase) {
-
-        String sqlInsertNewTrade = "INSERT INTO trade " +
-                                    "(portfolio_id, stock_id, type, quantity, date_of_purchase, stock_value, commission) " +
-                                    " VALUES (?, ?, ?, ?, ?, ?, ?,) RETURNING game_id ";
-        
-       long gameId = jdbcTemplate.update(sqlInsertNewTrade, tradeId, portfolioId, type, ticker, quantity, stockValue, commission, dateOfPurchase);                             
-        return gameId;
+    public long createNewTrade(Trade trade) {
+//    	long tradeId, long portfolioId, String type,
+//        String ticker, int quantity, BigDecimal stockValue,
+//        BigDecimal commission, LocalDate dateOfPurchase
+//        String sqlInsertNewTrade = "INSERT INTO trade " +
+//                                    "(portfolio_id, stock_id, type, quantity, date_of_purchase, stock_value, commission) " +
+//                                    " VALUES (?, ?, ?, ?, ?, ?, ?,) RETURNING trade_id ";
+//        
+//       long tradeId = jdbcTemplate.update(sqlInsertNewTrade, tradeId, portfolioId, type, ticker, quantity, stockValue, commission, dateOfPurchase);                             
+        return 0l;
     }
 
 

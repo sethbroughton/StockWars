@@ -8,6 +8,8 @@ import com.techelevator.model.Trade;
 import com.techelevator.model.TradeDao;
 import com.techelevator.model.User;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,5 +96,16 @@ public class ApiController {
 	public List<Trade> getAllTrades() {
         return tradeDao.listAllTrades();
     }
+    
+//    @PostMapping("/createTrade")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public String createTrade(@RequestBody Trade trade) {
+//    	trade.setDateOfPurchase((LocalDate.now()));
+//   
+//		//tradeId, portfolioId, type, ticker, quantity, stockValue, commission, dateOfPurchase
+//    	
+//    	return tradeDao.createNewTrade(trade);
+//    }
+    
 
 }

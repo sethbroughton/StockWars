@@ -8,9 +8,7 @@ public interface TradeDao {
 
     public List<Trade> listAllTrades();
 
-    public long createNewTrade(long tradeId, long portfolioId, String type,
-                                 String ticker, int quantity, BigDecimal stockValue,
-                                 BigDecimal commission, LocalDate dateOfPurchase);
+    public long createNewTrade(Trade trade);
 
     // public List<Trade> listSpecificTrades();                      
 
