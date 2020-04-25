@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style scoped>
-/* .game-row {
+.game-row {
 border-bottom: solid;
 padding-bottom: 1rem;
 border-color: steelblue;
@@ -105,7 +105,7 @@ border-color: steelblue;
 ul {
   list-style: none;
   
-} */
+} 
 
 .join-button { background-color: var(--color-complementary-2); }
 .join-button:hover { background-color: var(--color-complementary-1); }

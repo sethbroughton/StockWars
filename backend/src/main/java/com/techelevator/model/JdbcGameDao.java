@@ -157,16 +157,16 @@ public class JdbcGameDao implements GameDao {
         theGame.setName(results.getString("name"));
         theGame.setNumberOfPlayers(results.getInt("number_of_players"));
         theGame.setLengthInDays(results.getInt("length_in_days"));
-        // if (results.getString("start_date").isEmpty()) {
-        //     theGame.setStartDate(null);
-        // } else {
-        //     theGame.setStartDate(LocalDate.parse(results.getString("start_date")));
-        // }
-        // if (results.getString("end_date").isEmpty()) {
-        //     theGame.setEndDate(null);
-        // } else {
-        //     theGame.setEndDate(LocalDate.parse(results.getString("end_date")));
-        // }
+ 
+        String startDate = results.getString("start_date");
+		if (startDate != null) {
+			theGame.setStartDate(LocalDate.parse(startDate));
+		}
+        String endDate = results.getString("end_date");
+        if(endDate!=null) {
+        	theGame.setEndDate(LocalDate.parse(endDate));
+        }
+    
         theGame.setPublicGame(results.getBoolean("public_game"));
 
         return theGame;
