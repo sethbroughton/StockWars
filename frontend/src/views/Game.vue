@@ -99,7 +99,7 @@ export default {
 }
 
 .player2 {
-  background-color: var(--color-purle-2);
+  background-color: var(--color-purple-2);
 }
 
 .player3 {
@@ -125,6 +125,13 @@ export default {
   box-shadow: var(--shadow);
 
   padding: 2% 3%;
+
+  transition: all .2s;
+}
+
+.link-box:hover {
+  transform: translateY(-.3rem);
+  box-shadow: var(--shadow-large);
 }
 
 #portfolio { background-image: linear-gradient(var(--portfolio-image-overlay)), url(../assets/img/portfolio.jpg); }

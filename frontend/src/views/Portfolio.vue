@@ -2,24 +2,22 @@
   <div id="portfolio">
     <user-header/>
 
-    <div class = "return-to-game-btn">
-        <button>Return to Game</button>
-    </div>
-
-    <div class = "portfolio-information">
-      <h1>Portfolio</h1>
-      <h1>Balance</h1>
-        <p class = "stock-information"> 
-          <ul>
-            <li>Stock # 1 - Ticker - Shares - {{quotes.AAPL.price}} - Total$</li>
-            <li>Stock # 2 - Ticker - Shares - Current$ - Total$</li>
-            <li>Stock # 3 - Ticker - Shares - Current$ - Total$</li>
-            <li>Stock # 4 - Ticker - Shares - Current$ - Total$</li>
-          </ul>
-        </p>
+    <div class="container">
+      <div class ="table">
+        <div class="table-header">
+          <h3 class="table-title">Portfolio - $XXX,XXX</h3>
+          <div class="table-buttons">
+            <router-link v-bind:to="{name: 'game'}" id="return-to-game" class="button-small">Return to Game</router-link>
+          </div>
+        </div>
+        <div class="table-row"><span class="table-item">Stock # 1</span><span class="table-item">Ticker</span><span>Shares</span><span class="table-item">{{quotes.AAPL.price}}</span><span class="table-item">Total$</span><router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link></div>
+        <div class="table-row"><span class="table-item">Stock # 2</span><span class="table-item">Ticker</span><span>Shares</span><span class="table-item"></span><span class="table-item">Total$</span><router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link></div>
+        <div class="table-row"><span class="table-item">Stock # 3</span><span class="table-item">Ticker</span><span>Shares</span><span class="table-item"></span><span class="table-item">Total$</span><router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link></div>
+        <div class="table-row"><span class="table-item">Stock # 4</span><span class="table-item">Ticker</span><span>Shares</span><span class="table-item"></span><span class="table-item">Total$</span><router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link></div>
+      </div>
     </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -67,5 +65,19 @@ export default {
 </script>
 
 <style scoped>
+
+.container {
+  padding: 3%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#return-to-game { background-color: var(--color-complementary-2); }
+#return-to-game:hover { background-color: var(--color-complementary-1); }
+
+.buysell-button { background-color: var(--color-tertiary-2); }
+.buysell-button:hover { background-color: var(--color-tertiary-1); }
 
 </style>

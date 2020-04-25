@@ -82,7 +82,7 @@ body {
   --color-secondary-1: var(--color-grey-medium-1);
   --color-secondary-2: var(--color-grey-medium-2);
 
-  --color-tertiary-1: var(--color-purle-1);
+  --color-tertiary-1: var(--color-purple-1);
   --color-tertiary-2: var(--color-purple-2);
 
   --color-complementary-1: var(--color-green-1);
