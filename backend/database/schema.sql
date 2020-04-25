@@ -1,10 +1,10 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS game CASCADE;
-DROP TABLE IF EXISTS users_game CASCADE;
-DROP TABLE IF EXISTS portfolio CASCADE;
-DROP TABLE IF EXISTS trade CASCADE;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS game;
+DROP TABLE IF EXISTS users_game;
+DROP TABLE IF EXISTS portfolio;
+DROP TABLE IF EXISTS trade;
 
 CREATE TABLE users (
   id serial PRIMARY KEY,
@@ -70,10 +70,7 @@ CREATE TABLE trade
         constraint fk_trade_portfolio foreign key (portfolio_id) references portfolio (portfolio_id)
 );
 
-ALTER TABLE game ADD COLUMN organizer_name varchar(64) not null
-ROLLBACK;
 COMMIT TRANSACTION;
-
 ;
 -- COMMIT;
 -- BEGIN TRANSACTION;

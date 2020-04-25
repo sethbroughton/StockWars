@@ -122,11 +122,11 @@ public class JdbcGameDao implements GameDao {
         long userId = currentUser.getId();
 
         Game theGame = null;
-        String sqlGetActiveGames = "SELECT game.* " +
+        String sqlGetActiveGames = "SELECT game.*, users.username " +
                                         "FROM game " +
                                         "INNER JOIN users_game ON (game.game_id = users_game.game_id) " +
                                         "INNER JOIN users ON (users_game.user_id = users.id) " +
-                                        "WHERE users.id = ? AND game.start_date IS NULL " +
+                                        "WHERE users.id = ? AND game.start_date IS NULL AND users.id = game.organizer_id" +
                                         "GROUP BY game.game_id ";        
         List<Game> activeGames = new ArrayList<Game>();
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetActiveGames, userId);
