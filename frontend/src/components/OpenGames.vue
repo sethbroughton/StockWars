@@ -40,11 +40,7 @@ export default {
       .then((games) => {
         this.openGames = games;
       })      
-      .then((response) => {
-        if(response.ok) {
-           this.$router.push('/lobby');
-        }
-      })
+      
       .catch(err => console.log(`Error fetching reviews ${err}`));
   },
   methods: {
