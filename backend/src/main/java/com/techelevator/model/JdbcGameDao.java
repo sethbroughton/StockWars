@@ -114,7 +114,7 @@ public class JdbcGameDao implements GameDao {
                                         "INNER JOIN users_game ON (game.game_id = users_game.game_id) " +
                                         "INNER JOIN users ON (users_game.user_id = users.id) " +
                                         
-                                        "WHERE users.id = ? AND game.organizer_id = ? AND game.start_date IS NOT NULL " +
+                                        "WHERE users.id = ? AND game.start_date IS NOT NULL " +
                                         "GROUP BY game.game_id";
         List<Game> activeGames = new ArrayList<Game>();
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetActiveGames, userId);
