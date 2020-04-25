@@ -68,6 +68,7 @@ public class JdbcGameDao implements GameDao {
         }
         return allGames;
     }
+    
 
     @Override
     public List<Game> listAvailableGames() {
@@ -92,7 +93,15 @@ public class JdbcGameDao implements GameDao {
         }
         return availableGames;
     }
-
+    
+  //Jeffs Query - Which method should we include this? - Charles
+    /*SELECT DISTINCT game.*, users.username AS organizer_name
+	FROM game
+	INNER JOIN users_game ON (game.game_id = users_game.game_id)
+	INNER JOIN users ON (users.id = users_game.user_id)
+	WHERE game.organizer_id = ?;
+     */
+    
     @Override
     public List<Game> listActiveGames() {
         
@@ -104,7 +113,8 @@ public class JdbcGameDao implements GameDao {
                                         "FROM game " +
                                         "INNER JOIN users_game ON (game.game_id = users_game.game_id) " +
                                         "INNER JOIN users ON (users_game.user_id = users.id) " +
-                                        "WHERE users.id = ? AND game.start_date IS NOT NULL " +
+                                        
+                                        "WHERE users.id = ? AND game.organizer_id = ? AND game.start_date IS NOT NULL " +
                                         "GROUP BY game.game_id";
         List<Game> activeGames = new ArrayList<Game>();
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetActiveGames, userId);
@@ -126,7 +136,8 @@ public class JdbcGameDao implements GameDao {
                                         "FROM game " +
                                         "INNER JOIN users_game ON (game.game_id = users_game.game_id) " +
                                         "INNER JOIN users ON (users_game.user_id = users.id) " +
-                                        "WHERE users.id = ? AND game.start_date IS NULL AND users.id = game.organizer_id " +
+                                        
+                                        "WHERE users.id = ? AND game.organizer_id = ? AND game.start_date IS NULL AND users.id = game.organizer_id " +
                                         "GROUP BY game.game_id ";        
         List<Game> activeGames = new ArrayList<Game>();
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetActiveGames, userId);
