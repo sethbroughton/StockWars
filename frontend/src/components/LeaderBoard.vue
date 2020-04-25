@@ -23,8 +23,6 @@ export default {
 <style>
 
 #leaderboard {
-  background-color: var(--color-tertiary-2);
-
   flex: 3 1 0;
 }
 

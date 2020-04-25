@@ -8,7 +8,9 @@
     </div>
     <div v-for="game in openGames" :key="game.gameId" class="table-row">
       <span class="table-item">{{game.name}}</span>
-      <span class="table-item">{{game.organizer_id}}</span>
+      <span class="table-item">Organizer: {{game.organizerId}}</span>
+      <span class="table-item">Players: X/{{game.numberOfPlayers}}</span>
+      <span class="table-item">{{game.lengthInDays}} Days</span>
       <button class="button-small join-button" v-on:click="joinGame(game.gameId)">Join</button>
     </div>
   </div>
@@ -72,40 +74,6 @@ export default {
 </script>
 
 <style scoped>
-.game-row {
-border-bottom: solid;
-padding-bottom: 1rem;
-border-color: steelblue;
-}
-
-.button-small {
-  margin-left: 8.5rem;
-}
-
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  border: solid 5px;
-  border-color: steelblue;
- 
-}
-.open-games-list {
-  height: 80%;
-}
-
-.join-game-btn {
-  border-radius: 15px 50px 30px 5px;
-  
-}
-.new-game-btn {
-  border-radius: 15px 50px 30px 5px;
-}
-
-ul {
-  list-style: none;
-  
-} 
 
 .join-button { background-color: var(--color-tertiary-2); }
 .join-button:hover { background-color: var(--color-tertiary-1); }

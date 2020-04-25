@@ -91,8 +91,6 @@ img {
   height: 100%;
   width: auto;
 
-  margin-left: 2rem;
-
   border-radius: 50%;  
 }
 
@@ -105,7 +103,7 @@ img {
   font-size: 2rem;
   color: var(--color-grey-light);
   font-weight: 500;
-  margin-left: 2rem;
+  margin-right: 2rem;
   cursor: pointer;
 }
 

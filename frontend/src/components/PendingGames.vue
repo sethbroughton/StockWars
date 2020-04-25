@@ -10,10 +10,9 @@
       <span class="table-item">{{game.lengthInDays}} Days</span>
       
      
-      <v-if={{ game.numberOfPlayers}}>
-      <form class="table-item" v-on:click="startGame" >Start Game</form>
-      
-      <v-else> </v-else>
+      <!-- <v-if="{{game.numberOfPlayers}}">
+      <form class="table-item" v-on:click="startGame" >Start Game</form> -->
+
     </div>
   </div>
 </template>

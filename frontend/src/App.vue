@@ -104,8 +104,6 @@ body {
 ******* UNIVERSAL STYLES ***********************
 ****************************************************/
 
-
-
 body {
   background-image: linear-gradient(var(--hero-image-overlay)), url(assets/img/hero.jpg);
   background-position: fixed;
@@ -113,14 +111,14 @@ body {
 }
 
 .form {
-    background-color: rgba(47, 54, 64, .7);
-    color: var(--color-grey-light-1);
+  background-color: rgba(47, 54, 64, .7);
+  color: var(--color-grey-light-1);
 
-    padding: 3rem 5rem;
+  padding: 3rem 5rem;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .form-group {
@@ -135,13 +133,18 @@ body {
 
 .table {
   color: var(--color-grey-light-1);
-  background-color: var(--color-primary-2);
   width: 70%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .table-header {
+  width: 100%;
+  margin-bottom: 1%;
   padding: 1% 2%;
-  background-color: var(--color-blue-4);
+  background-image: linear-gradient(to right, var(--color-blue-3), var(--color-blue-4));
 
   display: flex;
   justify-content: space-between;
@@ -153,15 +156,28 @@ body {
 }
 
 .table-title {
-  font-size: 3rem; 
+  font-size: 3rem;
 }
 
 .table-row {
-size: 1rem;
+  width: 90%;
+  background-image: linear-gradient(to right, var(--color-primary-1), var(--color-primary-2));
+  font-size: 2rem;
+  font-weight: 500;
+
+  padding: 1.5% 2.5%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-row:not(:last-child) {
+  margin-bottom: .5%;
 }
 
 .table-item {
-
+  
 }
 
 .button {
@@ -187,12 +203,11 @@ size: 1rem;
   text-decoration: none;
   color: var(--color-grey-light-1);
   border: none;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 700;
   cursor: pointer;
   border-radius: 500px;
-  transition: all .2s;
-  
+  transition: all .2s;  
 }
 
 .button-small:not(:last-child) {
