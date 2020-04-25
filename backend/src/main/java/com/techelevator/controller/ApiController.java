@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.authentication.AuthProvider;
 import com.techelevator.authentication.UnauthorizedException;
+import com.techelevator.exceptions.GameNotFoundException;
 import com.techelevator.model.Game;
 import com.techelevator.model.GameDao;
 import com.techelevator.model.Trade;
@@ -10,6 +11,8 @@ import com.techelevator.model.User;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,6 +104,26 @@ public class ApiController {
     @GetMapping("/tradeHistory")
 	public List<Trade> getAllTrades() {
         return tradeDao.listAllTrades();
+    }
+
+    //starting a new game, updating it with start and end dates
+    @PutMapping("/game/{id}")
+    public String startGame(@RequestBody Game game, @PathVariable int id) {
+        // if (game.getGameId() != id) {
+        //     throw new GameNotFoundException(id, "Game not found!!!!");
+        // }
+     
+        // Game existingGame = gameDao.readGame(id);
+        // if(existingGame == null) {
+        //     throw new GameNotFoundException(id, "Game not found!!!!");
+        // }
+        
+        // LocalDate now = LocalDate.now();  
+
+        // gameDao.startGame(now, now.plusDays(game.getLengthInDays()), id);
+        return "hello";
+       
+        
     }
     
 //    @PostMapping("/createTrade")
