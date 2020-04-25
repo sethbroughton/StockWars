@@ -2,8 +2,8 @@
   <div id="lobby">
     <user-header></user-header>
     <div class="container">
-      <h1><strong>New Stock Wars</strong></h1>
-      <open-games />
+      <h1 class="u-margin-bottom">New Stock Wars</h1>
+      <open-games class="u-margin-bottom"/>
       <pending-games />
     </div>
   </div>

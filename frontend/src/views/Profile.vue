@@ -2,7 +2,7 @@
   <div id="profile">
     <user-header></user-header>
     <div class="container">
-      <active-games/>
+      <active-games class="u-margin-bottom"/>
       <div class="data">
         <user-statistics/>
         <leader-board/>
@@ -93,6 +93,7 @@ fetch(`${process.env.VUE_APP_REMOTE_API}/api/game`,{
   width: 100%;
 
   display: flex;
+  align-items: flex-start;
 }
 
 #create-game {background-color: var(--color-complementary-2);}

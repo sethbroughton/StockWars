@@ -76,7 +76,7 @@ body {
   --color-grey-dark-1: rgb(53, 59, 72);
   --color-grey-dark-2: rgb(47, 54, 64);
 
-  --hero-image-overlay: to bottom right, rgb(39, 60, 117, 0.7), rgb(25, 42, 86, 0.7);
+  --hero-image-overlay: to bottom right, rgb(25, 42, 86, 0.7), rgb(25, 42, 86, 0.7);
 
   --color-primary-1: var(--color-blue-5);
   --color-primary-2: var(--color-blue-6);
@@ -136,10 +136,7 @@ body {
 .table {
   color: var(--color-grey-light-1);
   background-color: var(--color-primary-2);
-  margin: 3%;
-  padding: 2%;
   width: 70%;
-  padding: 9rem;
 }
 
 .table-header {

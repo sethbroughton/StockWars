@@ -107,7 +107,10 @@ ul {
   
 } 
 
-.join-button { background-color: var(--color-complementary-2); }
-.join-button:hover { background-color: var(--color-complementary-1); }
+.join-button { background-color: var(--color-tertiary-2); }
+.join-button:hover { background-color: var(--color-tertiary-1); }
+
+#create-game { background-color: var(--color-complementary-2); }
+#create-game:hover { background-color: var(--color-complementary-1); }
 
 </style>
