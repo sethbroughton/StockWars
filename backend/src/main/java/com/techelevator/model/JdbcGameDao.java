@@ -56,6 +56,19 @@ public class JdbcGameDao implements GameDao {
         jdbcTemplate.update(sqlAddCurrentUserToNewGame, organizerId, gameId, true);
     }
 
+    @Override
+    public Game getGameById(long id) {
+        Game theGame = null;
+
+        String sqlGetGameById = "SELECT * FROM game WHERE game.game_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetGameById, id);
+        while (results.next()) {
+            theGame = mapRowSetToGame(results);
+        }
+
+        return theGame;
+    }
+
     @Override 
     public List<Game> listAllGames() {
         Game theGame = null;

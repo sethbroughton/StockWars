@@ -63,6 +63,12 @@ public class ApiController {
         return gameDao.listAllGames();
     }
 
+    @GetMapping("/game/{id}")
+    public Game read(@PathVariable long id) {
+        Game game = gameDao.getGameById(id);
+        return game;
+    }
+
     @GetMapping("/activeGames")
     public List<Game> getActiveGames() {
         return gameDao.listActiveGames();
