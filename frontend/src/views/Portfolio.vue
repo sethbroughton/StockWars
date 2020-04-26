@@ -5,7 +5,7 @@
     <div class="container">
       <div class ="table">
         <div class="table-header">
-          <h3 class="table-title">Portfolio - ${{portfolio.totalValue}}</h3>
+          <h3 class="table-title">Portfolio - ${{portfolio.cash}}</h3>
           <div class="table-buttons">
             <router-link v-bind:to="{name: 'game'}" id="return-to-game" class="button-small">Return to Game</router-link>
           </div>
