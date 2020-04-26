@@ -3,8 +3,8 @@
     <user-header></user-header>
     <routes/>
 
-<h1>Search</h1>
- <form @submit.prevent="stockQuote" class="form u-margin-bottom">
+  <h1>Search</h1>
+      <form @submit.prevent="stockQuote" class="form u-margin-bottom">
         <div class="input-fields">
           <div class="form-group u-margin-bottom-small">
             <label for="search" class="label">Search by Ticker</label>
