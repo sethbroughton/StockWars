@@ -90,7 +90,7 @@ public class ApiController {
 	@PostMapping("/game")
 	@ResponseStatus(HttpStatus.CREATED)
 	public String create(@RequestBody Game game) {
-        gameDao.createGame(game.getOrganizerId(), game.getName(), game.getNumberOfPlayers(), game.getLengthInDays());
+        gameDao.createGame(game.getOrganizerId(), game.getOrganizerName(), game.getName(), game.getNumberOfPlayers(), game.getLengthInDays());
         return "{\"success\":true}";
     }
 

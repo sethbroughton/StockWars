@@ -10,8 +10,10 @@
       <span class="table-item">{{game.lengthInDays}} Days</span>
       
      
-      <!-- <v-if="{{game.numberOfPlayers}}">
-      <form class="table-item" v-on:click="startGame" >Start Game</form> -->
+      
+      <form v-if="game.numberOfPlayers < 50" class="table-item" v-on:click="startGame">Start Game</form> 
+      <form v-else> Waiting for Players.. </form>
+  
 
     </div>
   </div>
@@ -32,21 +34,24 @@ export default {
     startGame() {
       //my attempt at a start game button, I don't think it works but I
       //did what I could, I started the v-if statment above too, it's definitely incomplete - Kevin
+      //tried the button again up above, not sure why it isn't clickable
+      const authToken = auth.getToken();
       const fetchConfig = {
         method : "POST",
         headers: {
           Accept: 'application/json',
           'Content-Type' : 'application/json',
+          Authorization: `Bearer ${authToken}`
         },
-       
+       body: JSON.stringify(this.game)
       }
-      fetch(`${process.env.VUE_APP_REMOTE_API}/api/activeGames`, fetchConfig)
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/game/${this.pendingGames.gameId}`, fetchConfig)
       .then(response => {
       if (response.ok) {
         this.$router.push('/activeGames')
       }
       })
-     
+     .catch((err) => console.error(err));
     }
 
   },
