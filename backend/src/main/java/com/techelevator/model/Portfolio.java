@@ -9,7 +9,7 @@ private long userId;
 private long gameId;
 private long portfolioId;
 private List<Trade> trades;
-private BigDecimal totalValue;
+private BigDecimal cash;
 
 
 public long getPortfolioId() {
@@ -29,12 +29,12 @@ public void setTrades(List<Trade> trades) {
 }
 
 
-public BigDecimal getTotalValue() {
-    return totalValue;
+public BigDecimal geCash() {
+    return cash;
 }
 
-public void setTotalValue(BigDecimal totalValue) {
-    this.totalValue = totalValue;
+public void setCash(BigDecimal cash) {
+    this.cash = cash;
 }
 
 public long getUserId() {
