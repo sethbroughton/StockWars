@@ -96,23 +96,29 @@ public class JdbcGameDao implements GameDao {
                                             + "FROM users_game "
                                             + "WHERE user_id = ?) "
                                         + "ORDER BY game.game_id";
+
+        String sqlGetOrganizerName = "SELECT users.username AS organizer_name " 
+                                        + " FROM game "
+                                        + " INNER JOIN users ON (game.organizer_id = users.id) "
+                                        + " WHERE game_id = ? ";   
+                                        
         List<Game> availableGames = new ArrayList<Game>();
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAvailableGames, userId);
         while (results.next()) {
             theGame = mapRowSetToGame(results);
             availableGames.add(theGame);
         }
+
+        for (Game game : availableGames) {
+            SqlRowSet organizerNameResults = jdbcTemplate.queryForRowSet(sqlGetOrganizerName, game.getGameId());
+            while (organizerNameResults.next()) {
+                game.setOrganizerName(organizerNameResults.getString("organizer_name"));
+            }
+        }
+
         return availableGames;
     }
-    
-  //Jeffs Query - Which method should we include this? - Charles
-    /*SELECT DISTINCT game.*, users.username AS organizer_name
-	FROM game
-	INNER JOIN users_game ON (game.game_id = users_game.game_id)
-	INNER JOIN users ON (users.id = users_game.user_id)
-	WHERE game.organizer_id = ?;
-     */
-    
+
     @Override
     public List<Game> listActiveGames() {
         
@@ -127,12 +133,15 @@ public class JdbcGameDao implements GameDao {
                                         
                                         "WHERE users.id = ? AND game.start_date IS NOT NULL " +
                                         "GROUP BY game.game_id";
+
         List<Game> activeGames = new ArrayList<Game>();
+
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetActiveGames, userId);
         while (results.next()) {
             theGame = mapRowSetToGame(results);
             activeGames.add(theGame);
         }
+
         return activeGames;
     }
 
@@ -180,6 +189,15 @@ public class JdbcGameDao implements GameDao {
         jdbcTemplate.update(sqlAddPlayerToGame, userId, gameId);
     }
 
+    @Override
+    public void startGame(LocalDate start_date, LocalDate end_date, int id) {
+            String sqlStartGame = "UPDATE game SET start_date = ?, end_date = ? " +
+                                   "WHERE game.game_id = ?";
+
+            jdbcTemplate.update(sqlStartGame, start_date, end_date, id);
+            
+    }
+
     //still need to fix the setPlayers section -Kevin 
     private Game mapRowSetToGame(SqlRowSet results) {
         Game theGame = new Game();
@@ -205,7 +223,6 @@ public class JdbcGameDao implements GameDao {
         return theGame;
     }
 
- 
     private void loadJSON() throws IOException, java.io.IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		InputStream inputStream = Test.class.getResourceAsStream("/data.json");
@@ -215,14 +232,6 @@ public class JdbcGameDao implements GameDao {
 		}
 	}
 
-    @Override
-    public void startGame(LocalDate start_date, LocalDate end_date, int id) {
-            String sqlStartGame = "UPDATE game SET start_date = ?, end_date = ? " +
-                                   "WHERE game.game_id = ?";
-
-            jdbcTemplate.update(sqlStartGame, start_date, end_date, id);
-            
-    }
 
 
 }

@@ -8,11 +8,7 @@
       <span class="table-item">Organizer: {{game.organizerName}}</span>
       <span class="table-item">Players: X/{{game.numberOfPlayers}}</span>
       <span class="table-item">{{game.lengthInDays}} Days</span>
-      
-     
-      <!-- <v-if="{{game.numberOfPlayers}}">
-      <form class="table-item" v-on:click="startGame" >Start Game</form> -->
-
+      <button class="button-small start-game" v-on:click="startGame(game.gameId)">Start</button>
     </div>
   </div>
 </template>
@@ -70,6 +66,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.start-game { background-color: var(--color-tertiary-2); }
+.start-game:hover { background-color: var(--color-tertiary-1); }
 
 </style>
