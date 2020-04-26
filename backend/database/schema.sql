@@ -64,8 +64,8 @@ CREATE TABLE trade
         type varchar(64) not null,
         quantity int not null,
         date_of_purchase date not null,
-        stock_value money not null,
-        commission money not null,
+        stock_value decimal not null,
+        commission decimal not null,
         
         constraint pk_trade primary key (trade_id),
         constraint fk_trade_portfolio foreign key (portfolio_id) references portfolio (portfolio_id)
