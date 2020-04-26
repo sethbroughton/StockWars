@@ -10,6 +10,7 @@ import com.techelevator.model.PortfolioDao;
 import com.techelevator.model.Trade;
 import com.techelevator.model.TradeDao;
 import com.techelevator.model.User;
+import com.techelevator.model.UserDao;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -41,6 +42,9 @@ public class ApiController {
 
     @Autowired
     private AuthProvider authProvider;
+
+    @Autowired
+    private UserDao userDao;
     
 	@Autowired
     private GameDao gameDao;
@@ -123,10 +127,16 @@ public class ApiController {
         return "{\"success\":true}";
     }
 
-    @PostMapping("/portfolio")
+    @PostMapping("/portfolios")
 	@ResponseStatus(HttpStatus.CREATED)
-	public String createPortfolio(@RequestBody Portfolio portfolio) {
-        portfolioDao.createPortfolio(portfolio.getUserId(), portfolio.getGameId());
+	public String createPortfolios(@RequestBody Game game) {
+
+        List<User> users = userDao.getUsersInGame(game);
+
+        for (User user : users) {
+            portfolioDao.createPortfolio(user.getId(), game.getGameId());
+        }
+
         return "{\"success\":true}";
     }
 
@@ -137,16 +147,15 @@ public class ApiController {
             throw new GameNotFoundException(id, "Game not found!!!!");
         }
         
-         Game existingGame = gameDao.getGameById(id);
-         if(existingGame == null) {
-             throw new GameNotFoundException(id, "Game not found!!!!");
-         }
-        
+        Game existingGame = gameDao.getGameById(id);
+        if(existingGame == null) {
+            throw new GameNotFoundException(id, "Game not found!!!!");
+        }
+    
         LocalDate now = LocalDate.now();  
 
         gameDao.startGame(now, now.plusDays(game.getLengthInDays()), id);
-        return "{\"success\":true}"; 
-        
+        return "{\"success\":true}";      
     }
     
     @PostMapping("/trade")

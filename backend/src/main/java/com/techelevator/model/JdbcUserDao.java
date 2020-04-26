@@ -114,6 +114,25 @@ public class JdbcUserDao implements UserDao {
         return users;
     }
 
+    @Override
+    public List<User> getUsersInGame(Game game) {
+        List<User> users = new ArrayList<User>();
+        String sqlSelectAllUsersInGame = "SELECT users.* "
+                                            + "FROM users "
+                                            + "JOIN users_game ON (users.id = users_game.user_id) "
+                                            + "JOIN game ON (users_game.game_id = game.game_id) "
+                                            + "WHERE game.game_id = ?";
+        
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSelectAllUsersInGame, game.getGameId());
+        
+        while(results.next()) {
+            User theUser = mapResultToUser(results);
+            users.add(theUser);
+        }
+
+        return users;
+    }
+
     private User mapResultToUser(SqlRowSet results) {
         User user = new User();
         user.setId(results.getLong("id"));

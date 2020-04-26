@@ -4,7 +4,7 @@
       <h3 class="table-title">Pending Games</h3>
     </div>
     <div v-for="game in pendingGames" :key="game.gameId" class="table-row">
-      <button class="button-small start-game" v-on:click="startGame(game.gameId)">Start</button>
+      <button class="button-small start-game" v-on:click="startGame(game)">Start</button>
       <router-link class="button-small invite" :to="{ name: 'invite' }" >Invite</router-link>
       <span class="table-item">{{game.name}}</span>
       <span class="table-item">Organizer: {{game.organizerName}}</span>
@@ -26,7 +26,7 @@ export default {
   },
   methods: {
 
-    startGame() {
+    startGame(game) {
 
       const authToken = auth.getToken();
       
@@ -37,7 +37,7 @@ export default {
           'Content-Type' : 'application/json',
           'Accept': 'application/json'
         },
-       body: JSON.stringify(this.game)
+       body: JSON.stringify(game)
       }
 
       const fetchConfigPost = {
@@ -47,44 +47,45 @@ export default {
           'Content-Type' : 'application/json',
           'Accept': 'application/json'
         },
-        body: JSON.stringify(this.game)
+        body: JSON.stringify(game)
       }
       
-      fetch(`${process.env.VUE_APP_REMOTE_API}/api/game/${this.pendingGames.gameId}`, fetchConfigPut)
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/game/${game.gameId}`, fetchConfigPut)
       .then((response) => {
         if(response.ok) {
           return response.json();
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err));  
 
-      fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolio/`, fetchConfigPost)
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolios`, fetchConfigPost)
       .then(response => {
         if (response.ok) {
-          this.router.push('/activeGames')
+          this.$router.push('/game/' + game.gameId);
         }
       })
       .catch((err) => console.error(err));
-  }
-    },
-
+    }
+  },
   created() {
-    const authToken = auth.getToken();
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/pendingGames`,{
-       method: 'GET',
-       headers:{
-        Authorization: `Bearer ${authToken}`
-        }
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then((games) => {
-        this.pendingGames = games;
-      })
-      .catch(err => console.log(`Error fetching reviews ${err}`));
-  }
 
+    const authToken = auth.getToken();
+
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/pendingGames`,{
+      method: 'GET',
+      headers:{
+      Authorization: `Bearer ${authToken}`
+      }
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then((games) => {
+      this.pendingGames = games;
+    })
+    .catch(err => console.log(`Error fetching reviews ${err}`));
+
+  }
 }
 </script>
 
