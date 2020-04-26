@@ -98,11 +98,11 @@ public class ApiController {
         return portfolioDao.getCurrentPortfolio();
     }
 
-    @GetMapping("/portfolio/{id}")
-    public Portfolio getPortfolio(@PathVariable long id) {
-        Portfolio portfolio = portfolioDao.getPortfolio(id);
-        return portfolio;
-    }
+    // @GetMapping("/portfolio/{id}")
+    // public Portfolio getPortfolio(@PathVariable long id) {
+    //     Portfolio portfolio = portfolioDao.getPortfolio(id);
+    //     return portfolio;
+    // }
     
 	@PostMapping("/game")
 	@ResponseStatus(HttpStatus.CREATED)

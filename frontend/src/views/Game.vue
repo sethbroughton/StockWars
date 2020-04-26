@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="link-boxes">
-          <router-link v-bind:to="{name: 'portfolio', params: {portfolioId: portfolio.id}}" id="portfolio" class="link-box">
+          <router-link v-bind:to="{ name: 'portfolio' }" id="portfolio" class="link-box">
             Portfolio
           </router-link>
           <router-link :to="{ name: 'search' }"  id="search" class="link-box">
@@ -51,9 +51,7 @@ export default {
   data() {
     return {
       game: null,
-      portfolio: {
-        id: null
-      }
+      portfolios: []
     }
   },
   created() {
@@ -71,20 +69,6 @@ export default {
     })
     .then((games) => {
       this.game = games.find(p => p.gameId == this.$route.params.gameId);
-    })
-    .catch(err => console.log(`Error fetching reviews ${err}`));
-
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/currentPortfolio`,{
-        method: 'GET',
-        headers:{
-        Authorization: `Bearer ${authToken}`
-        }
-    })
-    .then(response => {
-      return response.json();
-    })
-    .then((currentPortfolio) => {
-      this.portfolio = currentPortfolio;
     })
     .catch(err => console.log(`Error fetching reviews ${err}`));
 
