@@ -8,7 +8,7 @@
       </div>
     </div>
     <div v-for="game in activeGames" :key="game.gameId" class="table-row">
-      <router-link v-bind:to="{name: 'game'}" class="button-small go-to-game">{{game.name}}</router-link>      
+      <router-link v-bind:to="{name: 'game', params: {gameId: game.gameId}}" class="button-small go-to-game">{{game.name}}</router-link>      
       <span class="table-item">[CURRENT BALANCE]</span>
       <span class="table-item">Position: X/X</span>
       <span class="table-item">XX Days Left</span>

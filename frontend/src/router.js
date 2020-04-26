@@ -52,13 +52,18 @@ const router = new Router({
       }
     },
     {
-      path: '/game',
+      path: '/game/:gameId',
       name: 'game',
       component: Game,
       meta: {
         requiresAuth: true
       }
     },
+    // {
+    //   path: '/products/sku/:sku',
+    //   name: 'product',
+    //   component: Product
+    // },
     {
       path: '/portfolio',
       name: 'portfolio',

@@ -2,6 +2,7 @@
   <div id="game">
     <user-header></user-header>
       <div class="container">
+        {{game.name}}
         <div class="game-stats u-margin-bottom">
           <p class="stat">Balance: $XX,XXX</p>
           <p class="stat">XX Days Left</p>
@@ -40,11 +41,33 @@
 
 <script>
 import UserHeader from '@/components/UserHeader'
+import auth from '../auth'
 
 export default {
   name: 'game',
   components: {
     UserHeader
+  },
+  data() {
+    return {
+      game: null
+    }
+  },
+  created() {
+    const authToken = auth.getToken();
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/games`,{
+        method: 'GET',
+        headers:{
+        Authorization: `Bearer ${authToken}`
+        }
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then((games) => {
+      this.game = games.find(p => p.gameId == this.$route.params.gameId);
+    })
+    .catch(err => console.log(`Error fetching reviews ${err}`));
   }
 }
 </script>
