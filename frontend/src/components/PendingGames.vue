@@ -4,17 +4,12 @@
       <h3 class="table-title">Pending Games</h3>
     </div>
     <div v-for="game in pendingGames" :key="game.gameId" class="table-row">
+      <button class="button-small start-game" v-on:click="startGame(game.gameId)">Start</button>
+      <router-link class="button-small invite" :to="{ name: 'invite' }" >Invite</router-link>
       <span class="table-item">{{game.name}}</span>
       <span class="table-item">Organizer: {{game.organizerName}}</span>
       <span class="table-item">Players: X/{{game.numberOfPlayers}}</span>
-      <span class="table-item">{{game.lengthInDays}} Days</span>
-      
-     
-      
-      <form v-if="game.numberOfPlayers < 50" class="table-item" v-on:click="startGame">Start Game</form> 
-      <form v-else> Waiting for Players.. </form>
-  
-
+      <span class="table-item">{{game.lengthInDays}} Days</span>  
     </div>
   </div>
 </template>
@@ -45,6 +40,7 @@ export default {
         },
        body: JSON.stringify(this.game)
       }
+      
       fetch(`${process.env.VUE_APP_REMOTE_API}/api/game/${this.pendingGames.gameId}`, fetchConfig)
       .then(response => {
       if (response.ok) {
@@ -75,6 +71,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.start-game { background-color: var(--color-complementary-2); }
+.start-game:hover { background-color: var(--color-complementary-1); }
+
+.invite { background-color: var(--color-tertiary-2); }
+.invite:hover { background-color: var(--color-tertiary-1); }
 
 </style>

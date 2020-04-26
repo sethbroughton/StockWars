@@ -34,8 +34,7 @@ export default {
     return {
       user: {
           name: ''
-        },
-      games: []
+        }
     }
   },
   created() {
@@ -53,25 +52,6 @@ export default {
       .then((currentUser) => {
         this.user.name = currentUser.username;
       });
-
-fetch(`${process.env.VUE_APP_REMOTE_API}/api/game`,{
-      method: 'GET',
-      headers:{
-      Authorization: `Bearer ${authToken}`,
-
-        'Accept': 'application/json'
-      }
-    })
-      .then((response) => {
-         console.log(response)
-        //return response.json();
-      })
-      .then((games) => {
-        console.log(games);
-        this.games = games;
-      });
-
-
   }
 }
 

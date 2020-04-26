@@ -6,6 +6,7 @@ import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import CreateGame from './views/CreateGame.vue'
 import GameLobby from './views/GameLobby.vue'
+import Invite from './views/Invite.vue'
 import Game from './views/Game.vue'
 import Portfolio from './views/Portfolio.vue'
 import Search from './views/Search.vue'
@@ -52,7 +53,15 @@ const router = new Router({
       }
     },
     {
-      path: '/game',
+      path: '/invite',
+      name: 'invite',
+      component: Invite,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/game/:gameId',
       name: 'game',
       component: Game,
       meta: {
@@ -60,7 +69,7 @@ const router = new Router({
       }
     },
     {
-      path: '/portfolio',
+      path: '/portfolio/:portfolioId',
       name: 'portfolio',
       component: Portfolio,
       meta: {

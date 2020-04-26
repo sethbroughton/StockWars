@@ -5,6 +5,8 @@ import com.techelevator.authentication.UnauthorizedException;
 import com.techelevator.exceptions.GameNotFoundException;
 import com.techelevator.model.Game;
 import com.techelevator.model.GameDao;
+import com.techelevator.model.Portfolio;
+import com.techelevator.model.PortfolioDao;
 import com.techelevator.model.Trade;
 import com.techelevator.model.TradeDao;
 import com.techelevator.model.User;
@@ -46,6 +48,10 @@ public class ApiController {
     @Autowired
     private TradeDao tradeDao;
 
+    @Autowired
+    private PortfolioDao portfolioDao;
+
+
     @GetMapping("/")
     public String authorizedOnly() throws UnauthorizedException {
         /*
@@ -86,6 +92,17 @@ public class ApiController {
     public List<Game> getPendingGames() {
         return gameDao.listPendingGames();
     }    
+
+    @GetMapping("/currentPortfolio")
+    public Portfolio getPortfolio() {
+        return portfolioDao.getCurrentPortfolio();
+    }
+
+    @GetMapping("/portfolio/{id}")
+    public Portfolio getPortfolio(@PathVariable long id) {
+        Portfolio portfolio = portfolioDao.getPortfolio(id);
+        return portfolio;
+    }
     
 	@PostMapping("/game")
 	@ResponseStatus(HttpStatus.CREATED)

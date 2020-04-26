@@ -3,6 +3,12 @@ package com.techelevator.model;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.sql.DataSource;
+
+import com.techelevator.authentication.AuthProvider;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -12,6 +18,14 @@ import org.springframework.stereotype.Component;
 public class JdbcPortfolioDao implements PortfolioDao {
 
     private JdbcTemplate jdbcTemplate;
+
+	@Autowired
+	private AuthProvider auth;
+
+    @Autowired
+    public JdbcPortfolioDao(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     // @Override
     // public Portfolio getActiveUserPortfolio(User user, Game game) {
@@ -49,6 +63,23 @@ public class JdbcPortfolioDao implements PortfolioDao {
         }
 
         return allThePortfolios;
+    }
+
+    @Override
+    public Portfolio getPortfolioById(long id) {
+        Portfolio thePortfolio = null;
+
+        return thePortfolio;
+    }
+
+    @Override
+    public Portfolio getCurrentPortfolio() {
+        Portfolio thePortfolio = null;
+
+        User currentUser = auth.getCurrentUser();
+        
+
+        return thePortfolio;
     }
                         
     private Portfolio mapRowToPortfolio(SqlRowSet results) {

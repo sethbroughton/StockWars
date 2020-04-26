@@ -3,6 +3,7 @@
     <user-header></user-header>
       <div class="container">
         <div class="game-stats u-margin-bottom">
+          <p class="stat">{{game.name}}</p>
           <p class="stat">Balance: $XX,XXX</p>
           <p class="stat">XX Days Left</p>
         </div>
@@ -24,13 +25,13 @@
           </div>
         </div>
         <div class="link-boxes">
-          <router-link to="/portfolio" id="portfolio" class="link-box">
+          <router-link v-bind:to="{name: 'portfolio', params: {portfolioId: portfolio.id}}" id="portfolio" class="link-box">
             Portfolio
           </router-link>
-          <router-link to="/search" id="search" class="link-box">
+          <router-link :to="{ name: 'search' }"  id="search" class="link-box">
             Search
           </router-link>
-          <router-link to="/tradeHistory" id="history" class="link-box">
+          <router-link :to="{ name: 'trade-history' }" id="history" class="link-box">
             History
           </router-link>
         </div>
@@ -40,11 +41,53 @@
 
 <script>
 import UserHeader from '@/components/UserHeader'
+import auth from '../auth'
 
 export default {
   name: 'game',
   components: {
     UserHeader
+  },
+  data() {
+    return {
+      game: null,
+      portfolio: {
+        id: null
+      }
+    }
+  },
+  created() {
+
+    const authToken = auth.getToken();
+
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/games`,{
+        method: 'GET',
+        headers:{
+        Authorization: `Bearer ${authToken}`
+        }
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then((games) => {
+      this.game = games.find(p => p.gameId == this.$route.params.gameId);
+    })
+    .catch(err => console.log(`Error fetching reviews ${err}`));
+
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/currentPortfolio`,{
+        method: 'GET',
+        headers:{
+        Authorization: `Bearer ${authToken}`
+        }
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then((currentPortfolio) => {
+      this.portfolio = currentPortfolio;
+    })
+    .catch(err => console.log(`Error fetching reviews ${err}`));
+
   }
 }
 </script>

@@ -93,9 +93,9 @@ body {
 
   /* OVERLAYS */
   --hero-image-overlay: to bottom right, rgb(39, 60, 117, 0.7), rgb(25, 42, 86, 0.7);
-  --portfolio-image-overlay: to bottom right, rgb(47, 54, 64, 0.7), rgb(47, 54, 64, 0.7);
-  --search-image-overlay: to bottom right, rgb(47, 54, 64, 0.7), rgb(47, 54, 64, 0.7);
-  --history-image-overlay: to bottom right, rgb(47, 54, 64, 0.7), rgb(47, 54, 64, 0.7);
+  --portfolio-image-overlay: to bottom right, rgb(47, 54, 64, 0.4), rgb(47, 54, 64, 0.4);
+  --search-image-overlay: to bottom right, rgb(47, 54, 64, 0.4), rgb(47, 54, 64, 0.4);
+  --history-image-overlay: to bottom right, rgb(47, 54, 64, 0.4), rgb(47, 54, 64, 0.4);
 
 
   /* SHADOWS */
@@ -187,7 +187,13 @@ a {
 }
 
 .table-item {
-  
+  text-align: center;
+
+  flex-grow: 1;
+}
+
+.table-item:not(:last-child) {
+  border-right: 1px solid var(--color-grey-light-1);
 }
 
 .button {

@@ -10,10 +10,34 @@
             <router-link v-bind:to="{name: 'game'}" id="return-to-game" class="button-small">Return to Game</router-link>
           </div>
         </div>
-        <div class="table-row"><span class="table-item">Stock # 1</span><span class="table-item">Ticker</span><span>Shares</span><span class="table-item">{{quotes.AAPL.price}}</span><span class="table-item">Total$</span><router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link></div>
-        <div class="table-row"><span class="table-item">Stock # 2</span><span class="table-item">Ticker</span><span>Shares</span><span class="table-item"></span><span class="table-item">Total$</span><router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link></div>
-        <div class="table-row"><span class="table-item">Stock # 3</span><span class="table-item">Ticker</span><span>Shares</span><span class="table-item"></span><span class="table-item">Total$</span><router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link></div>
-        <div class="table-row"><span class="table-item">Stock # 4</span><span class="table-item">Ticker</span><span>Shares</span><span class="table-item"></span><span class="table-item">Total$</span><router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link></div>
+        <div class="table-row">
+          <router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link>
+          <span class="table-item">Stock # 1</span>
+          <span class="table-item">Ticker</span>
+          <span class="table-item">Shares</span>
+          <span class="table-item">{{quotes.AAPL.price}}</span>
+          <span class="table-item">Total$</span></div>
+        <div class="table-row">
+          <router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link>
+          <span class="table-item">Stock # 2</span>
+          <span class="table-item">Ticker</span>
+          <span class="table-item">Shares</span>
+          <span class="table-item">[price]</span>
+          <span class="table-item">Total$</span></div>
+        <div class="table-row">
+          <router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link>
+          <span class="table-item">Stock # 3</span>
+          <span class="table-item">Ticker</span>
+          <span class="table-item">Shares</span>
+          <span class="table-item">[price]</span>
+          <span class="table-item">Total$</span></div>
+        <div class="table-row">
+          <router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link>
+          <span class="table-item">Stock # 4</span>
+          <span class="table-item">Ticker</span>
+          <span class="table-item">Shares</span>
+          <span class="table-item">[price]</span>
+          <span class="table-item">Total$</span></div>
       </div>
     </div>
   </div>
