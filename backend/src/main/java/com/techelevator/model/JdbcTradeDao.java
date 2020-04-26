@@ -31,7 +31,23 @@ public class JdbcTradeDao implements TradeDao {
 
 	@Override
 	public void createNewTrade(Trade trade) {
-
+		BigDecimal accountBalance = null;
+		
+		//Get current CASH balance from portfolio table
+		String sqlGetCurrentCashBalance = "SELECT total_value from portfolio where portfolio_id=?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetCurrentCashBalance, trade.getPortfolioId());
+		while (results.next()) {
+			accountBalance = new BigDecimal(results.getString("total_value"));
+		}
+		
+		BigDecimal newBalance = accountBalance.subtract(trade.getStockValue());
+		
+		//Updated current CASH balance in portfolio table
+		String sqlUpdateAccountBalance = "UPDATE portfolio SET total_value = ? WHERE porfolio_id = ?";
+		jdbcTemplate.update(sqlUpdateAccountBalance, newBalance, trade.getPortfolioId());
+		
+		
+		//Create trade in trade table
 		String sqlInsertNewTrade = "INSERT INTO trade (portfolio_id, type, ticker, "
 				+ "quantity, stock_value, commission, date_of_purchase) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
