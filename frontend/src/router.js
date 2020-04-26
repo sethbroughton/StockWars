@@ -69,7 +69,7 @@ const router = new Router({
       }
     },
     {
-      path: '/portfolio',
+      path: '/portfolio/:portfolioId',
       name: 'portfolio',
       component: Portfolio,
       meta: {
