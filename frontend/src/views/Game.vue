@@ -4,7 +4,7 @@
       <div class="container">
         <div class="game-stats u-margin-bottom">
           <p class="stat">{{game.name}}</p>
-          <p class="stat">Balance: $XX,XXX</p>
+          <p class="stat">Balance: ${{portfolio.totalValue}}</p>
           <p class="stat">XX Days Left</p>
         </div>
         <div class="progress-graph u-margin-bottom-small">
@@ -50,18 +50,32 @@ export default {
   },
   data() {
     return {
+      user: [],
       game: null,
-      portfolios: []
+      portfolio: null
     }
   },
   created() {
 
     const authToken = auth.getToken();
 
+    fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`,{
+       method: 'GET',
+       headers:{
+        Authorization: `Bearer ${authToken}`
+        }
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((currentUser) => {
+      this.user = currentUser;
+    });    
+
     fetch(`${process.env.VUE_APP_REMOTE_API}/api/games`,{
         method: 'GET',
         headers:{
-        Authorization: `Bearer ${authToken}`
+          Authorization: `Bearer ${authToken}`
         }
     })
     .then(response => {
@@ -70,7 +84,21 @@ export default {
     .then((games) => {
       this.game = games.find(p => p.gameId == this.$route.params.gameId);
     })
-    .catch(err => console.log(`Error fetching reviews ${err}`));
+    .catch(err => console.log(`Error fetching games ${err}`));
+
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolios`,{
+        method: 'GET',
+        headers:{
+          Authorization: `Bearer ${authToken}`
+        }
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then((portfolios) => {
+      this.portfolio = portfolios.find(p => p.userId == this.user.id && p.gameId == this.$route.params.gameId);
+    })
+    .catch(err => console.log(`Error fetching portfolios ${err}`));
 
   }
 }

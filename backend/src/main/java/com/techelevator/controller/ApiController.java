@@ -97,6 +97,11 @@ public class ApiController {
         return gameDao.listPendingGames();
     }    
 
+    @GetMapping("/portfolios")
+    public List<Portfolio> getAllPortfolios() {
+        return portfolioDao.getAllPortfolios();
+    }    
+
     @GetMapping("/currentPortfolio")
     public Portfolio getPortfolio() {
         return portfolioDao.getCurrentPortfolio();

@@ -48,11 +48,8 @@ public class JdbcPortfolioDao implements PortfolioDao {
     //     return null;
     // }
 
-
-    //I made a more specific portfolios query above, this one is just to get the 
-    //information out of the individual Portfolio table -Kevin
     @Override
-    public List<Portfolio> getBasicPortfolios() {
+    public List<Portfolio> getAllPortfolios() {
         Portfolio thePortfolio = null;
         String sqlGetAllPortfolios = "SELECT * FROM portfolio";
         ArrayList<Portfolio> allThePortfolios = new ArrayList<Portfolio>();
@@ -97,7 +94,7 @@ public class JdbcPortfolioDao implements PortfolioDao {
     Portfolio portfolio = new Portfolio();
     portfolio.setGameId(results.getLong("game_id"));
     portfolio.setUserId(results.getLong("user_id"));
-    portfolio.setPortfolioId(results.getLong("portfolioId"));
+    portfolio.setPortfolioId(results.getLong("portfolio_id"));
     portfolio.setTotalValue(new BigDecimal(results.getString("total_value")));
                     
                     

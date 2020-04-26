@@ -20,28 +20,7 @@ export default {
     UserHeader,
     OpenGames,
     PendingGames
-  },
-   methods: {
-
-    startGame() {
-      
-      // const fetchConfig = {
-      //   method : "POST",
-      //   headers: {
-      //     Accept: 'application/json',
-      //     'Content-Type' : 'application/json',
-      //   },
-      //   body: JSON.stringify(this.)
-      // }
-      // fetch(`${process.env.VUE_APP_REMOTE_API}/api/activeGames`, fetchConfig)
-      // .then(response => {
-      //   if (response.ok) {
-            
-      //   }
-      // })
-    }
-
-  },
+  }
 };
 </script>
 
