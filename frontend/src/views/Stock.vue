@@ -3,6 +3,23 @@
     <user-header></user-header>
      <routes/>  <ticker-lookup></ticker-lookup>
       <h1>{{quote.companyName}} ({{ticker}})</h1>
+
+ <form @submit.prevent="buyStock" class="form u-margin-bottom">
+        <div class="input-fields">
+          <div class="form-group u-margin-bottom-small">
+            <label for="username" class="label">Quantity of Shares</label>
+            <input
+              type="number"
+              v-model="quantity"
+              required
+              autofocus
+            />
+          </div>
+        </div>
+
+        <button type="submit" id="" class="button">BUY</button>
+      </form>
+
       <h3>you own (XX) shares</h3>
         <ul>          
           <li> Current Price: ${{quote.latestPrice}}</li>
@@ -32,6 +49,7 @@ import Routes from '@/components/Routes'
 import UserHeader from '@/components/UserHeader'
 import TickerLookup from '@/components/TickerLookup'
 import StockChart from '@/components/StockChart'
+import auth from '../auth';
 
 export default {
   name: 'stock',
@@ -60,7 +78,17 @@ export default {
           timePeriod: '1m',
           priceDataPoints: [{
             close: ''
-          }]
+          }],
+          trade: {
+            "portfolioId": 1,
+            "type": "BUY",
+            "ticker": "AAPL",
+            "quantity": 10,
+            "stockValue": 190,
+            "commission": 10
+          }
+
+
         }
     },
   created(){
@@ -93,6 +121,29 @@ export default {
         })
     },
     methods: {
+      //Create a buy trade
+      buyStock(){
+        const authToken = auth.getToken();
+        fetch(`${process.env.VUE_APP_REMOTE_API}/trade`,{
+          method: 'POST',
+          headers:{
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type': 'applicatoin/json',
+          'Accept': 'application/json'
+          },
+          body: JSON.stringify(this.trade)
+        })
+        .then((response) => {
+          return response.json();
+        })
+        .then((success) => {
+          console.log(success)
+        });
+
+      }
+
+
+
       
 
     }
