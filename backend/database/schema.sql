@@ -46,7 +46,8 @@ CREATE TABLE portfolio
         portfolio_id serial,
         user_id int not null,
         game_id int not null,
-        total_value decimal not null,
+        cash decimal not null,
+
         
         constraint pk_portfolio primary key (portfolio_id),
         constraint fk_portfolio_users foreign key (user_id) references users (id),

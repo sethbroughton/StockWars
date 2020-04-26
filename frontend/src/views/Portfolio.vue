@@ -69,6 +69,24 @@ export default {
     }
   },
   methods: {
+    displayPortfolios() {
+
+      const authToken = auth.getToken();
+      const fetchConfigGet = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${authToken}`
+       }
+      }
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolio`, fetchConfigGet)
+      .then((response) => {
+        return response.json();
+      })
+      .then ((data) => {
+          this.data = data;
+      })
+    }
+  
     
   },
   created(){
