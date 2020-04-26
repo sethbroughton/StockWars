@@ -25,13 +25,13 @@
           </div>
         </div>
         <div class="link-boxes">
-          <router-link to="/portfolio" id="portfolio" class="link-box">
+          <router-link :to="{ name: 'portfolio' }"  id="portfolio" class="link-box">
             Portfolio
           </router-link>
-          <router-link to="/search" id="search" class="link-box">
+          <router-link :to="{ name: 'search' }"  id="search" class="link-box">
             Search
           </router-link>
-          <router-link to="/tradeHistory" id="history" class="link-box">
+          <router-link :to="{ name: 'trade-history' }" id="history" class="link-box">
             History
           </router-link>
         </div>

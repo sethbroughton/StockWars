@@ -5,6 +5,7 @@
     </div>
     <div v-for="game in pendingGames" :key="game.gameId" class="table-row">
       <button class="button-small start-game" v-on:click="startGame(game.gameId)">Start</button>
+      <router-link class="button-small invite" :to="{ name: 'invite' }" >Invite</router-link>
       <span class="table-item">{{game.name}}</span>
       <span class="table-item">Organizer: {{game.organizerName}}</span>
       <span class="table-item">Players: X/{{game.numberOfPlayers}}</span>
@@ -68,7 +69,10 @@ export default {
 
 <style scoped>
 
-.start-game { background-color: var(--color-tertiary-2); }
-.start-game:hover { background-color: var(--color-tertiary-1); }
+.start-game { background-color: var(--color-complementary-2); }
+.start-game:hover { background-color: var(--color-complementary-1); }
+
+.invite { background-color: var(--color-tertiary-2); }
+.invite:hover { background-color: var(--color-tertiary-1); }
 
 </style>
