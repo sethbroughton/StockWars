@@ -1,8 +1,36 @@
 <template>
   <div id="stock">
     <user-header></user-header>
-     <routes/>  <ticker-lookup></ticker-lookup>
-      <h1>{{quote.companyName}} ({{ticker}})</h1>
+     <routes/>  
+     <!-- <ticker-lookup></ticker-lookup> -->
+
+      <form @submit.prevent="stockQuote" class="form u-margin-bottom">
+        <div class="input-fields">
+          <div class="form-group u-margin-bottom-small">
+            <label for="search" class="label">Search by Ticker</label>
+            <input
+              type="text"
+              id="search"
+              v-model="trade.ticker"
+              autofocus
+              required
+            />
+          </div>
+        </div>
+      <button type="submit" id="search" class="button">Search</button>
+      </form>
+
+      <h1>{{quote.companyName}} ({{quote.symbol}})</h1>
+      <h3>you own (XX) shares</h3>
+        <ul>          
+          <li> Current Price: ${{quote.latestPrice}}</li>
+            <li> Company Name: {{company.companyName}} ({{company.symbol}})</li>
+            <li> Website: {{company.website}} </li>
+            <li> Primary Exchange: {{company.exchange}} </li>
+            <li> Industry: {{company.industry}} </li>
+            <li> Description: {{company.description}} 
+            </li>
+        </ul>  
 
       <form @submit.prevent="tradeStock" class="form u-margin-bottom">
         <div class="input-fields">
@@ -21,20 +49,11 @@
             </select>
           </div>
         </div>
-          <button v-if="trade.type==='BUY'" type="submit" id="" class="button">BUY</button>
-          <button v-if="trade.type==='SELL'" type="submit" id="" class="button">SELL</button>
+          <button v-if="trade.type==='BUY'" type="submit" id="" class="button">BUY [${{stockValue}}]</button>
+          <button v-if="trade.type==='SELL'" type="submit" id="" class="button">SELL [${{stockValue}}]</button>
       </form>
+     
 
-      <h3>you own (XX) shares</h3>
-        <ul>          
-          <li> Current Price: ${{quote.latestPrice}}</li>
-            <li> Company Name: {{company.companyName}} ({{company.symbol}})</li>
-            <li> Website: {{company.website}} </li>
-            <li> Primary Exchange: {{company.exchange}} </li>
-            <li> Industry: {{company.industry}} </li>
-            <li> Description: {{company.description}} 
-            </li>
-        </ul>  
       <!-- <div class="buy-sell-buttons">
         <input type="text" id="buy-shares" name="buy-shares"/>
         <label for="num-shares">Shares</label>
@@ -65,11 +84,10 @@ export default {
  data() {
         return {
           quote: {
-            lastestPrice: '',
+            latestPrice: 0,
             symbol: '',
             companyName: ''
           },
-          symbol: 'AAPL',
           company: {
             symbol: '',
             companyName: '',
@@ -79,53 +97,34 @@ export default {
             description: '', 
           },
           trade: {
-            "portfolioId": 1,
-            "type": "SELL",
-            "ticker": 'F',
-            "quantity": 0,
-            "stockValue": 0,
-            "commission": 19.99
+            portfolioId: 1,  //Change routing so you must go to portfolio page to then navigate to buy/sell
+            type: '',
+            ticker: 'F', //From search stock query
+            quantity: 0, //Form input
+            stockValue: 0,
+            commission: 19.99 //Standard commission
           }, 
           timePeriod: '1m',
           priceDataPoints: [{
             close: ''
           }],
+          query: ''
         }
     },
+  computed: {
+    stockValue() {
+      return this.quote.latestPrice * this.trade.quantity;
+    }
+
+  },
   created(){
-    const ticker = this.ticker
-      fetch(`https://cloud.iexapis.com/stable/stock/${ticker}/quote?token=${process.env.VUE_APP_API_KEY}`)
-        .then((response) => {
-          return response.json();
-        })
-        .then((quote) => {
-          this.quote = quote;
-        })
-
-      //GET /stock/{symbol}/company
-      fetch(`https://cloud.iexapis.com/stable/stock/${ticker}/company?token=${process.env.VUE_APP_API_KEY}`)
-        .then((response) => {
-          return response.json();
-        })
-        .then((company) => {
-          this.company = company;
-        })
-
-      const timePeriod = this.timePeriod
-      fetch(`https://cloud.iexapis.com/v1/stock/AAPL/chart/${timePeriod}?token=${process.env.VUE_APP_API_KEY}`)
-        .then((response) => {
-          return response.json();
-        })
-        .then((priceDataPoints) => {
-          this.priceDataPoints = priceDataPoints;
-          console.log(this.priceDataPoints[0].close)
-        })
+    
     },
     methods: {
-      //Create a buy trade
+      //POST a trade
       tradeStock(){
+        this.trade.stockValue = this.quote.latestPrice * this.trade.quantity; 
         const authToken = auth.getToken();
-
         fetch(`${process.env.VUE_APP_REMOTE_API}/api/trade`,{
           method: 'POST',
           headers:{
@@ -141,8 +140,46 @@ export default {
           }
         })
         .catch((err) => console.error(err));
+      },
 
-      }
+      //Get latest stock price and related company information
+      stockQuote(){
+        const query = this.trade.ticker;
+        fetch(`https://cloud.iexapis.com/stable/stock/${query}/quote?token=${process.env.VUE_APP_API_KEY}`)
+          .then((response) => {
+            return response.json();
+          })
+        .then((quote) => {
+          this.quote = quote;
+        })
+      fetch(`https://cloud.iexapis.com/stable/stock/${query}/quote?token=${process.env.VUE_APP_API_KEY}`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((quote) => {
+          this.quote = quote;
+        })
+
+      //GET /stock/{symbol}/company
+      fetch(`https://cloud.iexapis.com/stable/stock/${query}/company?token=${process.env.VUE_APP_API_KEY}`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((company) => {
+          this.company = company;
+        })
+
+      // const timePeriod = this.timePeriod
+      // fetch(`https://cloud.iexapis.com/v1/stock/AAPL/chart/${timePeriod}?token=${process.env.VUE_APP_API_KEY}`)
+      //   .then((response) => {
+      //     return response.json();
+      //   })
+      //   .then((priceDataPoints) => {
+      //     this.priceDataPoints = priceDataPoints;
+      //     console.log(this.priceDataPoints[0].close)
+      //   })
+
+    }
     }
 }
 </script>
