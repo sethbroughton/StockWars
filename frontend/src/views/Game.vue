@@ -2,8 +2,8 @@
   <div id="game">
     <user-header></user-header>
       <div class="container">
-        {{game.name}}
         <div class="game-stats u-margin-bottom">
+          <p class="stat">{{game.name}}</p>
           <p class="stat">Balance: $XX,XXX</p>
           <p class="stat">XX Days Left</p>
         </div>
