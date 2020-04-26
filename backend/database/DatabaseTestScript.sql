@@ -19,6 +19,6 @@ INSERT INTO portfolio (user_id, game_id, total_value) VALUES (1, 3, 200000);
 INSERT INTO portfolio (user_id, game_id, total_value) VALUES (1, 4, -10000);
 
 --Trades - Buy
-INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'BUY', 'AAPL', 100, 1000, 0, '2020-04-25')
+INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'BUY', 'AAPL', 100, 19, 0, '2020-04-25')
 
 

@@ -8,7 +8,7 @@ public interface TradeDao {
 
     public List<Trade> listAllTrades();
 
-    public long createNewTrade(Trade trade);
+    public void createNewTrade(Trade trade);
 
     // public List<Trade> listSpecificTrades();                      
 
