@@ -83,7 +83,7 @@ export default {
         return response.json();
       })
       .then ((data) => {
-          this.data = data;
+          this.portfolio = data;
       })
     }
   
