@@ -27,10 +27,9 @@ export default {
   methods: {
 
     startGame() {
-      //my attempt at a start game button, I don't think it works but I
-      //did what I could, I started the v-if statment above too, it's definitely incomplete - Kevin
-      //tried the button again up above, not sure why it isn't clickable
+
       const authToken = auth.getToken();
+      
       const fetchConfigPut = {
         method : "PUT",
         headers: {
@@ -40,7 +39,7 @@ export default {
         },
        body: JSON.stringify(this.game)
       }
-    //creating a new portfolio for the start game button
+
       const fetchConfigPost = {
         method: "POST",
         headers: {
@@ -57,7 +56,7 @@ export default {
           return response.json();
         }
       })
-     .catch((err) => console.error(err));
+      .catch((err) => console.error(err));
 
       fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolio/`, fetchConfigPost)
       .then(response => {

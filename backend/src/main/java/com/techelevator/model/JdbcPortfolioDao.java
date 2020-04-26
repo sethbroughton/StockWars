@@ -66,12 +66,23 @@ public class JdbcPortfolioDao implements PortfolioDao {
     }
 
     @Override
+    public void createPortfolio(long userId, long gameId) {
+        String sqlInsertNewPortfolio = "INSERT INTO portfolio "
+                                        + "(user_id, game_id, total_value) "
+                                        + "VALUES (?, ?, 100000)";
+
+        jdbcTemplate.update(sqlInsertNewPortfolio, userId, gameId);
+    }
+
+    // JEFF: IN PROGRESS
+    @Override
     public Portfolio getPortfolioById(long id) {
         Portfolio thePortfolio = null;
 
         return thePortfolio;
     }
 
+    // JEFF: IN PROGRESS
     @Override
     public Portfolio getCurrentPortfolio() {
         Portfolio thePortfolio = null;
@@ -87,7 +98,6 @@ public class JdbcPortfolioDao implements PortfolioDao {
     portfolio.setGameId(results.getLong("game_id"));
     portfolio.setUserId(results.getLong("user_id"));
     portfolio.setPortfolioId(results.getLong("portfolioId"));
-    //not sure if we need trades here? -Kevin 
     portfolio.setTotalValue(new BigDecimal(results.getString("total_value")));
                     
                     

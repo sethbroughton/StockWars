@@ -103,7 +103,12 @@ public class ApiController {
     //     Portfolio portfolio = portfolioDao.getPortfolio(id);
     //     return portfolio;
     // }
-    
+        
+    @GetMapping("/tradeHistory")
+	public List<Trade> getAllTrades() {
+        return tradeDao.listAllTrades();
+    }
+
 	@PostMapping("/game")
 	@ResponseStatus(HttpStatus.CREATED)
 	public String create(@RequestBody Game game) {
@@ -117,10 +122,12 @@ public class ApiController {
         gameDao.joinGame(gameId);
         return "{\"success\":true}";
     }
-    
-    @GetMapping("/tradeHistory")
-	public List<Trade> getAllTrades() {
-        return tradeDao.listAllTrades();
+
+    @PostMapping("/portfolio")
+	@ResponseStatus(HttpStatus.CREATED)
+	public String createPortfolio(@RequestBody Portfolio portfolio) {
+        portfolioDao.createPortfolio(portfolio.getUserId(), portfolio.getGameId());
+        return "{\"success\":true}";
     }
 
     //starting a new game, updating it with start and end dates
@@ -138,8 +145,7 @@ public class ApiController {
         LocalDate now = LocalDate.now();  
 
         gameDao.startGame(now, now.plusDays(game.getLengthInDays()), id);
-        return "{\"success\":true}";
-       
+        return "{\"success\":true}"; 
         
     }
     
