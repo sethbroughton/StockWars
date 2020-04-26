@@ -58,7 +58,7 @@ CREATE TABLE trade
 (
         trade_id serial,
         portfolio_id int not null,
-        company_name varchar(64) not null,
+--        company_name varchar(64) not null,
         ticker varchar(64) not null,
         type varchar(64) not null,
         quantity int not null,
