@@ -4,11 +4,11 @@
       <h3 class="table-title">Pending Games</h3>
     </div>
     <div v-for="game in pendingGames" :key="game.gameId" class="table-row">
+      <button class="button-small start-game" v-on:click="startGame(game.gameId)">Start</button>
       <span class="table-item">{{game.name}}</span>
       <span class="table-item">Organizer: {{game.organizerName}}</span>
       <span class="table-item">Players: X/{{game.numberOfPlayers}}</span>
       <span class="table-item">{{game.lengthInDays}} Days</span>
-      <button class="button-small start-game" v-on:click="startGame(game.gameId)">Start</button>
     </div>
   </div>
 </template>

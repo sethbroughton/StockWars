@@ -7,11 +7,11 @@
       </div>
     </div>
     <div v-for="game in openGames" :key="game.gameId" class="table-row">
+      <button class="button-small join-button" v-on:click="joinGame(game.gameId)">Join</button>
       <span class="table-item">{{game.name}}</span>
       <span class="table-item">Organizer: {{game.organizerName}}</span>
       <span class="table-item">Players: X/{{game.numberOfPlayers}}</span>
       <span class="table-item">{{game.lengthInDays}} Days</span>
-      <button class="button-small join-button" v-on:click="joinGame(game.gameId)">Join</button>
     </div>
   </div>
 </template>
