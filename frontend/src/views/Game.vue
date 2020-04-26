@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="link-boxes">
-          <router-link v-bind:to="{ name: 'portfolio' }" id="portfolio" class="link-box">
+          <router-link v-bind:to="{ name: 'portfolio', params: {portfolioId: portfolio.portfolioId} }" id="portfolio" class="link-box">
             Portfolio
           </router-link>
           <router-link :to="{ name: 'search' }"  id="search" class="link-box">
