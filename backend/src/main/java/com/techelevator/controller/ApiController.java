@@ -43,8 +43,8 @@ public class ApiController {
 	@Autowired
     private GameDao gameDao;
 
-    @Autowired
-    private TradeDao tradeDao;
+//    @Autowired
+//    private TradeDao tradeDao;
 
     @GetMapping("/")
     public String authorizedOnly() throws UnauthorizedException {
@@ -101,10 +101,10 @@ public class ApiController {
         return "{\"success\":true}";
     }
     
-    @GetMapping("/tradeHistory")
-	public List<Trade> getAllTrades() {
-        return tradeDao.listAllTrades();
-    }
+//    @GetMapping("/tradeHistory")
+//	public List<Trade> getAllTrades() {
+//        return tradeDao.listAllTrades();
+//    }
 
     //starting a new game, updating it with start and end dates
     @PutMapping("/game/{id}")
