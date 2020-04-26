@@ -102,16 +102,11 @@ public class ApiController {
         return portfolioDao.getAllPortfolios();
     }    
 
-    @GetMapping("/currentPortfolio")
-    public Portfolio getPortfolio() {
-        return portfolioDao.getCurrentPortfolio();
+    @GetMapping("/portfolio/{id}")
+    public Portfolio getPortfolio(@PathVariable long id) {
+        Portfolio portfolio = portfolioDao.getPortfolioById(id);
+        return portfolio;
     }
-
-    // @GetMapping("/portfolio/{id}")
-    // public Portfolio getPortfolio(@PathVariable long id) {
-    //     Portfolio portfolio = portfolioDao.getPortfolio(id);
-    //     return portfolio;
-    // }
         
     @GetMapping("/tradeHistory")
 	public List<Trade> getAllTrades() {

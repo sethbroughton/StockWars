@@ -5,7 +5,7 @@
     <div class="container">
       <div class ="table">
         <div class="table-header">
-          <h3 class="table-title">Portfolio - $XXX,XXX</h3>
+          <h3 class="table-title">Portfolio - ${{portfolio.totalValue}}</h3>
           <div class="table-buttons">
             <router-link v-bind:to="{name: 'game'}" id="return-to-game" class="button-small">Return to Game</router-link>
           </div>
@@ -46,6 +46,7 @@
 
 <script>
 import UserHeader from '@/components/UserHeader'
+import auth from '../auth'
 
 export default {
   name: 'portfolio',
@@ -53,19 +54,20 @@ export default {
     UserHeader
   },
   data() {
-        return {
-          data: [{
-            name: '',
-            price: ''
-          }],
-          quotes: {
-            // price: '',
-            // symbol: '',
-            // companyName: ''
-          },
-          symbols: ['AAPL', 'fb', 'tsla'],
-        }
-    },
+    return {
+      portfolio: null,
+      data: [{
+        name: '',
+        price: ''
+      }],
+      quotes: {
+        // price: '',
+        // symbol: '',
+        // companyName: ''
+      },
+      symbols: ['AAPL', 'fb', 'tsla'],
+    }
+  },
   methods: {
     
   },
@@ -83,6 +85,23 @@ export default {
         .then((quotes) => {
           this.quotes = quotes;
         })
+
+    const authToken = auth.getToken();
+
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolios`,{
+        method: 'GET',
+        headers:{
+          Authorization: `Bearer ${authToken}`
+        }
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then((portfolios) => {
+      this.portfolio = portfolios.find(p => p.portfolioId == this.$route.params.portfolioId);
+    })
+    .catch(err => console.log(`Error fetching portfolios ${err}`));
+
 }
 }
 
