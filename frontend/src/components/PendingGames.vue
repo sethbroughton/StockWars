@@ -31,26 +31,44 @@ export default {
       //did what I could, I started the v-if statment above too, it's definitely incomplete - Kevin
       //tried the button again up above, not sure why it isn't clickable
       const authToken = auth.getToken();
-      const fetchConfig = {
-        method : "POST",
+      const fetchConfigPut = {
+        method : "PUT",
         headers: {
-          Accept: 'application/json',
+          Authorization: `Bearer ${authToken}`,
           'Content-Type' : 'application/json',
-          Authorization: `Bearer ${authToken}`
+          'Accept': 'application/json'
         },
        body: JSON.stringify(this.game)
       }
-      
-      fetch(`${process.env.VUE_APP_REMOTE_API}/api/game/${this.pendingGames.gameId}`, fetchConfig)
-      .then(response => {
-      if (response.ok) {
-        this.$router.push('/activeGames')
+    //creating a new portfolio for the start game button
+      const fetchConfigPost = {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type' : 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(this.game)
       }
+      
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/game/${this.pendingGames.gameId}`, fetchConfigPut)
+      .then((response) => {
+        if(response.ok) {
+          return response.json();
+        }
       })
      .catch((err) => console.error(err));
-    }
 
-  },
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolio/`, fetchConfigPost)
+      .then(response => {
+        if (response.ok) {
+          this.router.push('/activeGames')
+        }
+      })
+      .catch((err) => console.error(err));
+  }
+    },
+
   created() {
     const authToken = auth.getToken();
     fetch(`${process.env.VUE_APP_REMOTE_API}/api/pendingGames`,{
