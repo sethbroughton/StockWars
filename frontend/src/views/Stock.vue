@@ -4,20 +4,25 @@
      <routes/>  <ticker-lookup></ticker-lookup>
       <h1>{{quote.companyName}} ({{ticker}})</h1>
 
- <form @submit.prevent="buyStock" class="form u-margin-bottom">
+      <form @submit.prevent="tradeStock" class="form u-margin-bottom">
         <div class="input-fields">
           <div class="form-group u-margin-bottom-small">
-            <label for="username" class="label">Quantity of Shares</label>
+            <label for="quantityOfShares" class="label">Quantity of Shares</label>
             <input
               type="number"
-              v-model="quantity"
+              v-model="trade.quantity"
               required
               autofocus
             />
+            <select v-model="trade.type">
+             <option disabled value="">Please select one</option>
+              <option>BUY</option>
+              <option>SELL</option>
+            </select>
           </div>
         </div>
-
-        <button type="submit" id="" class="button">BUY</button>
+          <button v-if="trade.type==='BUY'" type="submit" id="" class="button">BUY</button>
+          <button v-if="trade.type==='SELL'" type="submit" id="" class="button">SELL</button>
       </form>
 
       <h3>you own (XX) shares</h3>
@@ -30,17 +35,15 @@
             <li> Description: {{company.description}} 
             </li>
         </ul>  
-      <div class="buy-sell-buttons">
+      <!-- <div class="buy-sell-buttons">
         <input type="text" id="buy-shares" name="buy-shares"/>
         <label for="num-shares">Shares</label>
         <p><button class = "buy-btn">BUY</button></p>
         <input type="text" id="sell-shares" name="sell-shares"/>
         <label for="num-shares">Shares</label>        
         <p><button class = "sell-btn"> SELL</button></p>
-    </div>
+    </div> -->
     <stock-chart></stock-chart>
-
-
   </div>
 </template>
 
@@ -66,7 +69,7 @@ export default {
             symbol: '',
             companyName: ''
           },
-          ticker: 'F',
+          symbol: 'AAPL',
           company: {
             symbol: '',
             companyName: '',
@@ -75,20 +78,18 @@ export default {
             website: '',
             description: '', 
           },
+          trade: {
+            "portfolioId": 1,
+            "type": "SELL",
+            "ticker": 'F',
+            "quantity": 0,
+            "stockValue": 0,
+            "commission": 19.99
+          }, 
           timePeriod: '1m',
           priceDataPoints: [{
             close: ''
           }],
-          trade: {
-            "portfolioId": 1,
-            "type": "BUY",
-            "ticker": "AAPL",
-            "quantity": 10,
-            "stockValue": 190,
-            "commission": 10
-          }
-
-
         }
     },
   created(){
@@ -122,33 +123,26 @@ export default {
     },
     methods: {
       //Create a buy trade
-      buyStock(){
+      tradeStock(){
         const authToken = auth.getToken();
-        fetch(`${process.env.VUE_APP_REMOTE_API}/trade`,{
+
+        fetch(`${process.env.VUE_APP_REMOTE_API}/api/trade`,{
           method: 'POST',
           headers:{
           Authorization: `Bearer ${authToken}`,
-          'Content-Type': 'applicatoin/json',
+          'Content-Type': 'application/json',
           'Accept': 'application/json'
           },
           body: JSON.stringify(this.trade)
         })
         .then((response) => {
-          return response.json();
+          if(response.ok){
+            this.$router.push('/portfolio')
+          }
         })
-        .then((success) => {
-          console.log(success)
-        });
+        .catch((err) => console.error(err));
 
       }
-
-
-
-      
-
     }
-
-
-
 }
 </script>
