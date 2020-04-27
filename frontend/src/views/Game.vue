@@ -19,6 +19,13 @@
         </router-link>
       </div>
     </div>
+    
+    <div class="scoreboard">
+      <div class="player-card">Player1<br>$XXX,XXX</div>
+      <div class="player-card">You<br>$XXX,XXX</div>
+      <div class="player-card">Player3<br>$XXX,XXX</div>
+    </div>
+
   </div>
 </template>
 
@@ -91,6 +98,10 @@ export default {
 
 <style scoped>
 
+  #game {
+    position: relative;
+  }
+
 .container {
   padding: 2% 7%;
 
@@ -140,6 +151,25 @@ export default {
 .link-box:hover {
   transform: translateY(-.3rem);
   box-shadow: var(--shadow-large);
+}
+
+.scoreboard {
+  width: 8%;
+
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+
+.player-card {
+  color: var(--color-grey-light-1);
+  background-color: var(--color-tertiary-2);
+  text-align: right;
+  font-size: 1.5rem;
+  font-weight: 700;
+
+  padding: 3% 8%;
+  margin-bottom: 5%;
 }
 
 #portfolio { background-image: linear-gradient(var(--portfolio-image-overlay)), url(../assets/img/portfolio.jpg); }
