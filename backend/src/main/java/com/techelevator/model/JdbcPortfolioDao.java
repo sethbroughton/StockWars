@@ -26,26 +26,28 @@ public class JdbcPortfolioDao implements PortfolioDao {
     public JdbcPortfolioDao(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
-
+    //Played around with this but I didn't want to screw anything up in the controller, 
+    //I figured we could discuss tomorrow - Kevin 
     // @Override
-    // public Portfolio getActiveUserPortfolio(User user, Game game) {
+    // public Portfolio getUserSpecificPortfolio(User user, Game game) {
 
     //     Portfolio portfolio = null;
-    //     ArrayList<Portfolio> portfolios = new ArrayList<Portfolio>();
-    //     String sqlGetPortfolio = "SELECT type, stock_id, quantity, stock_value, total_value, date_of_purchase " +
+      
+    //     String sqlGetPortfolio = "SELECT portfolio.* " +
     //                             "FROM portfolio " +
     //                             "INNER JOIN users " +
-    //                             "ON portfolio.user_id = users.user_id" +
+    //                             "ON portfolio.user_id = users.id" +
     //                             "INNER JOIN trade " +
     //                             "ON trade.portfolio_id = portfolio.portfolio_id " +
-    //                             "WHERE user = ? ";
+    //                             "WHERE user = ? AND game_id = ?";
 
-    //     SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetPortfolio, user);
+    //     SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetPortfolio, user, game);
     //     while (results.next()) {
-
+    //             portfolio = mapRowToPortfolio(results);
+             
     //     }
         
-    //     return null;
+    //     return portfolio;
     // }
 
     @Override
@@ -65,7 +67,7 @@ public class JdbcPortfolioDao implements PortfolioDao {
     @Override
     public void createPortfolio(long userId, long gameId) {
         String sqlInsertNewPortfolio = "INSERT INTO portfolio "
-                                        + "(user_id, game_id, total_value) "
+                                        + "(user_id, game_id, cash) "
                                         + "VALUES (?, ?, 100000)";
 
         jdbcTemplate.update(sqlInsertNewPortfolio, userId, gameId);
@@ -102,7 +104,7 @@ public class JdbcPortfolioDao implements PortfolioDao {
     portfolio.setGameId(results.getLong("game_id"));
     portfolio.setUserId(results.getLong("user_id"));
     portfolio.setPortfolioId(results.getLong("portfolio_id"));
-    portfolio.setTotalValue(new BigDecimal(results.getString("total_value")));
+    portfolio.setCash(new BigDecimal(results.getString("cash")));
                     
                     
         return portfolio;

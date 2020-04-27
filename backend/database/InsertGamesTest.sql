@@ -1,17 +1,29 @@
 BEGIN TRANSACTION;
 ----OVERALL TEST FOR WALT DISNEY GAME
 --Test for user: Atticusf (who won the  game) in each table
-INSERT INTO game (organizer_id, name, winner_id, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (1, 'WaltDisneyCo', 1, 3, 30, '1990-03-07', '1990-03-12', true)
-INSERT INTO users (username, password, salt, role) VALUES ('Atticusf', 'atticusisatticus', 'awdawdwaawdadwawdwawad', 'user')
-INSERT INTO portfolio (portfolio_id, user_id, game_id, total_value) VALUES (1, 3, 3, 123000)
+INSERT INTO users (username, password, salt, role) VALUES ('Atticusf', 'atticusisatticus', 'awdawdwaawdadwawdwawad', 'user');
+INSERT INTO users (username, password, salt, role) VALUES ('Kanye', 'iamagod', 'jfklfdkjldajfajdfdfkjdak', 'user');
+INSERT INTO users (username, password, salt, role) VALUES ('Kevin', 'kevin', 'fhdfdkajf;kadf', 'user');
+INSERT INTO users (username, password, salt, role) VALUES ('Batman', 'martha', 'eruqpruqoeqer', 'user');
+INSERT INTO users (username, password, salt, role) VALUES ('Superman', 'martha', 'fdafadklfj;kladjfa', 'user');
+INSERT INTO users (username, password, salt, role) VALUES ('Spiderman', 'martha', 'dfeiaufpoequf', 'user');
+INSERT INTO game (organizer_id, winner_id, name, number_of_players, length_in_days, start_date, end_date, public_game) 
+                VALUES (1, 1, 'Stock Warz', 50, 30, '1990-03-07', '1990-03-12', true);
+ROLLBACK;
+INSERT INTO game (organizer_id, winner_id, name, number_of_players, length_in_days, start_date, end_date, public_game) 
+                VALUES (1, null, 'Stock Warz', 45, 60, '1990-03-07', '1990-03-12', true);
+ROLLBACK;
+INSERT INTO portfolio (portfolio_id, user_id, game_id, total_value) VALUES (1, 1, 2, 123000)
 INSERT INTO trade (trade_id, portfolio_id, company_name, ticker, type, quantity, date_of_purchase, stock_value, commission) VALUES (1, 1, 'Disney', 'DIS', 'buy', 50, '1990-03-07', 35, 19.95)
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (3, 3, true)
+
+
 
 --Test for user: Scar (who lost the game) in each table
 --Dont need to insert into game, since this is data for the same game that's been created
 INSERT INTO users (username, password, salt, role) VALUES ('Scarf', 'scarscarscar', 'whatnowhydidiloseholycrap!', 'user')
-INSERT INTO portfolio (portfolio_id, user_id, game_id, total_value) VALUES (2, 4, 7, 100000)
-INSERT INTO trade (trade_id, portfolio_id, stock_id, type, quantity, date_of_purchase, stock_value, commission) VALUES (2, 2, 1, 'buy', 30, '1990-03-07', 35, 19.95)
+INSERT INTO portfolio (portfolio_id, user_id, game_id, total_value) VALUES (3, 4, 2, 100000)
+INSERT INTO trade (trade_id, portfolio_id, company_name, ticker type, quantity, date_of_purchase, stock_value, commission) VALUES (2, 2, 'buy', 30, '1990-03-07', 35, 19.95)
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (4, 7, true)
 ROLLBACK;
 COMMIT;
@@ -22,7 +34,7 @@ BEGIN TRANSACTION;
 INSERT INTO game (organizer_id, name, winner_id, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (2, 'Marvel', 2, 2, 15, '2020-04-21', '2020-05-05', true)
 INSERT INTO users (username, password, salt, role) VALUES ('TonyStark', 'tonyruulllesss', 'infinittysstooonneee', 'user')
 INSERT INTO portfolio (portfolio_id, user_id, game_id, total_value) VALUES (3, 5, 8, 2000000)
-INSERT INTO trade (trade_id, portfolio_id, stock_id, type, quantity, date_of_purchase, stock_value, commission) VALUES (3, 3, 3, 'sell', 100, '2020-04-21', 60, 19.95)
+INSERT INTO trade (trade_id, portfolio_id, company_name, ticker, type, quantity, date_of_purchase, stock_value, commission) VALUES (2, 3,'Disney', 'DIS', 'sell', 100, '2020-04-21', 60, 19.95)
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (5, 8, true)
 
 --Test for user: Loki (who didn't accept the invite) in each table
