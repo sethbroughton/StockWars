@@ -10,13 +10,15 @@
             <router-link v-bind:to="{name: 'game', params: {gameId: portfolio.gameId} }" id="return-to-game" class="button-small">Return to Game</router-link>
           </div>
         </div>
-        <div v-for="portfolioEntry in displayPortfolios" v-bind:key="portfolioEntry.portfolioId" class="table-row">
+        <!-- <div v-for="portfolioEntry in displayPortfolios" v-bind:key="portfolioEntry.portfolioId" class="table-row">
           <router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link>
           <span class="table-item">Stock # 1</span>
           <span class="table-item">Ticker</span>
           <span class="table-item">Shares</span>
           <span class="table-item">{{quotes.AAPL.price}}</span>
-          <span class="table-item">Total$</span></div>
+          <span class="table-item">Total$</span></div> -->
+
+
        
       </div>
     </div>
@@ -36,7 +38,7 @@ export default {
   data() {
     return {
       portfolio: { 
-        portfolioId:1
+        portfolioId: this.$route.params.portfolioId
       },
       user: this.$parent.user,
       data: [{
@@ -49,11 +51,15 @@ export default {
         // companyName: ''
       },
       symbols: ['AAPL', 'fb', 'tsla'],
+      stocks: {
+        ticker: '',
+        quantity: ''
+      }
     }
   },
   methods: {
 
-    displayStocksInPortfolio() {
+    displayPortfolio() {
       const authToken = auth.getToken();
       const fetchConfigGet = {
       method: 'GET',
@@ -66,27 +72,29 @@ export default {
          return response.json();
        })
        .then((trades)=> {
-         this.trade = trades.find(t => t.portfolioId == this.user.id && t.gameId == this.$route.params.portfolioId)
+         
+
+         
        })
     },
 
-    displayPortfolios() {
+    // displayPortfolios() {
 
-      const authToken = auth.getToken();
-      const fetchConfigGet = {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${authToken}`
-       }
-      }
-      fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolio${this.portfolio.portfolioId}`, fetchConfigGet)
-      .then((response) => {
-        return response.json();
-      })
-      .then ((data) => {
-          this.portfolio = data;
-      })
-    },
+    //   const authToken = auth.getToken();
+    //   const fetchConfigGet = {
+    //   method: 'GET',
+    //   headers: {
+    //     Authorization: `Bearer ${authToken}`
+    //    }
+    //   }
+    //   fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolio${this.portfolio.portfolioId}`, fetchConfigGet)
+    //   .then((response) => {
+    //     return response.json();
+    //   })
+    //   .then ((data) => {
+    //       this.portfolio = data;
+    //   })
+    // },
 
   returnToGame() {
       const authToken = auth.getToken();
@@ -121,22 +129,7 @@ export default {
           this.quotes = quotes;
         })
 
-    const authToken = auth.getToken();
-
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolios`,{
-        method: 'GET',
-        headers:{
-          Authorization: `Bearer ${authToken}`
-        }
-    })
-    .then(response => {
-      return response.json();
-    })
-    .then((portfolios) => {
-      this.portfolio = portfolios.find(p => p.portfolioId == this.$route.params.portfolioId);
-    })
-    .catch(err => console.log(`Error fetching portfolios ${err}`));
-
+    this.displayPortfolio();
 }
 }
 
