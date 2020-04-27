@@ -86,6 +86,8 @@ public class JdbcPortfolioDao implements PortfolioDao {
         return thePortfolio;
     }
 
+    
+
     // @Override
     // public Game getGameById(long id) {
     //     Game theGame = null;
@@ -108,6 +110,12 @@ public class JdbcPortfolioDao implements PortfolioDao {
                     
                     
         return portfolio;
+  }
+
+  @Override
+  public List<Portfolio> getPortfolioByGameId(long id) {
+      // TODO Auto-generated method stub
+      return null;
   }
 
 }

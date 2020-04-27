@@ -73,6 +73,24 @@ public class JdbcTradeDao implements TradeDao {
 		return allTheTrades;
 	}
 
+	@Override
+	public List<Trade> getTradesPerPortfolio(long id) {
+		
+		Trade theTrade = null;
+		ArrayList<Trade> allTheTrades = new ArrayList<Trade>();
+		String sqlGetTradesPerPortfolio = "SELECT * FROM trade "+ 
+											"WHERE portfolio_id = ?";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetTradesPerPortfolio, id);
+
+		while (results.next()) {
+			theTrade = mapRowSetToTrade(results);
+			allTheTrades.add(theTrade);
+		}
+		return allTheTrades;
+										
+	}
+
 	private Trade mapRowSetToTrade(SqlRowSet results) {
 		Trade theTrade = new Trade();
 
@@ -84,8 +102,12 @@ public class JdbcTradeDao implements TradeDao {
 		theTrade.setStockValue(new BigDecimal(results.getString("stock_value")));
 		theTrade.setDateOfPurchase(LocalDate.parse(results.getString("date_of_purchase")));
 		return theTrade;
-
+		
 	}
+
+
+
+
 	// this is similar to what I was trying to do with the portfolio pages
 	// hoping we can work thru this later - Kevin
 	// @Override
@@ -98,6 +120,7 @@ public class JdbcTradeDao implements TradeDao {
 	// "INNER JOIN users " +
 	// "ON users.user_id = portfolio.portfolio_id " +
 	// "WHERE user = ? ";
+
 
 	// ArrayList<Trade> allTheTrades = new ArrayList<Trade>();
 	// SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllTrades);
