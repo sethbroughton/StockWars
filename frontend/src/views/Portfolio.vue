@@ -10,13 +10,13 @@
             <router-link v-bind:to="{name: 'game', params: {gameId: portfolio.gameId} }" id="return-to-game" class="button-small">Return to Game</router-link>
           </div>
         </div>
-        <!-- <div v-for="portfolioEntry in displayPortfolios" v-bind:key="portfolioEntry.portfolioId" class="table-row">
+        <div v-for="stock in stockArray" v-bind:key="stock.ticker" class="table-row">
           <router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link>
-          <span class="table-item">Stock # 1</span>
-          <span class="table-item">Ticker</span>
-          <span class="table-item">Shares</span>
+          <span class="table-item">{{quotes.name}}</span>
+          <span class="table-item">{{stock.ticker}}</span>
+          <span class="table-item">{{stock.quantity}}</span>
           <span class="table-item">{{quotes.AAPL.price}}</span>
-          <span class="table-item">Total$</span></div> -->
+          <span class="table-item">Total$</span></div>
 
 
        
@@ -46,15 +46,12 @@ export default {
         price: ''
       }],
       quotes: {
-        // price: '',
-        // symbol: '',
-        // companyName: ''
+         price: '',
+         symbol: '',
+         companyName: ''
       },
-      symbols: ['AAPL', 'fb', 'tsla'],
-      stocks: {
-        ticker: '',
-        quantity: ''
-      }
+      tickerArray: ['AAPL', 'fb', 'tsla'],
+      stockArray: []
     }
   },
   methods: {
@@ -67,16 +64,50 @@ export default {
         Authorization: `Bearer ${authToken}`
        }
       }
-       fetch(`${process.env.VUE_APP_REMOTE_API}/api/trades/${this.portfolio.portfolioId}`, fetchConfigGet)
+       fetch(`${process.env.VUE_APP_REMOTE_API}/api/trades/1`, fetchConfigGet)
        .then((response)=> {
          return response.json();
        })
-       .then((trades)=> {
-         
+       .then((trades)=> { 
+         let stocks = {};
+            for (var i = 0; i < trades.length; i++) {
+              let ticker = trades[i].ticker;
+              let num = trades[i].quantity;
+              let type = trades[i].type;
+              if(type=='BUY'){
+                stocks[ticker] = stocks[ticker] ? stocks[ticker] + num : num;
+              } else {
+                stocks[ticker] = stocks[ticker] ? stocks[ticker] - num : num;
+              }
+            }
+            this.tickerArray = Object.keys(stocks); //BUILDS AN ARRAY OF TICKERS FOR THE PUBLIC API CALL
 
-         
+            //BUILDS AN ARRAY OF OBJECTS TO RENDER EACH LINE ITEM IN THE PORTFOLIO
+            this.stockArray = [];
+              for(let i = 0; i<this.tickerArray.length; i++){
+                let object = {};
+                object.ticker = this.tickerArray[i];
+                object.quantity = stocks[this.tickerArray[i]];
+                this.stockArray.push(object);
+              }
+
        })
     },
+
+    updateStockPrices(){
+      let query = "";
+        let tickerArray = this.tickerArray;
+          for(let i = 0; i<tickerArray.length; i++){
+              query += tickerArray[i] + ','
+          }
+            fetch(`https://cloud.iexapis.com/v1/stock/market/batch?&types=price&symbols=${query}&token=${process.env.VUE_APP_API_KEY}`)
+              .then((response) => {
+                return response.json();
+              })
+              .then((quotes) => {
+                this.quotes = quotes;
+              })
+    }
 
     // displayPortfolios() {
 
@@ -96,40 +127,27 @@ export default {
     //   })
     // },
 
-  returnToGame() {
-      const authToken = auth.getToken();
-      const fetchConfig = {
-        method : "GET",
-        headers:{
-          Authorization : `Bearer ${authToken}`
-        }
-      }
-      fetch(`${process.env.VUE_APP_REMOTE_API}/game/myGame/${this.portfolio.portfolioId}`, fetchConfig)
-      .then(response => {
-        if (response.ok){
-          this.router.push(`/game/myGame/${this.portfolio.portfolioId}`)
-        }
-      })
-       .catch((err) => console.error(err));
-      }
+  // returnToGame() {
+  //     const authToken = auth.getToken();
+  //     const fetchConfig = {
+  //       method : "GET",
+  //       headers:{
+  //         Authorization : `Bearer ${authToken}`
+  //       }
+  //     }
+  //     fetch(`${process.env.VUE_APP_REMOTE_API}/game/myGame/${this.portfolio.portfolioId}`, fetchConfig)
+  //     .then(response => {
+  //       if (response.ok){
+  //         this.router.push(`/game/myGame/${this.portfolio.portfolioId}`)
+  //       }
+  //     })
+  //      .catch((err) => console.error(err));
+  //     }
     
   },
   created(){
-    //Batch API call - Seth
-    let query = "";
-    let symbols = this.symbols;
-    for(let i = 0; i<symbols.length; i++){
-        query += symbols[i] + ','
-    }
-      fetch(`https://cloud.iexapis.com/v1/stock/market/batch?&types=price&symbols=${query}&token=${process.env.VUE_APP_API_KEY}`)
-        .then((response) => {
-          return response.json();
-        })
-        .then((quotes) => {
-          this.quotes = quotes;
-        })
-
     this.displayPortfolio();
+    this.updateStockPrices();
 }
 }
 
