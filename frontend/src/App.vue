@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view v-on:loggedIn="loggedIn" />
   </div>
 </template>
 
@@ -16,23 +16,27 @@ export default {
       }
     }
   },
+  methods: {
+    loggedIn() {
+      const authToken = auth.getToken();
+
+      fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`,{
+        method: 'GET',
+        headers:{
+        Authorization: `Bearer ${authToken}`
+        }
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((currentUser) => {
+        this.user.username = currentUser.username;
+        this.user.id = currentUser.id;
+      });
+    }
+  },
   created() {
-    const authToken = auth.getToken();
-
-    fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`,{
-      method: 'GET',
-      headers:{
-      Authorization: `Bearer ${authToken}`
-      }
-    })
-    .then((response) => {
-      return response.json();
-    })
-    .then((currentUser) => {
-      this.user.username = currentUser.username;
-      this.user.id = currentUser.id;
-    });
-
+      this.loggedIn();
   }
 }
 </script>
@@ -145,8 +149,7 @@ a {
   color: var(--color-grey-light-1);
   box-shadow: var(--shadow);
 
-
-  padding: 3rem 5rem;
+  padding: 2rem 3rem;
 
   display: flex;
   flex-direction: column;
@@ -155,6 +158,16 @@ a {
 
 .form-group {
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-group > * {
+  padding: .5rem 1rem;
+}
+
+.form-group > input {
+  max-width: 30%;
 }
 
 .label {

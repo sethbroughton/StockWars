@@ -1,27 +1,30 @@
 <template>
-  <div>
-    <form @submit.prevent="tickerSearch" class="form u-margin-bottom">
-        <div class="input-fields">
-            <div class="form-group u-margin-bottom-small">
-                <label for="search" class="label">Find a Ticker</label>
-                <input
-                type="text"
-                id="search"
-                v-model="companyFragment"
-                autofocus
-                required
-                />
-            </div>
-        </div>
-    <button type="submit" id="search" class="button">Search</button>
+  <div id="ticker-lookup">
+
+    <form @submit.prevent="tickerSearch" class="form u-margin-bottom-small">
+      <div class="input-fields">
+          <div class="form-group u-margin-bottom-small">
+              <label for="search" class="label">Company</label>
+              <input
+              type="text"
+              id="search"
+              v-model="companyFragment"
+              autofocus
+              required
+              />
+          </div>
+      </div>
+      <button type="submit" id="search-button" class="button">Search</button>
     </form>
-        <ul>
-        <li v-for="company in companySearch"
-          v-bind:key="company.symbol">
-          {{company.symbol}}
-          {{company.securityName}}
-        </li>
-      </ul>
+
+    <ul>
+      <li v-for="company in companySearch"
+        v-bind:key="company.symbol">
+        {{company.symbol}}
+        {{company.securityName}}
+      </li>
+    </ul>
+
   </div>
 </template>
 
@@ -54,6 +57,24 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+#ticker-lookup {
+
+}
+
+ul {
+  text-align: center;
+}
+
+li {
+  list-style: none;
+  color: var(--color-grey-light-1);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+#search-button {background-color: var(--color-complementary-2);}
+#search-button:hover {background-color: var(--color-complementary-1);}
 
 </style>

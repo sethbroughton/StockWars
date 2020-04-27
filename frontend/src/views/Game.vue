@@ -7,7 +7,9 @@
         <p class="stat">Balance: ${{portfolio.totalValue}}</p>
         <p class="stat">XX Days Left</p>
       </div>
-      <stock-search class="u-margin-bottom"/>
+
+      <stock-buy-sell class="u-margin-bottom"/>
+
       <div class="link-boxes">
         <router-link v-bind:to="{ name: 'portfolio', params: {portfolioId: portfolio.portfolioId} }" id="portfolio" class="link-box">
           Portfolio
@@ -22,14 +24,14 @@
 
 <script>
 import UserHeader from '@/components/UserHeader'
-import StockSearch from '@/components/StockSearch'
+import StockBuySell from '@/components/StockBuySell'
 import auth from '../auth'
 
 export default {
   name: 'game',
   components: {
     UserHeader,
-    StockSearch
+    StockBuySell,
   },
   data() {
     return {
@@ -107,6 +109,11 @@ export default {
   justify-content: space-between;
 }
 
+.search-and-trade {
+  display: flex;
+  align-items: flex-start;
+}
+
 .link-boxes {
   width: 100%;
 
@@ -136,7 +143,6 @@ export default {
 }
 
 #portfolio { background-image: linear-gradient(var(--portfolio-image-overlay)), url(../assets/img/portfolio.jpg); }
-#search { background-image: linear-gradient(var(--search-image-overlay)), url(../assets/img/search.jpg); }
 #history { background-image: linear-gradient(var(--history-image-overlay)), url(../assets/img/history.jpg); }
 
 </style>

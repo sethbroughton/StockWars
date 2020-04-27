@@ -9,7 +9,6 @@ import GameLobby from './views/GameLobby.vue'
 import Invite from './views/Invite.vue'
 import Game from './views/Game.vue'
 import Portfolio from './views/Portfolio.vue'
-import Search from './views/Search.vue'
 import TradeHistory from './views/TradeHistory.vue'
 
 Vue.use(Router)
@@ -71,14 +70,6 @@ const router = new Router({
       path: '/portfolio/:portfolioId',
       name: 'portfolio',
       component: Portfolio,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/search',
-      name: 'search',
-      component: Search,
       meta: {
         requiresAuth: true
       }

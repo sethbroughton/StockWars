@@ -1,10 +1,13 @@
 <template>
-  <div id="stock">
+  <div id="stock-buy-sell">
+
+    <ticker-lookup/>
+
     <div class="search">
       <form @submit.prevent="stockQuote" class="form u-margin-bottom-small">
         <div class="input-fields">
           <div class="form-group u-margin-bottom-small">
-            <label for="search" class="label">Search by Ticker</label>
+            <label for="search" class="label">Ticker</label>
             <input
               type="text"
               id="search"
@@ -14,10 +17,10 @@
             />
           </div>
         </div>
-        <button type="submit" id="search-button" class="button">Search</button>
+        <button type="submit" id="search-button" class="button">Details</button>
       </form>
 
-      <div id="stock-info">
+      <div id="stock-info" v-if="lookup">
         <h3 class="stock-name u-margin-bottom-small">{{quote.companyName}} ({{quote.symbol}})</h3>
         <ul>          
           <li> Current Price: ${{quote.latestPrice}}</li>
@@ -29,12 +32,10 @@
           <!-- <li> Description: {{company.description}} </li> -->
         </ul> 
       </div>
-
     </div>
-    <form @submit.prevent="tradeStock" id="buy-sell" class="form u-margin-bottom">
-      <div class="table-header u-margin-bottom-small">
-        You own (XX) shares
-      </div>
+
+    <form @submit.prevent="tradeStock" v-if="lookup" id="buy-sell" class="form u-margin-bottom">
+      <h3 class="label u-margin-bottom-small">You own (XX) shares</h3>
       <div class="input-fields">
         <div class="form-group u-margin-bottom-small trade-input">
           <input
@@ -50,23 +51,25 @@
           </select>
         </div>
       </div>
-      <button v-if="trade.type==='BUY'" type="submit" id="" class="button trade-button">BUY [${{stockValue}}]</button>
-      <button v-if="trade.type==='SELL'" type="submit" id="" class="button trade-button">SELL [${{stockValue}}]</button>
+      <button v-if="trade.type==='BUY'" type="submit" id="" class="button trade-button">BUY ${{stockValue}}</button>
+      <button v-if="trade.type==='SELL'" type="submit" id="" class="button trade-button">SELL ${{stockValue}}</button>
     </form>
 
   </div>
 </template>
 
 <script>
+import TickerLookup from '@/components/TickerLookup'
 import auth from '../auth';
 
 export default {
-  name: 'stock',
+  name: 'stock-buy-sell',
   components: {
-
+    TickerLookup
   },
  data() {
     return {
+      lookup: false,
       quote: {
         latestPrice: 0,
         symbol: '',
@@ -153,6 +156,9 @@ export default {
         this.company = company;
       })
 
+      //Display results and buy/sell options
+      this.lookup = true;
+
       // const timePeriod = this.timePeriod
       // fetch(`https://cloud.iexapis.com/v1/stock/AAPL/chart/${timePeriod}?token=${process.env.VUE_APP_API_KEY}`)
       //   .then((response) => {
@@ -170,25 +176,20 @@ export default {
 
 <style scoped>
 
-ul {
-  text-align: center;
-}
-
-li {
-  list-style: none;
-  color: var(--color-grey-light-1);
-  font-size: 2rem;
-  font-weight: 600;
-}
-
-#stock {
+#stock-buy-sell {
   display: flex;
-  align-items: center;
+  justify-content: space-evenly;
+  align-items: flex-start;
+
+  width: 100%;
+}
+
+#stock-buy-sell > * {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .search {
-  margin: 1rem;
-
   display: flex;
   flex-direction: column;
 }
@@ -207,29 +208,31 @@ li {
   font-weight: 700;
 }
 
-.form-group > * {
-  padding: .5rem 1rem;
-}
-
 .trade-input {
   display: flex;
   justify-content: center;
 }
 
 .trade-input > * {
-  width: 30%;
   margin: 0 2%;
   text-align: center;
 }
 
-#buy-sell {
-  margin: 1rem;
+ul {
+  text-align: center;
 }
 
-#search-button { background-color: var(--color-complementary-2); }
-#search-button:hover { background-color: var(--color-complementary-1); }
+li {
+  list-style: none;
+  color: var(--color-grey-light-1);
+  font-size: 2rem;
+  font-weight: 600;
+}
 
-.trade-button { background-color: var(--color-tertiary-2); }
-.trade-button:hover { background-color: var(--color-tertiary-1); }
+#search-button { background-color: var(--color-tertiary-2); }
+#search-button:hover { background-color: var(--color-tertiary-1); }
+
+.trade-button { background-color: var(--color-complementary-2); }
+.trade-button:hover { background-color: var(--color-complementary-1); }
 
 </style>
