@@ -11,7 +11,7 @@
             type="text"
             id="gameId"
             v-model="game.gameId"
-            placeholder="NEEDS DATA BINDING"
+            placeholder="Game"
             required
             autofocus
             />
@@ -22,7 +22,7 @@
             type="number"
             id="playerId"
             v-model="game.playerId"
-            placeholder="NEEDS DATA BINDING"
+            placeholder="Player Id"
             required
             />
           </div>
@@ -47,6 +47,7 @@
 <script>
 
 import UserHeader from '@/components/UserHeader'
+import auth from '../auth'
 export default {
   name: 'invite',
   data() {
@@ -60,6 +61,26 @@ export default {
   },
   components: {
     UserHeader    
+  },
+  methods: {
+    inviteToGame() {
+      const authToken = auth.getToken();
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/invite`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`
+        },
+        body: JSON.stringify(this.game)
+      })
+      .then((response) => {
+        if(response.ok) {
+           this.$router.push('/lobby');
+        }
+      })
+      .catch((err) => console.error(err));
+    }
   }
 };
 
