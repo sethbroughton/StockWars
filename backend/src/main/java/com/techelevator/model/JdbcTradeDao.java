@@ -32,25 +32,25 @@ public class JdbcTradeDao implements TradeDao {
 	@Override
 	public void createNewTrade(Trade trade) {
 		BigDecimal accountBalance = null;
-		
 		//Get current CASH balance from portfolio table
-//		String sqlGetCurrentCashBalance = "SELECT cash from portfolio where portfolio_id=?";
-//		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetCurrentCashBalance, trade.getPortfolioId());
-//		accountBalance = new BigDecimal(results.getString("cash"));
-//
-//		
-//		//BUY (subtract money) or SELL (add money)
-//		BigDecimal newBalance = null;
-//		if(trade.getType().equals("BUY")) {
-//			newBalance = accountBalance.subtract(trade.getStockValue());
-//		} else {
-//			newBalance = accountBalance.add(trade.getStockValue());
-//		}
-//		
-//		//Updated current CASH balance in portfolio table
-//		String sqlUpdateAccountBalance = "UPDATE portfolio SET total_value = ? WHERE porfolio_id = ?";
-//		jdbcTemplate.update(sqlUpdateAccountBalance, newBalance, trade.getPortfolioId());
-//		
+		String sqlGetCurrentCashBalance = "SELECT cash from portfolio where portfolio_id=?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetCurrentCashBalance, trade.getPortfolioId());
+
+	    if (results.next()) {
+	    	accountBalance = new BigDecimal(results.getString("cash"));
+	    }
+
+		//BUY (subtract money) or SELL (add money)
+		BigDecimal newBalance = null;
+		if(trade.getType().equals("BUY")) {
+			newBalance = accountBalance.subtract(trade.getStockValue());
+		} else {
+			newBalance = accountBalance.add(trade.getStockValue());
+		}
+		
+		//Updated current CASH balance in portfolio table
+		String sqlUpdateAccountBalance = "UPDATE portfolio SET cash = ? WHERE portfolio_id = ?";
+		jdbcTemplate.update(sqlUpdateAccountBalance, newBalance, trade.getPortfolioId());
 		
 		//Create trade in trade table
 		String sqlInsertNewTrade = "INSERT INTO trade (portfolio_id, type, ticker, "
