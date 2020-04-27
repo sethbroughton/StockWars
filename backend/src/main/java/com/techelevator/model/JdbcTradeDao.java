@@ -27,8 +27,6 @@ public class JdbcTradeDao implements TradeDao {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	// inserts a new trade into the database -Kevin
-
 	@Override
 	public void createNewTrade(Trade trade) {
 		BigDecimal accountBalance = null;

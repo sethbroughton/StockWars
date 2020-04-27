@@ -62,7 +62,8 @@
         <label for="num-shares">Shares</label>        
         <p><button class = "sell-btn"> SELL</button></p>
     </div> -->
-    <stock-chart></stock-chart>
+    
+    <!-- <stock-chart></stock-chart> -->
   </div>
 </template>
 
@@ -99,7 +100,7 @@ export default {
           trade: {
             portfolioId: 1,  //Change routing so you must go to portfolio page to then navigate to buy/sell
             type: '',
-            ticker: 'F', //From search stock query
+            ticker: '', //From search stock query
             quantity: 0, //Form input
             stockValue: 0,
             commission: 19.99 //Standard commission
