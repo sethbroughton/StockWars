@@ -1,52 +1,35 @@
 <template>
   <div id="game">
     <user-header></user-header>
-      <div class="container">
-        <div class="game-stats u-margin-bottom">
-          <p class="stat">{{game.name}}</p>
-          <p class="stat">Balance: ${{portfolio.totalValue}}</p>
-          <p class="stat">XX Days Left</p>
-        </div>
-        <div class="progress-graph u-margin-bottom-small">
-          [PROGRESS GRAPH]
-        </div>
-        <div class="legend u-margin-bottom">
-          <div class="legend-player">
-            <div class="player-color player1"></div>
-            <p>PLAYER 1</p>
-          </div>
-          <div class="legend-player">
-            <div class="player-color player2"></div>
-            <p>PLAYER 2</p>
-          </div>
-          <div class="legend-player">
-            <div class="player-color player3"></div>
-            <p>PLAYER 3</p>
-          </div>
-        </div>
-        <div class="link-boxes">
-          <router-link v-bind:to="{ name: 'portfolio', params: {portfolioId: portfolio.portfolioId} }" id="portfolio" class="link-box">
-            Portfolio
-          </router-link>
-          <router-link :to="{ name: 'search' }"  id="search" class="link-box">
-            Search
-          </router-link>
-          <router-link :to="{ name: 'trade-history' }" id="history" class="link-box">
-            History
-          </router-link>
-        </div>
+    <div class="container">
+      <div class="game-stats u-margin-bottom">
+        <p class="stat">{{game.name}}</p>
+        <p class="stat">Balance: ${{portfolio.totalValue}}</p>
+        <p class="stat">XX Days Left</p>
       </div>
+      <stock-search class="u-margin-bottom"/>
+      <div class="link-boxes">
+        <router-link v-bind:to="{ name: 'portfolio', params: {portfolioId: portfolio.portfolioId} }" id="portfolio" class="link-box">
+          Portfolio
+        </router-link>
+        <router-link :to="{ name: 'trade-history' }" id="history" class="link-box">
+          History
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import UserHeader from '@/components/UserHeader'
+import StockSearch from '@/components/StockSearch'
 import auth from '../auth'
 
 export default {
   name: 'game',
   components: {
-    UserHeader
+    UserHeader,
+    StockSearch
   },
   data() {
     return {
@@ -108,6 +91,10 @@ export default {
 
 .container {
   padding: 2% 7%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .game-stats {
@@ -118,45 +105,6 @@ export default {
 
   display: flex;
   justify-content: space-between;
-}
-
-.progress-graph {
-  width: 100%;
-  padding: 10rem;
-  background-color: var(--color-secondary-2);
-}
-
-.legend {
-  color: var(--color-grey-light-1);
-  font-size: 2rem;
-  font-weight: 600;
-
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.legend-player {
-  display: flex;
-  align-items: center;
-}
-
-.player-color {
-  width: 2rem;
-  height: 2rem;
-
-  margin-right: 1rem;
-}
-
-.player1 {
-  background-color: var(--color-red-2);
-}
-
-.player2 {
-  background-color: var(--color-purple-2);
-}
-
-.player3 {
-  background-color: var(--color-green-2);
 }
 
 .link-boxes {
