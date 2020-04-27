@@ -13,17 +13,13 @@
 import auth from '../auth';
 
 export default {
-    name: 'user-header',
-    data() {
-      return {
-        header: true,
-        user: {
-          name: ''
-        }
-      }
-    },
-     methods: {
-
+  name: 'user-header',
+  data() {
+    return {
+      user: this.$parent.user
+    }
+  },
+  methods: {
     logout() {
       const authToken = auth.getToken();
       const fetchConfig = {
@@ -41,26 +37,8 @@ export default {
       })
        .catch((err) => console.error(err));
       }
-  },
-    created() {
-      const authToken = auth.getToken();
-
-      fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`,{
-       method: 'GET',
-       headers:{
-        Authorization: `Bearer ${authToken}`
-        }
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((currentUser) => {
-          this.user.name = currentUser.username;
-        });
-    },
-
- 
-    }
+  } 
+}
 
 </script>
 

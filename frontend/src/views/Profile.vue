@@ -46,12 +46,12 @@ export default {
       Authorization: `Bearer ${authToken}`
       }
     })
-      .then((response) => {
-        return response.json();
-      })
-      .then((currentUser) => {
-        this.user.name = currentUser.username;
-      });
+    .then((response) => {
+      return response.json();
+    })
+    .then((currentUser) => {
+      this.user.name = currentUser.username;
+    });
   }
 }
 

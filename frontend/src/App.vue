@@ -5,19 +5,38 @@
 </template>
 
 <script>
-
+import auth from './auth';
 export default {
   name: 'app',
   data() {
     return {
-
+      user: {
+        name: '',
+        id: ''
+      }
     }
   },
   created() {
-    
+    const authToken = auth.getToken();
+
+    fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`,{
+      method: 'GET',
+      headers:{
+      Authorization: `Bearer ${authToken}`
+      }
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((currentUser) => {
+      this.user.name = currentUser.username;
+    });
+
   }
 }
 </script>
+
+
 
 <style>
 

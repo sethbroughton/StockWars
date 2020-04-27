@@ -50,7 +50,7 @@ export default {
   },
   data() {
     return {
-      user: [],
+      user: UserHeader.user,
       game: null,
       portfolio: null
     }
