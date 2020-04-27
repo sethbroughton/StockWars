@@ -115,7 +115,7 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public List<User> getUsersInGame(long gameId) {
+    public List<User> getUsersInGame(Game game) {
         List<User> users = new ArrayList<User>();
         String sqlSelectAllUsersInGame = "SELECT users.* "
                                             + "FROM users "
@@ -123,7 +123,7 @@ public class JdbcUserDao implements UserDao {
                                             + "JOIN game ON (users_game.game_id = game.game_id) "
                                             + "WHERE game.game_id = ?";
         
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSelectAllUsersInGame, gameId);
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSelectAllUsersInGame, game.getGameId());
         
         while(results.next()) {
             User theUser = mapResultToUser(results);
