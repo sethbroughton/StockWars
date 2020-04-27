@@ -6,17 +6,6 @@
       <div class="invite-to-game">
         <form class="form" @submit.prevent="inviteToGame">
           <div class="form-group u-margin-bottom">
-            <label for="gameId" class="label">Game Id</label>
-            <input
-            type="text"
-            id="gameId"
-            v-model="game.gameId"
-            placeholder="Game"
-            required
-            autofocus
-            />
-          </div>
-          <div class="form-group u-margin-bottom">
             <label for="playerId" class="label">Player Id</label>
             <input
             type="number"
@@ -35,9 +24,9 @@
             required          
             />
           </div> -->
-          <router-link :to="{ name: 'lobby' }" id="invite-player" class="button" type="submit">
+         <button id = "invite" class = "button" type = "submit">
             Invite
-          </router-link>              
+          </button>             
         </form>
       </div>
     </div>
@@ -53,7 +42,7 @@ export default {
   data() {
     return {
       game: {
-        gameId: '',
+        gameId: this.$router.gameId,
         playerId: ''
       },
       user: this.$parent.user
@@ -65,14 +54,14 @@ export default {
   methods: {
     inviteToGame() {
       const authToken = auth.getToken();
-      fetch(`${process.env.VUE_APP_REMOTE_API}/api/invite`, {
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/invite/${this.game.gameId}` , {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
           Authorization: `Bearer ${authToken}`
         },
-        body: JSON.stringify(this.game)
+        body: JSON.stringify(this.game.playerId)
       })
       .then((response) => {
         if(response.ok) {

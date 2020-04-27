@@ -245,10 +245,4 @@ public class JdbcGameDao implements GameDao {
             } return gameId;
     }
 
-	@Override
-	public void returnToGame(long gameId) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

@@ -127,10 +127,10 @@ public class ApiController {
         return "{\"success\":true}";
     }
     
-    @PostMapping("/invite")
+    @PostMapping("/invite/{gameId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public String invitePlayer(@RequestBody long gameId, @RequestBody long userId) {
-        userDao.inviteUser(gameId, userId);
+    public String invitePlayer(@RequestBody long userId, @PathVariable long gameId) {
+        userDao.inviteUser(userId);
         return "{\"success\":true}";
     }
 
