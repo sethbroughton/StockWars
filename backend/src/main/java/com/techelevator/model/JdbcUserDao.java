@@ -152,5 +152,11 @@ public class JdbcUserDao implements UserDao {
             return null;
         }
     }
+    
+    @Override
+    public void inviteUser(Long userId, Long gameId) {
+    	String sqlAddInvite = "INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (?, ?, false)";
+    	jdbcTemplate.update(sqlAddInvite, userId, gameId);
+    }
 
 }

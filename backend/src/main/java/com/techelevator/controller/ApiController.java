@@ -126,6 +126,13 @@ public class ApiController {
         gameDao.joinGame(gameId);
         return "{\"success\":true}";
     }
+    
+    @PostMapping("/invite")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String invitePlayer(@RequestBody long gameId, @RequestBody long userId) {
+        userDao.inviteUser(gameId, userId);
+        return "{\"success\":true}";
+    }
 
     @PostMapping("/portfolios")
 	@ResponseStatus(HttpStatus.CREATED)
