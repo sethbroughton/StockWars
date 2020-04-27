@@ -7,7 +7,7 @@
         <div class="table-header">
           <h3 class="table-title">Portfolio - ${{portfolio.cash}}</h3>
           <div class="table-buttons">
-            <router-link v-bind:to="{name: 'game'}" id="return-to-game" class="button-small">Return to Game</router-link>
+            <router-link v-bind:to="{name: 'game', params: {gameId: portfolio.gameId} }" id="return-to-game" class="button-small">Return to Game</router-link>
           </div>
         </div>
         <div v-for="portfolioEntry in displayPortfolios" v-bind:key="portfolioEntry.portfolioId" class="table-row">
