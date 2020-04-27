@@ -54,7 +54,8 @@ export default {
       game: {
         gameId: '',
         playerId: ''
-      }
+      },
+      user: this.$parent.user
     }
   },
   components: {

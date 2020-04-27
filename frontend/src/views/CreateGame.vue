@@ -49,6 +49,7 @@ export default {
   name: 'create',
   data() {
     return {
+      user: this.$parent.user,
       game: {
         organizerId: '',
         name: '',

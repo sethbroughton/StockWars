@@ -2,7 +2,7 @@
   <header class="header">
     <h1 class="title">Stock Wars</h1>
     <div class="user-info">
-      <router-link :to="{ name: 'profile' }" class="header-link">{{ user.name }}</router-link>
+      <router-link :to="{ name: 'profile' }" class="header-link">{{ user.username }}</router-link>
       <form v-on:click="logout" class="header-link">Sign out</form>
       <img src="../assets/img/sample-user-avi.jpg" alt="user avi">
     </div>

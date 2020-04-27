@@ -19,7 +19,6 @@ import LeaderBoard from '@/components/LeaderBoard';
 import ActiveGames from '@/components/ActiveGames';
 import UserStatistics from '@/components/UserStatistics';
 import UserHeader from '@/components/UserHeader';
-import auth from '../auth';
 
 export default {
   name: 'profile',
@@ -32,26 +31,8 @@ export default {
   },
   data() {
     return {
-      user: {
-          name: ''
-        }
+      user: this.$parent.user
     }
-  },
-  created() {
-    const authToken = auth.getToken();
-
-    fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`,{
-      method: 'GET',
-      headers:{
-      Authorization: `Bearer ${authToken}`
-      }
-    })
-    .then((response) => {
-      return response.json();
-    })
-    .then((currentUser) => {
-      this.user.name = currentUser.username;
-    });
   }
 }
 

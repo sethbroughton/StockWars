@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       user: {
-        name: '',
+        username: '',
         id: ''
       }
     }
@@ -29,7 +29,8 @@ export default {
       return response.json();
     })
     .then((currentUser) => {
-      this.user.name = currentUser.username;
+      this.user.username = currentUser.username;
+      this.user.id = currentUser.id;
     });
 
   }

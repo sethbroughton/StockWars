@@ -56,6 +56,7 @@ export default {
   data() {
     return {
       portfolio: null,
+      user: this.$parent.user,
       data: [{
         name: '',
         price: ''

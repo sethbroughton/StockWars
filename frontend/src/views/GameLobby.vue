@@ -20,6 +20,11 @@ export default {
     UserHeader,
     OpenGames,
     PendingGames
+  },
+  data() {
+    return {
+      user: this.$parent.user
+    }
   }
 };
 </script>

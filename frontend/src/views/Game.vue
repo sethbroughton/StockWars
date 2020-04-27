@@ -50,7 +50,7 @@ export default {
   },
   data() {
     return {
-      user: UserHeader.user,
+      user: this.$parent.user,
       game: null,
       portfolio: null
     }
