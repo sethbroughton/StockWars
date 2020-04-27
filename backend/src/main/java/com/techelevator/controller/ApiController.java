@@ -166,5 +166,9 @@ public class ApiController {
     	return "{\"success\":true}";
     }
     
+    @GetMapping("/trades/{id}")
+    public List<Trade> getAllTradesInPortfolio(@PathVariable long id) {
+        return tradeDao.getTradesPerPortfolio(id);
+    }
 
 }
