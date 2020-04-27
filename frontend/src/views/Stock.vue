@@ -11,7 +11,7 @@
             <input
               type="text"
               id="search"
-              v-model="trade.ticker"
+              :value="trade.ticker.toUpperCase()" @input="trade.ticker = $event.target.value.toUpperCase()"
               autofocus
               required
             />
@@ -114,7 +114,7 @@ export default {
     },
   computed: {
     stockValue() {
-      return this.quote.latestPrice * this.trade.quantity;
+      return (Math.round(this.quote.latestPrice * this.trade.quantity*100) / 100).toFixed(2)
     }
 
   },
@@ -122,9 +122,9 @@ export default {
     
     },
     methods: {
-      //POST a trade
+      //POST a trade 
       tradeStock(){
-        this.trade.stockValue = this.quote.latestPrice * this.trade.quantity; 
+        this.trade.stockValue = (Math.round(this.quote.latestPrice * this.trade.quantity*100) / 100).toFixed(2)
         const authToken = auth.getToken();
         fetch(`${process.env.VUE_APP_REMOTE_API}/api/trade`,{
           method: 'POST',
