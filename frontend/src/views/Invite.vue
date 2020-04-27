@@ -37,12 +37,13 @@
 
 import UserHeader from '@/components/UserHeader'
 import auth from '../auth'
+
 export default {
   name: 'invite',
   data() {
     return {
       game: {
-        gameId: this.$router.gameId,
+        gameId: this.$route.params.gameId,
         playerId: ''
       },
       user: this.$parent.user
@@ -54,7 +55,7 @@ export default {
   methods: {
     inviteToGame() {
       const authToken = auth.getToken();
-      fetch(`${process.env.VUE_APP_REMOTE_API}/api/invite/${this.game.gameId}` , {
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/invite/${this.game.gameId}`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

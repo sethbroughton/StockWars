@@ -154,9 +154,9 @@ public class JdbcUserDao implements UserDao {
     }
     
     @Override
-    public void inviteUser(Long userId) {
+    public void inviteUser(Long userId, Long gameId) {
     	String sqlAddInvite = "INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (?, ?, false)";
-    	jdbcTemplate.update(sqlAddInvite, userId);
+    	jdbcTemplate.update(sqlAddInvite, userId, gameId);
     }
 
 }
