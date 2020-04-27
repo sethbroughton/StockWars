@@ -143,6 +143,8 @@ a {
 .form {
   background-color: rgba(47, 54, 64, .7);
   color: var(--color-grey-light-1);
+  box-shadow: var(--shadow);
+
 
   padding: 3rem 5rem;
 
@@ -164,6 +166,7 @@ a {
 .table {
   color: var(--color-grey-light-1);
   width: 70%;
+  box-shadow: var(--shadow);
 
   display: flex;
   flex-direction: column;

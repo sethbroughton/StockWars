@@ -11,7 +11,6 @@ import Game from './views/Game.vue'
 import Portfolio from './views/Portfolio.vue'
 import Search from './views/Search.vue'
 import TradeHistory from './views/TradeHistory.vue'
-import Stock from './views/Stock.vue'
 
 Vue.use(Router)
 
@@ -80,14 +79,6 @@ const router = new Router({
       path: '/search',
       name: 'search',
       component: Search,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/Stock',
-      name: 'stock',
-      component: Stock,
       meta: {
         requiresAuth: true
       }
