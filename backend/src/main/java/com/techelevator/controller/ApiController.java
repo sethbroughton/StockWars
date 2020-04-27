@@ -170,5 +170,10 @@ public class ApiController {
     public List<Trade> getAllTradesInPortfolio(@PathVariable long id) {
         return tradeDao.getTradesPerPortfolio(id);
     }
+    //for the return to game button
+    @GetMapping("/game/mygame/{id}")
+    public long getGameWithPortfolioId(@PathVariable long id) {
+        return gameDao.getGameWithPortfolioId(id);
+    }
 
 }
