@@ -92,7 +92,8 @@ export default {
       priceDataPoints: [{
         close: ''
       }],
-      query: ''
+      query: '',
+      portfolio: this.$parent.portfolio
     }
   },
   computed: {
@@ -119,7 +120,7 @@ export default {
       })
       .then((response) => {
         if(response.ok){
-          this.$router.push('/portfolio')
+          this.$router.push('/portfolio/' + this.portfolio.portfolioId);
         }
       })
       .catch((err) => console.error(err));
