@@ -35,7 +35,9 @@ export default {
   },
   data() {
     return {
-      portfolio: null,
+      portfolio: { 
+        portfolioId:1
+      },
       user: this.$parent.user,
       data: [{
         name: '',
@@ -84,8 +86,24 @@ export default {
       .then ((data) => {
           this.portfolio = data;
       })
-    }
-  
+    },
+
+  returnToGame() {
+      const authToken = auth.getToken();
+      const fetchConfig = {
+        method : "GET",
+        headers:{
+          Authorization : `Bearer ${authToken}`
+        }
+      }
+      fetch(`${process.env.VUE_APP_REMOTE_API}/game/myGame/${this.portfolio.portfolioId}`, fetchConfig)
+      .then(response => {
+        if (response.ok){
+          this.router.push(`/game/myGame/${this.portfolio.portfolioId}`)
+        }
+      })
+       .catch((err) => console.error(err));
+      }
     
   },
   created(){

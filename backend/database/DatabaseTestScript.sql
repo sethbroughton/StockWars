@@ -48,7 +48,7 @@ INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (1, 1, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 2, false);
 
 
-
+COMMIT;
 END TRANSACTION;
 
 

@@ -38,5 +38,7 @@ public interface UserDao {
     public User getUserByUsername(String username);
 
     public List<User> getUsersInGame(Game game);
+    
+    public void inviteUser(Long userId, Long gameId);
 
 }

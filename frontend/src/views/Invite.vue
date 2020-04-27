@@ -6,23 +6,12 @@
       <div class="invite-to-game">
         <form class="form" @submit.prevent="inviteToGame">
           <div class="form-group u-margin-bottom">
-            <label for="gameId" class="label">Game Id</label>
-            <input
-            type="text"
-            id="gameId"
-            v-model="game.gameId"
-            placeholder="NEEDS DATA BINDING"
-            required
-            autofocus
-            />
-          </div>
-          <div class="form-group u-margin-bottom">
             <label for="playerId" class="label">Player Id</label>
             <input
             type="number"
             id="playerId"
             v-model="game.playerId"
-            placeholder="NEEDS DATA BINDING"
+            placeholder="Player Id"
             required
             />
           </div>
@@ -35,9 +24,9 @@
             required          
             />
           </div> -->
-          <router-link :to="{ name: 'lobby' }" id="invite-player" class="button" type="submit">
+         <button id = "invite" class = "button" type = "submit">
             Invite
-          </router-link>              
+          </button>             
         </form>
       </div>
     </div>
@@ -47,12 +36,14 @@
 <script>
 
 import UserHeader from '@/components/UserHeader'
+import auth from '../auth'
+
 export default {
   name: 'invite',
   data() {
     return {
       game: {
-        gameId: '',
+        gameId: this.$route.params.gameId,
         playerId: ''
       },
       user: this.$parent.user
@@ -60,6 +51,26 @@ export default {
   },
   components: {
     UserHeader    
+  },
+  methods: {
+    inviteToGame() {
+      const authToken = auth.getToken();
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/invite/${this.game.gameId}`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`
+        },
+        body: JSON.stringify(this.game.playerId)
+      })
+      .then((response) => {
+        if(response.ok) {
+           this.$router.push('/lobby');
+        }
+      })
+      .catch((err) => console.error(err));
+    }
   }
 };
 

@@ -126,6 +126,13 @@ public class ApiController {
         gameDao.joinGame(gameId);
         return "{\"success\":true}";
     }
+    
+    @PostMapping("/invite/{gameId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String invitePlayer(@RequestBody long userId, @PathVariable long gameId) {
+        userDao.inviteUser(userId, gameId);
+        return "{\"success\":true}";
+    }
 
     @PostMapping("/portfolios")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -171,7 +178,7 @@ public class ApiController {
         return tradeDao.getTradesPerPortfolio(id);
     }
     //for the return to game button
-    @GetMapping("/game/mygame/{id}")
+    @GetMapping("/game/myGame/{id}")
     public long getGameWithPortfolioId(@PathVariable long id) {
         return gameDao.getGameWithPortfolioId(id);
     }

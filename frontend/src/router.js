@@ -51,7 +51,7 @@ const router = new Router({
       }
     },
     {
-      path: '/invite',
+      path: '/invite/:gameId',
       name: 'invite',
       component: Invite,
       meta: {

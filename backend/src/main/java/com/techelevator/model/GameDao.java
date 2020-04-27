@@ -14,4 +14,5 @@ public interface GameDao {
     public void createGame(long organizerId, String organizerName, String name, int numberOfPlayers, int lengthInDays);
     public void startGame(LocalDate start_date, LocalDate end_date, int id);
     public long getGameWithPortfolioId(long id);
+  
 }
