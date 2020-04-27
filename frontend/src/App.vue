@@ -166,7 +166,6 @@ a {
 .table {
   color: var(--color-grey-light-1);
   width: 70%;
-  box-shadow: var(--shadow);
 
   display: flex;
   flex-direction: column;
@@ -178,6 +177,7 @@ a {
   margin-bottom: 1%;
   padding: 1% 2%;
   background-image: linear-gradient(to right, var(--color-blue-3), var(--color-blue-4));
+  box-shadow: var(--shadow);
 
   display: flex;
   justify-content: space-between;
@@ -197,6 +197,7 @@ a {
   background-image: linear-gradient(to right, var(--color-secondary-1), var(--color-secondary-2));
   font-size: 2rem;
   font-weight: 500;
+  box-shadow: var(--shadow-small);
 
   padding: 1.5% 2.5%;
 
