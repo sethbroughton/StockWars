@@ -12,10 +12,10 @@
         </div>
         <div v-for="stock in stockArray" v-bind:key="stock.ticker" class="table-row">
           <router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link>
-          <span class="table-item">{{quotes.name}}</span>
+          <span class="table-item">{{quotes.companyName}}</span>
           <span class="table-item">{{stock.ticker}}</span>
           <span class="table-item">{{stock.quantity}}</span>
-          <span class="table-item">{{quotes.AAPL.price}}</span>
+          <!-- <span class="table-item">{{quotes.AAPL.price}}</span> -->
           <span class="table-item">Total$</span></div>
 
 
@@ -50,7 +50,7 @@ export default {
          symbol: '',
          companyName: ''
       },
-      tickerArray: ['AAPL', 'fb', 'tsla'],
+      tickerArray: [],
       stockArray: []
     }
   },
@@ -81,6 +81,7 @@ export default {
               }
             }
             this.tickerArray = Object.keys(stocks); //BUILDS AN ARRAY OF TICKERS FOR THE PUBLIC API CALL
+            console.log(this.tickerArray)
 
             //BUILDS AN ARRAY OF OBJECTS TO RENDER EACH LINE ITEM IN THE PORTFOLIO
             this.stockArray = [];
@@ -90,7 +91,7 @@ export default {
                 object.quantity = stocks[this.tickerArray[i]];
                 this.stockArray.push(object);
               }
-
+              this.updateStockPrices();
        })
     },
 
@@ -100,13 +101,15 @@ export default {
           for(let i = 0; i<tickerArray.length; i++){
               query += tickerArray[i] + ','
           }
-            fetch(`https://cloud.iexapis.com/v1/stock/market/batch?&types=price&symbols=${query}&token=${process.env.VUE_APP_API_KEY}`)
+          console.log(query)
+            fetch(`https://cloud.iexapis.com/v1/stock/market/batch?&types=quote&symbols=${query}&token=${process.env.VUE_APP_API_KEY}`)
               .then((response) => {
                 return response.json();
               })
               .then((quotes) => {
                 this.quotes = quotes;
               })
+              console.log(this.quotes[0])
     }
 
     // displayPortfolios() {
@@ -147,7 +150,6 @@ export default {
   },
   created(){
     this.displayPortfolio();
-    this.updateStockPrices();
 }
 }
 

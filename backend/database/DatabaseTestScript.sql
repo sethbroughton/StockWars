@@ -35,14 +35,14 @@ INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (4, 4, 1, 10
 --Trades - Buy
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'BUY', 'AAPL', 100, 1000, 0, '2020-04-23');
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'BUY', 'IBM', 100, 1000, 0, '2020-04-23');
-INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'BUY', 'DIS', 100, 1000, 0, '2020-04-23');
-INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'BUY', 'NASA', 100, 1000, 0, '2020-04-23');
-INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'BUY', 'AAPL', 100, 1000, 0, '2020-04-23');
+INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'BUY', 'F', 100, 1000, 0, '2020-04-23');
+INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'BUY', 'IBM', 100, 1000, 0, '2020-04-23');
+INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'BUY', 'F', 100, 1000, 0, '2020-04-23');
 
 --Trades - Sell
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'SELL', 'IBM', 10, 110, 0, '2020-04-24');
-INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'SELL', 'DIS', 10, 110, 0, '2020-04-24');
-INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'SELL', 'NASA', 10, 110, 0, '2020-04-24');
+INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'SELL', 'F', 10, 110, 0, '2020-04-24');
+INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'SELL', 'AAPL', 10, 110, 0, '2020-04-24');
 
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (1, 1, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 2, false);
