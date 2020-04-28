@@ -159,6 +159,8 @@ export default {
       //Display results and buy/sell options
       this.lookup = true;
 
+      this.$emit('hide-scoreboard', this.lookup);
+
       // const timePeriod = this.timePeriod
       // fetch(`https://cloud.iexapis.com/v1/stock/AAPL/chart/${timePeriod}?token=${process.env.VUE_APP_API_KEY}`)
       //   .then((response) => {

@@ -8,7 +8,7 @@
         <p class="stat">XX Days Left</p>
       </div>
 
-      <stock-buy-sell class="u-margin-bottom"/>
+      <stock-buy-sell v-on:hide-scoreboard="hide" class="u-margin-bottom"/>
 
       <div class="link-boxes">
         <router-link v-bind:to="{ name: 'portfolio', params: {portfolioId: portfolio.portfolioId} }" id="portfolio" class="link-box">
@@ -20,7 +20,7 @@
       </div>
     </div>
     
-    <div class="scoreboard">
+    <div v-if="this.hideScoreboard === false" class="scoreboard">
       <div v-for="portfolio in allPortfolios" :key="portfolio.portfolioId" class="player-card">
         {{portfolio.portfolioId}}
       </div>
@@ -45,7 +45,13 @@ export default {
       user: this.$parent.user,
       game: null,
       portfolio: null,
-      allPortfolios: []
+      allPortfolios: [],
+      hideScoreboard: false
+    }
+  },
+  methods: {
+    hide() {
+      this.hideScoreboard = true;
     }
   },
   created() {
