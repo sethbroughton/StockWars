@@ -128,9 +128,36 @@ public class JdbcTradeDao implements TradeDao {
 			theTrade = mapRowSetToTrade(results);
 			allTheTrades.add(theTrade);
 		}
-		return allTheTrades;
-										
+		return allTheTrades;							
 	}
+	
+	@Override
+	public List<Trade> getTradesPerGame(long gameId) {
+		
+		//Trade theTrade = null;
+		ArrayList<Trade> allTheTrades = new ArrayList<Trade>();
+		String sqlGetTradesPerGame = "SELECT sum(quantity) as quantity, trade.ticker AS ticker, "
+				+ "portfolio.portfolio_id as portfolio_id FROM trade " + 
+				"INNER JOIN portfolio ON portfolio.portfolio_id = trade.portfolio_id "
+				+ "WHERE game_id=? GROUP BY trade.ticker, portfolio.portfolio_id";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetTradesPerGame, gameId);
+
+		while (results.next()) {
+			Trade theTrade = new Trade();
+			theTrade.setPortfolioId(results.getLong("portfolio_id"));
+			theTrade.setTicker(results.getString("ticker"));
+			theTrade.setQuantity(results.getInt("quantity"));
+			allTheTrades.add(theTrade);
+		}
+		return allTheTrades;							
+	}
+	
+	
+//	private Trade mapRowSet(SqlRowSet results) {
+//
+//		return theTrade;
+//	}
 
 	private Trade mapRowSetToTrade(SqlRowSet results) {
 		Trade theTrade = new Trade();

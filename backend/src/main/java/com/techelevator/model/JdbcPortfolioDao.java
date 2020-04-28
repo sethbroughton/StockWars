@@ -104,18 +104,7 @@ public class JdbcPortfolioDao implements PortfolioDao {
         return portfolios;
     }
 
-    // @Override
-    // public Game getGameById(long id) {
-    //     Game theGame = null;
 
-    //     String sqlGetGameById = "SELECT * FROM game WHERE game.game_id = ?";
-    //     SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetGameById, id);
-    //     while (results.next()) {
-    //         theGame = mapRowSetToGame(results);
-    //     }
-
-    //     return theGame;
-    // }
                         
     private Portfolio mapRowToPortfolio(SqlRowSet results) {
     Portfolio portfolio = new Portfolio();
