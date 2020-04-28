@@ -26,7 +26,7 @@
             required          
             />
           </div> -->
-         <button id = "invite" class = "button" type = "submit">
+         <button id="invite-player" class = "button" type = "submit">
             Invite
           </button>             
         </form>
