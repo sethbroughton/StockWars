@@ -1,7 +1,5 @@
 package com.techelevator.model;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 public interface TradeDao {
@@ -9,7 +7,6 @@ public interface TradeDao {
     public List<Trade> listAllTrades();
     public Long createNewTrade(Trade trade);
     public List<Trade> getTradesPerPortfolio(long id);
-
-    // public List<Trade> listSpecificTrades();                      
-
+	public List<Trade> getTradesPerGame(long gameId);
+    public long getGameIdByPortfolioId(long portfolioId);              
 }
