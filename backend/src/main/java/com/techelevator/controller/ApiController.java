@@ -55,7 +55,6 @@ public class ApiController {
     @Autowired
     private PortfolioDao portfolioDao;
 
-
     @GetMapping("/")
     public String authorizedOnly() throws UnauthorizedException {
         /*
@@ -70,7 +69,11 @@ public class ApiController {
         }
         return "Success";
     }
-	
+    
+    /////////////////////////////////////////////////////
+    ////////////////////     GAMES     /////////////////
+    /////////////////////////////////////////////////////
+
 	@GetMapping("/games")
 	public List<Game> getAllGames() {
         return gameDao.listAllGames();
@@ -97,23 +100,7 @@ public class ApiController {
         return gameDao.listPendingGames();
     }    
 
-    @GetMapping("/portfolios")
-    public List<Portfolio> getAllPortfolios() {
-        return portfolioDao.getAllPortfolios();
-    }    
-
-    @GetMapping("/portfolio/{id}")
-    public Portfolio getPortfolio(@PathVariable long id) {
-        Portfolio portfolio = portfolioDao.getPortfolioById(id);
-        return portfolio;
-    }
-        
-    @GetMapping("/tradeHistory")
-	public List<Trade> getAllTrades() {
-        return tradeDao.listAllTrades();
-    }
-
-	@PostMapping("/game")
+    @PostMapping("/game")
 	@ResponseStatus(HttpStatus.CREATED)
 	public String create(@RequestBody Game game) {
         gameDao.createGame(game.getOrganizerId(), game.getOrganizerName(), game.getName(), game.getNumberOfPlayers(), game.getLengthInDays());
@@ -134,20 +121,6 @@ public class ApiController {
         return "{\"success\":true}";
     }
 
-    @PostMapping("/portfolios")
-	@ResponseStatus(HttpStatus.CREATED)
-	public String createPortfolios(@RequestBody Game game) {
-
-        List<User> users = userDao.getUsersInGame(game);
-
-        for (User user : users) {
-            portfolioDao.createPortfolio(user.getId(), game.getGameId());
-        }
-
-        return "{\"success\":true}";
-    }
-
-    //starting a new game, updating it with start and end dates
     @PutMapping("/game/{id}")
     public String startGame(@RequestBody Game game, @PathVariable int id) {
         if (game.getGameId() != id) {
@@ -164,6 +137,7 @@ public class ApiController {
         gameDao.startGame(now, now.plusDays(game.getLengthInDays()), id);
         return "{\"success\":true}";      
     }
+
     //  //insert a winner id when the game ends - Kevin
     //  not working, figured I'd comment it out for now
     //  @PutMapping("/winner/game/{id}")
@@ -172,7 +146,48 @@ public class ApiController {
     //      return "{\"success\":true}"; 
     //  }
 
- 
+    /////////////////////////////////////////////////////
+    ////////////////////     PORTFOLIOS     /////////////////
+    /////////////////////////////////////////////////////
+
+    @GetMapping("/portfolios")
+    public List<Portfolio> getAllPortfolios() {
+        return portfolioDao.getAllPortfolios();
+    }    
+
+    @GetMapping("/portfolio/{id}")
+    public Portfolio getPortfolio(@PathVariable long id) {
+        Portfolio portfolio = portfolioDao.getPortfolioById(id);
+        return portfolio;
+    }
+
+    @GetMapping("/portfoliosInGame/{gameId}")
+    public List<Portfolio> getAllPortfoliosInGame(@PathVariable long gameId) {
+        List<Portfolio> portfolios = portfolioDao.getPortfoliosByGameId(gameId);
+        return portfolios;
+    }
+
+    @PostMapping("/portfolios")
+	@ResponseStatus(HttpStatus.CREATED)
+	public String createPortfolios(@RequestBody Game game) {
+
+        List<User> users = userDao.getUsersInGame(game);
+
+        for (User user : users) {
+            portfolioDao.createPortfolio(user.getId(), game.getGameId());
+        }
+
+        return "{\"success\":true}";
+    }
+        
+    /////////////////////////////////////////////////////
+    ////////////////////     TRADES     /////////////////
+    /////////////////////////////////////////////////////
+
+    @GetMapping("/tradeHistory")
+	public List<Trade> getAllTrades() {
+        return tradeDao.listAllTrades();
+    }
     
     @PostMapping("/trade")
     @ResponseStatus(HttpStatus.CREATED)
@@ -185,12 +200,5 @@ public class ApiController {
     @GetMapping("/trades/{id}")
     public List<Trade> getAllTradesInPortfolio(@PathVariable long id) {
         return tradeDao.getTradesPerPortfolio(id);
-    }
-    //for the return to game button
-    @GetMapping("/game/myGame/{id}")
-    public long getGameWithPortfolioId(@PathVariable long id) {
-        return gameDao.getGameWithPortfolioId(id);
-    }
-
-   
+    }   
 }

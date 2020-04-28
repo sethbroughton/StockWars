@@ -240,20 +240,4 @@ public class JdbcGameDao implements GameDao {
 			games.put(game.getGameId(), game);
 		}
     }
-    
-    @Override
-    public long getGameWithPortfolioId(long id) {
-            String sqlReturnToGame = "SELECT game_id from portfolio where portfolio_id=?";
-
-            SqlRowSet results = jdbcTemplate.queryForRowSet(sqlReturnToGame, id);
-            long gameId = 0;
-            if (results.next()) {
-                gameId = results.getLong("game_id");
-            } return gameId;
-    }
-
-  
-
-	
-
 }

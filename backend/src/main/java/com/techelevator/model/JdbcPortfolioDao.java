@@ -85,8 +85,24 @@ public class JdbcPortfolioDao implements PortfolioDao {
 
         return thePortfolio;
     }
-
     
+    @Override
+    public List<Portfolio> getPortfoliosByGameId(long gameId) {
+        List<Portfolio> portfolios = new ArrayList<Portfolio>();  
+        
+        String sqlGetAllPortfoliosInGame = "SELECT portfolio.* "
+                                            + "FROM portfolio "
+                                            + "INNER JOIN game ON (portfolio.game_id = game.game_id) "
+                                            + "WHERE game.game_id = ?";
+                                            
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllPortfoliosInGame, gameId);
+        while (results.next()) {
+            Portfolio thePortfolio = mapRowToPortfolio(results);
+            portfolios.add(thePortfolio);
+        }
+
+        return portfolios;
+    }
 
     // @Override
     // public Game getGameById(long id) {
@@ -112,10 +128,5 @@ public class JdbcPortfolioDao implements PortfolioDao {
         return portfolio;
   }
 
-  @Override
-  public List<Portfolio> getPortfolioByGameId(long id) {
-      // TODO Auto-generated method stub
-      return null;
-  }
 
 }

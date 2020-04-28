@@ -21,9 +21,9 @@
     </div>
     
     <div class="scoreboard">
-      <div class="player-card">Player1<br>$XXX,XXX</div>
-      <div class="player-card">You<br>$XXX,XXX</div>
-      <div class="player-card">Player3<br>$XXX,XXX</div>
+      <div v-for="portfolio in allPortfolios" :key="portfolio.portfolioId" class="player-card">
+        {{portfolio.portfolioId}}
+      </div>
     </div>
 
   </div>
@@ -44,19 +44,22 @@ export default {
     return {
       user: this.$parent.user,
       game: null,
-      portfolio: null
+      portfolio: null,
+      allPortfolios: []
     }
   },
   created() {
 
     const authToken = auth.getToken();
 
-    fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`,{
-       method: 'GET',
-       headers:{
+    const fetchConfigGet = {
+      method: 'GET',
+      headers:{
         Authorization: `Bearer ${authToken}`
-        }
-    })
+      }
+    }
+
+    fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`, fetchConfigGet)
     .then((response) => {
       return response.json();
     })
@@ -64,12 +67,7 @@ export default {
       this.user = currentUser;
     });    
 
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/games`,{
-        method: 'GET',
-        headers:{
-          Authorization: `Bearer ${authToken}`
-        }
-    })
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/games`, fetchConfigGet)
     .then(response => {
       return response.json();
     })
@@ -78,17 +76,21 @@ export default {
     })
     .catch(err => console.log(`Error fetching games ${err}`));
 
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolios`,{
-        method: 'GET',
-        headers:{
-          Authorization: `Bearer ${authToken}`
-        }
-    })
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolios`, fetchConfigGet)
     .then(response => {
       return response.json();
     })
     .then((portfolios) => {
       this.portfolio = portfolios.find(p => p.userId == this.user.id && p.gameId == this.$route.params.gameId);
+    })
+    .catch(err => console.log(`Error fetching portfolios ${err}`));
+
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfoliosInGame/${this.$route.params.gameId}`, fetchConfigGet)
+    .then(response => {
+      return response.json();
+    })
+    .then((portfolios) => {
+      this.allPortfolios = portfolios;
     })
     .catch(err => console.log(`Error fetching portfolios ${err}`));
 
