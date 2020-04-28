@@ -227,7 +227,7 @@ public class JdbcGameDao implements GameDao {
 
     @Override
     public void insertWinnerId(long winnerId, long gameId){
-            String sqlUpdateWinner = "UPDATE game SET winner_id = ? WHERE game_id = ?";
+            String sqlUpdateWinner = "UPDATE game SET winner_id = ? WHERE game_id = ? AND end_date < CURRENT_DATE";
 
             jdbcTemplate.update(sqlUpdateWinner, winnerId, gameId);
     }
