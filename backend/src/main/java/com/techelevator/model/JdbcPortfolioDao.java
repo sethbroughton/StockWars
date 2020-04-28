@@ -21,6 +21,9 @@ public class JdbcPortfolioDao implements PortfolioDao {
 
 	@Autowired
 	private AuthProvider auth;
+	
+	@Autowired
+	private TradeDao tradeDao;
 
     @Autowired
     public JdbcPortfolioDao(DataSource dataSource) {
@@ -96,13 +99,18 @@ public class JdbcPortfolioDao implements PortfolioDao {
                                             + "WHERE game.game_id = ?";
                                             
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllPortfoliosInGame, gameId);
+        
         while (results.next()) {
             Portfolio thePortfolio = mapRowToPortfolio(results);
+            List<Trade> tradesForPortfolio = tradeDao.getTradesPerPortfolio(results.getLong("portfolio_id"));
+            thePortfolio.setTrades(tradesForPortfolio);
             portfolios.add(thePortfolio);
         }
 
         return portfolios;
     }
+    
+    
 
 
                         
