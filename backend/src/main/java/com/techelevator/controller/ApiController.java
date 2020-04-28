@@ -164,6 +164,15 @@ public class ApiController {
         gameDao.startGame(now, now.plusDays(game.getLengthInDays()), id);
         return "{\"success\":true}";      
     }
+    //  //insert a winner id when the game ends - Kevin
+    //  not working, figured I'd comment it out for now
+    //  @PutMapping("/winner/game/{id}")
+    //  public String insertTheWinnerId(@RequestBody long gameId, long winnerId) {
+    //      gameDao.insertWinnerId(winnerId, gameId);
+    //      return "{\"success\":true}"; 
+    //  }
+
+ 
     
     @PostMapping("/trade")
     @ResponseStatus(HttpStatus.CREATED)
@@ -183,4 +192,5 @@ public class ApiController {
         return gameDao.getGameWithPortfolioId(id);
     }
 
+   
 }
