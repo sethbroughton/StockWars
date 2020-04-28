@@ -109,10 +109,7 @@ public class JdbcPortfolioDao implements PortfolioDao {
 
         return portfolios;
     }
-    
-    
-
-
+ 
                         
     private Portfolio mapRowToPortfolio(SqlRowSet results) {
     Portfolio portfolio = new Portfolio();

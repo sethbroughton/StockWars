@@ -4,7 +4,7 @@
     <div class="container">
       <div class="game-stats u-margin-bottom">
         <p class="stat">{{game.name}}</p>
-        <p class="stat">Balance: ${{portfolio.totalValue}}</p>
+        <p class="stat">Balance: ${{allPortfolios[0]["cash"]}}</p>
         <p class="stat">XX Days Left</p>
       </div>
 
@@ -54,19 +54,6 @@ export default {
       this.hideScoreboard = true;
     }, 
 
-    // displayLeaderBoard() {
-
-    //   fetch(`http://localhost:8080/AuthenticationApplication/api/trades/game/1`, fetchConfigGet)
-    //   .then((response)=> {
-    //     return response.json();
-    //   })
-    //   .then((trades)=> { 
-    //     console.log('hi');
-
-    //   })
-    //   console.log('hey hey')
-    // },
-
   },
   created() {
 
@@ -114,16 +101,41 @@ export default {
     })
     .catch(err => console.log(`Error fetching portfolios ${err}`));
 
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/trades/game/1`, fetchConfigGet)
-    .then((response) => {
+
+    //Create Portfolio Array
+
+    const gameId = 1; //TODO: This will need to be dynamic
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfoliosInGame/${gameId}`, fetchConfigGet)
+    .then(response => {
       return response.json();
     })
-    .then((allPortfolios) => {
-      this.allPortfolios = allPortfolios;
-      console.log('hey hey')
-    });  
-
-    
+    .then((portfolios) => {
+      let allPortfolios = [];
+          for(let i = 0; i<portfolios.length; i++){
+            let portfolio = portfolios[i];
+            let stockArray = [];
+                    let trades = portfolio.trades
+                    let stocks = {};
+                    //let totalPortfolio = {};
+                      for(let i = 0; i<trades.length; i++){
+                        let ticker = trades[i].ticker;
+                        let num = trades[i].quantity;
+                        let type = trades[i].type;
+                        stocks[ticker] = stocks[ticker] ? stocks[ticker] + num : num;
+                      }
+                    stockArray.push(stocks);
+                    let totalPortfolio = {
+                      "portfolioId": portfolio["portfolioId"],
+                      "userId": portfolio["userId"],
+                      "stocks": stockArray,
+                      "cash": portfolio["cash"]
+                    }
+            allPortfolios.push(totalPortfolio);
+            }
+                
+    this.allPortfolios = allPortfolios;
+    console.log(allPortfolios[0]["portfolioId"])
+})  
 
   }
 }
