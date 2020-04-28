@@ -36,7 +36,10 @@ export default {
   data() {
     return {
       portfolio: { 
-        portfolioId: this.$route.params.portfolioId
+        portfolioId: this.$route.params.portfolioId,
+        userId: '',
+        gameId: '',
+        cash: null
       },
       user: this.$parent.user,
       data: [{
@@ -55,42 +58,55 @@ export default {
   methods: {
 
     displayPortfolio() {
-      const authToken = auth.getToken();
-      const fetchConfigGet = {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${authToken}`
-       }
-      }
-       fetch(`${process.env.VUE_APP_REMOTE_API}/api/trades/1`, fetchConfigGet)
-       .then((response)=> {
-         return response.json();
-       })
-       .then((trades)=> { 
-         let stocks = {};
-            for (var i = 0; i < trades.length; i++) {
-              let ticker = trades[i].ticker;
-              let num = trades[i].quantity;
-              let type = trades[i].type;
-              if(type=='BUY'){
-                stocks[ticker] = stocks[ticker] ? stocks[ticker] + num : num;
-              } else {
-                stocks[ticker] = stocks[ticker] ? stocks[ticker] - num : num;
-              }
-            }
-            this.tickerArray = Object.keys(stocks); //BUILDS AN ARRAY OF TICKERS FOR THE PUBLIC API CALL
-            console.log(this.tickerArray)
 
-            //BUILDS AN ARRAY OF OBJECTS TO RENDER EACH LINE ITEM IN THE PORTFOLIO
-            this.stockArray = [];
-              for(let i = 0; i<this.tickerArray.length; i++){
-                let object = {};
-                object.ticker = this.tickerArray[i];
-                object.quantity = stocks[this.tickerArray[i]];
-                this.stockArray.push(object);
-              }
-              this.updateStockPrices();
-       })
+      const authToken = auth.getToken();
+
+      const fetchConfigGet = {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      }
+       
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/trades/1`, fetchConfigGet)
+      .then((response)=> {
+        return response.json();
+      })
+      .then((trades)=> { 
+        let stocks = {};
+        for (var i = 0; i < trades.length; i++) {
+          let ticker = trades[i].ticker;
+          let num = trades[i].quantity;
+          let type = trades[i].type;
+          if(type=='BUY'){
+            stocks[ticker] = stocks[ticker] ? stocks[ticker] + num : num;
+          } else {
+            stocks[ticker] = stocks[ticker] ? stocks[ticker] - num : num;
+          }
+        }
+        this.tickerArray = Object.keys(stocks); //BUILDS AN ARRAY OF TICKERS FOR THE PUBLIC API CALL
+        console.log(this.tickerArray)
+
+        //BUILDS AN ARRAY OF OBJECTS TO RENDER EACH LINE ITEM IN THE PORTFOLIO
+        this.stockArray = [];
+
+        for(let i = 0; i<this.tickerArray.length; i++){
+          let object = {};
+          object.ticker = this.tickerArray[i];
+          object.quantity = stocks[this.tickerArray[i]];
+          this.stockArray.push(object);
+        }
+
+        this.updateStockPrices();
+      })
+
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolio/${this.portfolio.portfolioId}`, fetchConfigGet)
+      .then((response) => {
+        return response.json();
+      })
+      .then ((data) => {
+        this.portfolio = data;
+      })
     },
 
     updateStockPrices(){
@@ -108,43 +124,7 @@ export default {
                 this.quotes = quotes;
               })
               console.log(this.quotes[0])
-    },
-
-    // displayPortfolios() {
-
-    //   const authToken = auth.getToken();
-    //   const fetchConfigGet = {
-    //   method: 'GET',
-    //   headers: {
-    //     Authorization: `Bearer ${authToken}`
-    //    }
-    //   }
-    //   fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolio${this.portfolio.portfolioId}`, fetchConfigGet)
-    //   .then((response) => {
-    //     return response.json();
-    //   })
-    //   .then ((data) => {
-    //       this.portfolio = data;
-    //   })
-    // },
-
-  // returnToGame() {
-  //     const authToken = auth.getToken();
-  //     const fetchConfig = {
-  //       method : "GET",
-  //       headers:{
-  //         Authorization : `Bearer ${authToken}`
-  //       }
-  //     }
-  //     fetch(`${process.env.VUE_APP_REMOTE_API}/game/myGame/${this.portfolio.portfolioId}`, fetchConfig)
-  //     .then(response => {
-  //       if (response.ok){
-  //         this.router.push(`/game/myGame/${this.portfolio.portfolioId}`)
-  //       }
-  //     })
-  //      .catch((err) => console.error(err));
-  //     }
-    
+    }    
   },
   created(){
     this.displayPortfolio();
