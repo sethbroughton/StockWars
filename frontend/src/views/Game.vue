@@ -49,7 +49,7 @@ export default {
       portfolio: null,
       allPortfolios: [],
       hideScoreboard: false,
-      tickers: {}
+      tickerArray: []
     }
   },
   methods: {
@@ -148,16 +148,21 @@ export default {
                 
     this.allPortfolios = allPortfolios;
     console.log(allPortfolios[0]["portfolioId"])
-    //Get Array of tickers
-    let mySet = new Set();
-    for(let i = 0; i<allPortfolios.length; i++){
-      //mySet.add(portfoliosArray[i].stocks.keys)
-      let array = (Object.keys(allPortfolios[i].stocks[0]))
-      array.forEach(el => mySet.add(el))
-    }
-    this.tickers = mySet;
-    console.log(mySet);
     
+    //Get Array of tickers
+    let myArr = [];
+        for(let i = 0; i<allPortfolios.length; i++){
+         let array = (Object.keys(allPortfolios[i].stocks[0]))
+          array.forEach(el => {
+            if(!myArr.includes(el)){
+             myArr.push(el)
+            }
+          })
+        }
+        console.log(myArr)
+        this.tickerArray = myArr;
+
+
 })  
 
   }
