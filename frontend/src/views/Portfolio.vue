@@ -67,8 +67,9 @@ export default {
           Authorization: `Bearer ${authToken}`
         }
       }
+       const portfolioId = this.portfolio.portfolioId
        
-      fetch(`${process.env.VUE_APP_REMOTE_API}/api/trades/1`, fetchConfigGet)
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/trades/${portfolioId}`, fetchConfigGet)
       .then((response)=> {
         return response.json();
       })
