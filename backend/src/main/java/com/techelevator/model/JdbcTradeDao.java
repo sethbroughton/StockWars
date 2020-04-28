@@ -32,18 +32,22 @@ public class JdbcTradeDao implements TradeDao {
 		//Trade newTrade = null;
 		Long tradeId = null;
 		BigDecimal accountBalance = null;
+		
 		//Get current CASH balance from portfolio table
 		String sqlGetCurrentCashBalance = "SELECT cash from portfolio where portfolio_id=?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetCurrentCashBalance, trade.getPortfolioId());
-
 	    if (results.next()) {
 	    	accountBalance = new BigDecimal(results.getString("cash"));
 	    }
-
+	    
 		//BUY (subtract money) or SELL (add money)
 		BigDecimal newBalance = null;
 		if(trade.getType().equals("BUY")) {
-			newBalance = accountBalance.subtract(trade.getStockValue());
+			if(accountBalance.subtract(trade.getStockValue()).compareTo(BigDecimal.ZERO)>0) {
+				newBalance = accountBalance.subtract(trade.getStockValue());
+			} else {
+				return null;
+			}		
 		} else {
 			newBalance = accountBalance.add(trade.getStockValue());
 		}

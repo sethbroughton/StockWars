@@ -191,10 +191,14 @@ public class ApiController {
     
     @PostMapping("/trade")
     @ResponseStatus(HttpStatus.CREATED)
-    public Long createTrade(@RequestBody Trade trade) {
+    public Long createTrade(@RequestBody Trade trade) throws UnauthorizedException {
     	trade.setDateOfPurchase((LocalDate.now()));
     	Long tradeId = tradeDao.createNewTrade(trade);
-    	return tradeId;
+    	if(tradeId!=null) {
+    		return tradeId;
+    	} else {
+    		throw new UnauthorizedException();
+    	}
     }
     
     @GetMapping("/trades/{id}")
