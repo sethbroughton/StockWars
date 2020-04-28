@@ -4,29 +4,21 @@
     <div class="container">
       <h1 class="u-margin-bottom">Invite to Game</h1>
       <div class="invite-to-game">
-        <form class="form" @submit.prevent="inviteToGame(game.playerId)">
+        <form class="form" @submit.prevent="inviteToGame(invite.username)">
           <div class="form-group u-margin-bottom">
 
             <!-- This section is where username needs to be put -->
-            <label for="playerId" class="label">Player Id</label>
+            <label for="username" class="label">Who do you want to invite?</label>
             <input
-            type="number"
-            id="playerId"
-            v-model="game.playerId"
-            placeholder="Player Id"
+            type="text"
+            id="userame"
+            v-model="invite.username"
+            placeholder="Username"
             required
+            autofocus
             />
           </div>
-          <!-- <div class="form-group u-margin-bottom">
-            <label for="lengthInDays" class="label">Game Length (in days)</label>
-            <input
-            type="number"
-            id="lengthInDays"
-            v-model="game.lengthInDays"
-            required          
-            />
-          </div> -->
-         <button id="invite-player" class = "button" type = "submit">
+          <button id="invite-player" class = "button" type = "submit">
             Invite
           </button>             
         </form>
@@ -44,9 +36,9 @@ export default {
   name: 'invite',
   data() {
     return {
-      game: {
+      invite: {
         gameId: this.$route.params.gameId,
-        playerId: ''
+        username: ''
       },
       user: this.$parent.user
     }
@@ -55,16 +47,16 @@ export default {
     UserHeader    
   },
   methods: {
-    inviteToGame(userId) {
+    inviteToGame(username) {
       const authToken = auth.getToken();
-      fetch(`${process.env.VUE_APP_REMOTE_API}/api/invite/${this.game.gameId}`, {
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/invite/${this.invite.gameId}`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
           Authorization: `Bearer ${authToken}`
         },
-        body: JSON.stringify(userId, this.game.gameId)
+        body: JSON.stringify(username)
       })
       .then((response) => {
         if(response.ok) {
