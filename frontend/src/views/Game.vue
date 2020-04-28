@@ -54,6 +54,10 @@ export default {
       this.hideScoreboard = true;
     }, 
 
+    currentAccountBalance(){
+      //TODO: Takes in a portfolio and returns a $$ balance
+    }
+
   },
   created() {
 
@@ -92,16 +96,6 @@ export default {
     })
     .catch(err => console.log(`Error fetching portfolios ${err}`));
 
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfoliosInGame/${this.$route.params.gameId}`, fetchConfigGet)
-    .then(response => {
-      return response.json();
-    })
-    .then((portfolios) => {
-      this.allPortfolios = portfolios;
-    })
-    .catch(err => console.log(`Error fetching portfolios ${err}`));
-
-
     //Create Portfolio Array
 
     const gameId = 1; //TODO: This will need to be dynamic
@@ -116,7 +110,6 @@ export default {
             let stockArray = [];
                     let trades = portfolio.trades
                     let stocks = {};
-                    //let totalPortfolio = {};
                       for(let i = 0; i<trades.length; i++){
                         let ticker = trades[i].ticker;
                         let num = trades[i].quantity;
