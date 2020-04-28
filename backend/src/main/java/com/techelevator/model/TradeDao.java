@@ -8,4 +8,5 @@ public interface TradeDao {
     public Long createNewTrade(Trade trade);
     public List<Trade> getTradesPerPortfolio(long id);
 	public List<Trade> getTradesPerGame(long gameId);
+    public long getGameIdByPortfolioId(long portfolioId);              
 }

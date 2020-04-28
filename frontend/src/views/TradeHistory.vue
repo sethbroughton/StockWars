@@ -24,7 +24,7 @@
         </div>
       </div>
 
-      <button class="button return-to-game">Return to Game</button>
+       <router-link v-bind:to="{name: 'game', params: {gameId: gameId} }" class="button return-to-game">Return to Game</router-link>
     </div>
 
   </div>
@@ -44,11 +44,31 @@ export default {
 
     return {
       user: this.$parent.user,
-      trades: []
+      trades: [],
+      gameId: '',
+      portfolio: {
+        portfolioId : this.$route.params.portfolioId,
+      }
     }
-
   },
+
+  methods: {
+    
+    returnToGame() {
+
+    
+    
+  },
+
+
+
   created() {
+ 
+
+    
+    
+
+
      const authToken = auth.getToken();
      const fetchConfig = {
        method: 'GET',
@@ -63,8 +83,16 @@ export default {
       .then((data) => {
         this.trades= data;
       })
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/gameByPortfolio/1`, fetchConfig)
+       .then((response) => {
+        return response.json();
+      })
+        .then((data) => {
+          this.gameId = data;
+          console.log(this.gameId);
+        })
   }
-  
+  }
 }
 </script>
 

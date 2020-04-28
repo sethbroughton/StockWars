@@ -162,6 +162,25 @@ public class JdbcTradeDao implements TradeDao {
 		
 	}
 
+
+	public long getGameIdByPortfolioId(long portfolioId) {
+
+		long gameId = 0;
+
+		String sqlGetGameId = "SELECT game.game_id FROM game "
+							+	"INNER JOIN portfolio "
+							+	"ON  game.game_id = portfolio.game_id "
+							+	"WHERE portfolio_id = ? ";
+
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetGameId, portfolioId);
+
+		while (results.next()) {
+				gameId = results.getLong("game_id");
+		}
+		return gameId;
+	}
+
+
 	// this is similar to what I was trying to do with the portfolio pages
 	// hoping we can work thru this later - Kevin
 	// @Override
