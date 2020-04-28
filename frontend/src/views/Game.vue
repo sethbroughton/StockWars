@@ -52,7 +52,23 @@ export default {
   methods: {
     hide() {
       this.hideScoreboard = true;
-    }
+    }, 
+
+    // displayRankings() {
+    //   const authToken = auth.getToken();
+    //   const fetchConfigGet = {
+    //     method: 'GET',
+    //     headers: {
+    //       Authorization: `Bearer ${authToken}`
+    //     }
+    //   }  
+    //   fetch(`${process.env.VUE_APP_REMOTE_API}/api/trades/game/1`, fetchConfigGet)
+    //   .then((response)=> {
+    //     return response.json();
+    //   })
+    //   .then((trades)=> { 
+
+
   },
   created() {
 
