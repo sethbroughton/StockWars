@@ -84,7 +84,7 @@ export default {
         description: '', 
       },
       trade: {
-        portfolioId: 1,  //Change routing so you must go to portfolio page to then navigate to buy/sell
+        portfolioId: 1, //This needs to be changed 
         type: '',
         ticker: '', //From search stock query
         quantity: 0, //Form input

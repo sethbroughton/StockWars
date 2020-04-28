@@ -12,14 +12,12 @@
         </div>
         <div v-for="stock in stockArray" v-bind:key="stock.ticker" class="table-row">
           <router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link>
-          <span class="table-item">{{quotes.companyName}}</span>
+          <!-- <span class="table-item">{{quotes.companyName}}</span> -->
           <span class="table-item">{{stock.ticker}}</span>
           <span class="table-item">{{stock.quantity}}</span>
           <!-- <span class="table-item">{{quotes.AAPL.price}}</span> -->
           <span class="table-item">Total$</span></div>
-
-
-       
+          
       </div>
     </div>
   </div>
@@ -110,7 +108,7 @@ export default {
                 this.quotes = quotes;
               })
               console.log(this.quotes[0])
-    }
+    },
 
     // displayPortfolios() {
 
@@ -150,7 +148,7 @@ export default {
   },
   created(){
     this.displayPortfolio();
-}
+  }
 }
 
 </script>
