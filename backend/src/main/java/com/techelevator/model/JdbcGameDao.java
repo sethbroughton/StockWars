@@ -225,6 +225,13 @@ public class JdbcGameDao implements GameDao {
         return theGame;
     }
 
+    @Override
+    public void insertWinnerId(long winnerId, long gameId){
+            String sqlUpdateWinner = "UPDATE game SET winner_id = ? WHERE game_id = ?";
+
+            jdbcTemplate.update(sqlUpdateWinner, winnerId, gameId);
+    }
+
     private void loadJSON() throws IOException, java.io.IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		InputStream inputStream = Test.class.getResourceAsStream("/data.json");
@@ -244,5 +251,9 @@ public class JdbcGameDao implements GameDao {
                 gameId = results.getLong("game_id");
             } return gameId;
     }
+
+  
+
+	
 
 }
