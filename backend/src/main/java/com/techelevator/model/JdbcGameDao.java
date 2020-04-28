@@ -201,13 +201,6 @@ public class JdbcGameDao implements GameDao {
     }
 
     @Override
-    public void insertWinnerId(long winnerId, long gameId){
-            String sqlUpdateWinner = "UPDATE game SET winner_id = ? WHERE game_id = ?";
-
-            jdbcTemplate.update(sqlUpdateWinner, winnerId, gameId);
-    }
-
-    @Override
     public List<Game> getAllInvites() {
         List<Game> games = new ArrayList<Game>();
         
@@ -229,6 +222,13 @@ public class JdbcGameDao implements GameDao {
         return games;
     }
 
+    @Override
+    public void insertWinnerId(long winnerId, long gameId){
+            String sqlUpdateWinner = "UPDATE game SET winner_id = ? WHERE game_id = ? AND end_date < CURRENT_DATE";
+
+            jdbcTemplate.update(sqlUpdateWinner, winnerId, gameId);
+    }
+
 
     //still need to fix the setPlayers section -Kevin 
     private Game mapRowSetToGame(SqlRowSet results) {
@@ -240,14 +240,14 @@ public class JdbcGameDao implements GameDao {
         theGame.setName(results.getString("name"));
         theGame.setNumberOfPlayers(results.getInt("number_of_players"));
         theGame.setLengthInDays(results.getInt("length_in_days"));
- 
+    
         String startDate = results.getString("start_date");
-		if (startDate != null) {
-			theGame.setStartDate(LocalDate.parse(startDate));
-		}
+        if (startDate != null) {
+            theGame.setStartDate(LocalDate.parse(startDate));
+        }
         String endDate = results.getString("end_date");
         if(endDate!=null) {
-        	theGame.setEndDate(LocalDate.parse(endDate));
+            theGame.setEndDate(LocalDate.parse(endDate));
         }
     
         theGame.setPublicGame(results.getBoolean("public_game"));

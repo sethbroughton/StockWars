@@ -147,8 +147,6 @@ public class JdbcTradeDao implements TradeDao {
 		}
 		return allTheTrades;							
 	}
-	
-
 
 	private Trade mapRowSetToTrade(SqlRowSet results) {
 		Trade theTrade = new Trade();
@@ -163,9 +161,6 @@ public class JdbcTradeDao implements TradeDao {
 		return theTrade;
 		
 	}
-
-
-
 
 	// this is similar to what I was trying to do with the portfolio pages
 	// hoping we can work thru this later - Kevin

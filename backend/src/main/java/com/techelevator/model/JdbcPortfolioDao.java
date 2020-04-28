@@ -104,7 +104,7 @@ public class JdbcPortfolioDao implements PortfolioDao {
 
         return portfolios;
     }
-    
+
 	@Override
 	public long getQuantityOfShares(String ticker, long portfolioId) {
 		String sqlGetSharesCount = "SELECT SUM(quantity) as total_shares FROM trade WHERE ticker = ? AND portfolio_id = ?";
@@ -117,7 +117,7 @@ public class JdbcPortfolioDao implements PortfolioDao {
 		
 		return totalShares;
 	}   
-                        
+         
     private Portfolio mapRowToPortfolio(SqlRowSet results) {
     Portfolio portfolio = new Portfolio();
     portfolio.setGameId(results.getLong("game_id"));
