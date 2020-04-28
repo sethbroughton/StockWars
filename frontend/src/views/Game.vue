@@ -43,10 +43,13 @@ export default {
   data() {
     return {
       user: this.$parent.user,
-      game: null,
+      game: {
+        gameId: this.$route.gameId
+      },
       portfolio: null,
       allPortfolios: [],
-      hideScoreboard: false
+      hideScoreboard: false,
+      tickers: {}
     }
   },
   methods: {
@@ -55,10 +58,27 @@ export default {
     }, 
 
     currentAccountBalance(){
-      //TODO: Takes in a portfolio and returns a $$ balance
-    }
+      //TODO: Takes in a portfolio and returns a $$ balance // based on an real-time API call
+    },
 
+    updateStockPrices(){
+      let query = "";
+        let tickerArray = this.tickerArray;
+          for(let i = 0; i<tickerArray.length; i++){
+              query += tickerArray[i] + ','
+          }
+          console.log(query)
+            fetch(`https://cloud.iexapis.com/v1/stock/market/batch?&types=quote&symbols=${query}&token=${process.env.VUE_APP_API_KEY}`)
+              .then((response) => {
+                return response.json();
+              })
+              .then((quotes) => {
+                this.quotes = quotes;
+              })
+              console.log(this.quotes[0])
+    }   
   },
+
   created() {
 
     const authToken = auth.getToken();
@@ -128,6 +148,16 @@ export default {
                 
     this.allPortfolios = allPortfolios;
     console.log(allPortfolios[0]["portfolioId"])
+    //Get Array of tickers
+    let mySet = new Set();
+    for(let i = 0; i<allPortfolios.length; i++){
+      //mySet.add(portfoliosArray[i].stocks.keys)
+      let array = (Object.keys(allPortfolios[i].stocks[0]))
+      array.forEach(el => mySet.add(el))
+    }
+    this.tickers = mySet;
+    console.log(mySet);
+    
 })  
 
   }
