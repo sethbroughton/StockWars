@@ -29,10 +29,38 @@ public class JdbcTradeDao implements TradeDao {
 
 	@Override
 	public Long createNewTrade(Trade trade) {
-		//Trade newTrade = null;
 		Long tradeId = null;
 		BigDecimal accountBalance = null;
-		
+		int quantityBought = 0;
+		int quantitySold = 0;
+		int shareTotal = 0;
+	    
+	    //Check for sufficient Shares to sell
+	    //TODO: This sql query needs to be changed or we need to put negative 
+	    // quantities into database when selling shares
+	    
+	    if(trade.getType().equals("SELL")) {   
+	    //Get current share count
+		    String sqlGetSharesBought = "SELECT sum(quantity) FROM trade WHERE (portfolio_id=? AND ticker=? AND type='BUY')";
+		    SqlRowSet sharesBoughtResult = jdbcTemplate.queryForRowSet(sqlGetSharesBought, trade.getPortfolioId(), trade.getTicker());
+		    if (sharesBoughtResult.next()) {
+		    	quantityBought = sharesBoughtResult.getInt("sum");
+		    }
+		    
+		    String sqlGetSharesSold = "SELECT sum(quantity) FROM trade WHERE (portfolio_id=? AND ticker=? AND type='SELL')";
+		    SqlRowSet shareSoldResult = jdbcTemplate.queryForRowSet(sqlGetSharesSold, trade.getPortfolioId(), trade.getTicker());
+		    if (shareSoldResult.next()) {
+		    	quantitySold = shareSoldResult.getInt("sum");
+		    }
+		    shareTotal = quantityBought-quantitySold;
+		    System.out.println(shareTotal);
+		    
+		//If trying to sell more shares than possible then return null
+		  if(trade.getQuantity()>shareTotal) {  
+		    return null;   
+		  	}
+	    }
+	    
 		//Get current CASH balance from portfolio table
 		String sqlGetCurrentCashBalance = "SELECT cash from portfolio where portfolio_id=?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetCurrentCashBalance, trade.getPortfolioId());

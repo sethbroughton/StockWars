@@ -36,8 +36,8 @@
     <form @submit.prevent="tradeStock" v-if="lookup" id="buy-sell" class="form u-margin-bottom">
       <h3 class="label u-margin-bottom-small">You own (XX) shares</h3>
       <div class="input-fields">
-        <div class="alert alert-danger u-margin-bottom-small" role="alert" v-if="insufficientFunds">
-            Insufficient Funds!!!
+        <div class="alert alert-danger u-margin-bottom-small" role="alert" v-if="invalidTrade">
+            Invalid Trade!!!
           </div>
         <div class="form-group u-margin-bottom-small trade-input">
           <input
@@ -99,7 +99,7 @@ export default {
       }],
       query: '',
       portfolio: this.$parent.portfolio, 
-      insufficientFunds: false,
+      invalidTrade: false,
     }
   },
   computed: {
@@ -128,7 +128,7 @@ export default {
         if(response.ok){
           this.$router.push('/portfolio/' + this.portfolio.portfolioId);
         } else{
-          this.insufficientFunds = true;
+          this.invalidTrade = true;
         }
       })
       .catch((err) => console.error(err));
