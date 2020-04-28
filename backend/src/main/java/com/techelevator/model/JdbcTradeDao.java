@@ -7,8 +7,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.techelevator.authentication.AuthProvider;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -18,9 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class JdbcTradeDao implements TradeDao {
 
 	private JdbcTemplate jdbcTemplate;
-
-	@Autowired
-	private AuthProvider auth;
 
 	@Autowired
 	public JdbcTradeDao(DataSource dataSource) {
@@ -153,6 +148,7 @@ public class JdbcTradeDao implements TradeDao {
 		return allTheTrades;							
 	}
 	
+
 
 	private Trade mapRowSetToTrade(SqlRowSet results) {
 		Trade theTrade = new Trade();

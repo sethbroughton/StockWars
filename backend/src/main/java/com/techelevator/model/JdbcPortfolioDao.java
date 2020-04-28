@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.techelevator.authentication.AuthProvider;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -18,9 +16,6 @@ import org.springframework.stereotype.Component;
 public class JdbcPortfolioDao implements PortfolioDao {
 
     private JdbcTemplate jdbcTemplate;
-
-	@Autowired
-	private AuthProvider auth;
 	
 	@Autowired
 	private TradeDao tradeDao;
@@ -109,8 +104,20 @@ public class JdbcPortfolioDao implements PortfolioDao {
 
         return portfolios;
     }
- 
-                        
+
+	@Override
+	public long getQuantityOfShares(String ticker, long portfolioId) {
+		String sqlGetSharesCount = "SELECT SUM(quantity) as total_shares FROM trade WHERE ticker = ? AND portfolio_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetSharesCount, ticker, portfolioId);
+
+        long totalShares = 0;
+        while (results.next()) {
+            totalShares = results.getLong("total_shares");
+        }
+		
+		return totalShares;
+	}   
+         
     private Portfolio mapRowToPortfolio(SqlRowSet results) {
     Portfolio portfolio = new Portfolio();
     portfolio.setGameId(results.getLong("game_id"));

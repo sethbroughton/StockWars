@@ -34,10 +34,10 @@
     </div>
 
     <form @submit.prevent="tradeStock" v-if="lookup" id="buy-sell" class="form u-margin-bottom">
-      <h3 class="label u-margin-bottom-small">You own (XX) shares</h3>
+      <h3 class="label u-margin-bottom-small">You own {{sharesCount}} shares</h3>
       <div class="input-fields">
         <div class="alert alert-danger u-margin-bottom-small" role="alert" v-if="invalidTrade">
-            Invalid Trade!!!
+            Invalid Trade
           </div>
         <div class="form-group u-margin-bottom-small trade-input">
           <input
@@ -101,6 +101,7 @@ export default {
       query: '',
       portfolio: this.$parent.portfolio, 
       invalidTrade: false,
+      sharesCount: 0
     }
   },
   computed: {
@@ -112,6 +113,7 @@ export default {
     
   },
   methods: {
+    
     //POST a trade
     tradeStock(){
       this.trade.stockValue = (Math.round(this.quote.latestPrice * this.trade.quantity*100) / 100).toFixed(2)
@@ -137,6 +139,16 @@ export default {
 
     //Get latest stock price and related company information
     stockQuote(){
+
+      const authToken = auth.getToken();
+
+      const fetchConfigGet = {
+        method: 'GET',
+        headers:{
+          Authorization: `Bearer ${authToken}`
+        }
+      }
+
       const query = this.trade.ticker;
       fetch(`https://cloud.iexapis.com/stable/stock/${query}/quote?token=${process.env.VUE_APP_API_KEY}`)
         .then((response) => {
@@ -160,6 +172,16 @@ export default {
       })
       .then((company) => {
         this.company = company;
+      })
+
+      //GET current shares of selected stock
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/stockShares/${this.portfolio.portfolioId}/` + query, fetchConfigGet)
+      .then((response) => {
+        return response.json();
+      })
+      .then((shares) => {
+        console.log(shares);
+        this.sharesCount = shares;
       })
 
       //Display results and buy/sell options

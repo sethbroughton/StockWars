@@ -12,10 +12,7 @@ import com.techelevator.model.TradeDao;
 import com.techelevator.model.User;
 import com.techelevator.model.UserDao;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +20,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.HttpStatus;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -167,6 +162,12 @@ public class ApiController {
         return portfolios;
     }
 
+    @GetMapping("/stockShares/{portfolioId}/{ticker}")
+    public long getQuantityOfShares(@PathVariable String ticker, @PathVariable long portfolioId) {
+        long sharesQuantity = portfolioDao.getQuantityOfShares(ticker, portfolioId);
+        return sharesQuantity;
+    }
+
     @PostMapping("/portfolios")
 	@ResponseStatus(HttpStatus.CREATED)
 	public String createPortfolios(@RequestBody Game game) {
@@ -204,13 +205,12 @@ public class ApiController {
     @GetMapping("/trades/{id}")
     public List<Trade> getAllTradesInPortfolio(@PathVariable long id) {
         return tradeDao.getTradesPerPortfolio(id);
-    } 
+    }   
+
     
     @GetMapping("/trades/game/{gameId}")
     public List<Trade> getAllTradesInGame(@PathVariable long gameId) {
         return tradeDao.getTradesPerGame(gameId);
-    } 
-    
-    
+    }  
     
 }
