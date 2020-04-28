@@ -4,29 +4,26 @@
     <div class="container">
       <active-games class="u-margin-bottom"/>
       <div class="data">
-        <user-statistics/>
+        <invites/>
         <leader-board/>
       </div>
-      <routes/>
     </div>
    
   </div>
 </template>
 
 <script>
-import Routes from '@/components/Routes';
 import LeaderBoard from '@/components/LeaderBoard';
 import ActiveGames from '@/components/ActiveGames';
-import UserStatistics from '@/components/UserStatistics';
+import Invites from '@/components/Invites';
 import UserHeader from '@/components/UserHeader';
 
 export default {
   name: 'profile',
   components: {
-    Routes,
     LeaderBoard, 
     ActiveGames,
-    UserStatistics,
+    Invites,
     UserHeader
   },
   data() {

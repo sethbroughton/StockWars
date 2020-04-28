@@ -131,9 +131,9 @@ export default {
 
 <style scoped>
 
-  #game {
-    position: relative;
-  }
+#game {
+  position: relative;
+}
 
 .container {
   padding: 2% 7%;
@@ -190,7 +190,7 @@ export default {
   width: 8%;
 
   position: absolute;
-  top: 50%;
+  top: 50vh;
   left: 0;
 }
 

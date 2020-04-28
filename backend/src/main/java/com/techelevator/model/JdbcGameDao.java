@@ -200,6 +200,36 @@ public class JdbcGameDao implements GameDao {
             
     }
 
+    @Override
+    public void insertWinnerId(long winnerId, long gameId){
+            String sqlUpdateWinner = "UPDATE game SET winner_id = ? WHERE game_id = ?";
+
+            jdbcTemplate.update(sqlUpdateWinner, winnerId, gameId);
+    }
+
+    @Override
+    public List<Game> getAllInvites() {
+        List<Game> games = new ArrayList<Game>();
+        
+        User currentUser = auth.getCurrentUser();
+        long userId = currentUser.getId();
+        
+        String sqlGetInvites = "SELECT game.* FROM users_game "
+                                + "JOIN game ON (users_game.game_id = game.game_id) "
+                                + "JOIN users ON (users_game.user_id = users.id) "
+                                + "WHERE user_id = ? AND invite_accepted = false";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetInvites, userId);
+
+        while(results.next()) {
+            Game theGame = mapRowSetToGame(results);
+            games.add(theGame);
+        }
+
+        return games;
+    }
+
+
     //still need to fix the setPlayers section -Kevin 
     private Game mapRowSetToGame(SqlRowSet results) {
         Game theGame = new Game();
@@ -223,13 +253,6 @@ public class JdbcGameDao implements GameDao {
         theGame.setPublicGame(results.getBoolean("public_game"));
 
         return theGame;
-    }
-
-    @Override
-    public void insertWinnerId(long winnerId, long gameId){
-            String sqlUpdateWinner = "UPDATE game SET winner_id = ? WHERE game_id = ?";
-
-            jdbcTemplate.update(sqlUpdateWinner, winnerId, gameId);
     }
 
     private void loadJSON() throws IOException, java.io.IOException {

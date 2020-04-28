@@ -95,6 +95,11 @@ public class ApiController {
         return gameDao.listPendingGames();
     }    
 
+    @GetMapping("/invites")
+    public List<Game> getInvites() {
+        return gameDao.getAllInvites();
+    }
+
     @PostMapping("/game")
 	@ResponseStatus(HttpStatus.CREATED)
 	public String create(@RequestBody Game game) {
