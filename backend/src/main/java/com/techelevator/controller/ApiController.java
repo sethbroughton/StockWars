@@ -116,8 +116,8 @@ public class ApiController {
     
     @PostMapping("/invite/{gameId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public String invitePlayer(@RequestBody long userId, @PathVariable long gameId) {
-        userDao.inviteUser(userId, gameId);
+    public String invitePlayer(@RequestBody String username, @PathVariable long gameId) {
+        userDao.inviteUser(username, gameId);
         return "{\"success\":true}";
     }
 
