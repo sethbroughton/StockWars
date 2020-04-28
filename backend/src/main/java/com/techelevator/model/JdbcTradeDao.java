@@ -7,8 +7,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.techelevator.authentication.AuthProvider;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -18,9 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class JdbcTradeDao implements TradeDao {
 
 	private JdbcTemplate jdbcTemplate;
-
-	@Autowired
-	private AuthProvider auth;
 
 	@Autowired
 	public JdbcTradeDao(DataSource dataSource) {
@@ -128,9 +123,31 @@ public class JdbcTradeDao implements TradeDao {
 			theTrade = mapRowSetToTrade(results);
 			allTheTrades.add(theTrade);
 		}
-		return allTheTrades;
-										
+		return allTheTrades;							
 	}
+	
+	@Override
+	public List<Trade> getTradesPerGame(long gameId) {
+		
+		//Trade theTrade = null;
+		ArrayList<Trade> allTheTrades = new ArrayList<Trade>();
+		String sqlGetTradesPerGame = "SELECT sum(quantity) as quantity, trade.ticker AS ticker, "
+				+ "portfolio.portfolio_id as portfolio_id FROM trade " + 
+				"INNER JOIN portfolio ON portfolio.portfolio_id = trade.portfolio_id "
+				+ "WHERE game_id=? GROUP BY trade.ticker, portfolio.portfolio_id";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetTradesPerGame, gameId);
+
+		while (results.next()) {
+			Trade theTrade = new Trade();
+			theTrade.setPortfolioId(results.getLong("portfolio_id"));
+			theTrade.setTicker(results.getString("ticker"));
+			theTrade.setQuantity(results.getInt("quantity"));
+			allTheTrades.add(theTrade);
+		}
+		return allTheTrades;							
+	}
+	
 
 
 	private Trade mapRowSetToTrade(SqlRowSet results) {

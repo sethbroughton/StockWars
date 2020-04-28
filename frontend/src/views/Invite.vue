@@ -4,8 +4,10 @@
     <div class="container">
       <h1 class="u-margin-bottom">Invite to Game</h1>
       <div class="invite-to-game">
-        <form class="form" @submit.prevent="inviteToGame">
+        <form class="form" @submit.prevent="inviteToGame(game.playerId)">
           <div class="form-group u-margin-bottom">
+
+            <!-- This section is where username needs to be put -->
             <label for="playerId" class="label">Player Id</label>
             <input
             type="number"
@@ -53,7 +55,7 @@ export default {
     UserHeader    
   },
   methods: {
-    inviteToGame() {
+    inviteToGame(userId) {
       const authToken = auth.getToken();
       fetch(`${process.env.VUE_APP_REMOTE_API}/api/invite/${this.game.gameId}`, {
         method: 'POST',
@@ -62,7 +64,7 @@ export default {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${authToken}`
         },
-        body: JSON.stringify(this.game.playerId)
+        body: JSON.stringify(userId, this.game.gameId)
       })
       .then((response) => {
         if(response.ok) {

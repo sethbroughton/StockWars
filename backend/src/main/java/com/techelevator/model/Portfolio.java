@@ -29,7 +29,7 @@ public void setTrades(List<Trade> trades) {
 }
 
 
-public BigDecimal geCash() {
+public BigDecimal getCash() {
     return cash;
 }
 

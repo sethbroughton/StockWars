@@ -42,6 +42,7 @@
         <div class="form-group u-margin-bottom-small trade-input">
           <input
             type="number"
+            min=1
             v-model="trade.quantity"
             required
             autofocus

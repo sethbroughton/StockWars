@@ -52,7 +52,21 @@ export default {
   methods: {
     hide() {
       this.hideScoreboard = true;
-    }
+    }, 
+
+    // displayLeaderBoard() {
+
+    //   fetch(`http://localhost:8080/AuthenticationApplication/api/trades/game/1`, fetchConfigGet)
+    //   .then((response)=> {
+    //     return response.json();
+    //   })
+    //   .then((trades)=> { 
+    //     console.log('hi');
+
+    //   })
+    //   console.log('hey hey')
+    // },
+
   },
   created() {
 
@@ -99,6 +113,17 @@ export default {
       this.allPortfolios = portfolios;
     })
     .catch(err => console.log(`Error fetching portfolios ${err}`));
+
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/trades/game/1`, fetchConfigGet)
+    .then((response) => {
+      return response.json();
+    })
+    .then((allPortfolios) => {
+      this.allPortfolios = allPortfolios;
+      console.log('hey hey')
+    });  
+
+    
 
   }
 }

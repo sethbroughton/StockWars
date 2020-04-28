@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.techelevator.authentication.AuthProvider;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -18,9 +16,9 @@ import org.springframework.stereotype.Component;
 public class JdbcPortfolioDao implements PortfolioDao {
 
     private JdbcTemplate jdbcTemplate;
-
+	
 	@Autowired
-	private AuthProvider auth;
+	private TradeDao tradeDao;
 
     @Autowired
     public JdbcPortfolioDao(DataSource dataSource) {
@@ -96,8 +94,11 @@ public class JdbcPortfolioDao implements PortfolioDao {
                                             + "WHERE game.game_id = ?";
                                             
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllPortfoliosInGame, gameId);
+        
         while (results.next()) {
             Portfolio thePortfolio = mapRowToPortfolio(results);
+            List<Trade> tradesForPortfolio = tradeDao.getTradesPerPortfolio(results.getLong("portfolio_id"));
+            thePortfolio.setTrades(tradesForPortfolio);
             portfolios.add(thePortfolio);
         }
 
@@ -116,19 +117,6 @@ public class JdbcPortfolioDao implements PortfolioDao {
 		
 		return totalShares;
 	}   
-
-    // @Override
-    // public Game getGameById(long id) {
-    //     Game theGame = null;
-
-    //     String sqlGetGameById = "SELECT * FROM game WHERE game.game_id = ?";
-    //     SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetGameById, id);
-    //     while (results.next()) {
-    //         theGame = mapRowSetToGame(results);
-    //     }
-
-    //     return theGame;
-    // }
                         
     private Portfolio mapRowToPortfolio(SqlRowSet results) {
     Portfolio portfolio = new Portfolio();
