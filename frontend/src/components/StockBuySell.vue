@@ -86,7 +86,7 @@ export default {
         description: '', 
       },
       trade: {
-        portfolioId: 1, //This needs to be changed 
+        portfolioId: this.$parent.portfolio.portfolioId,
         type: '',
         ticker: '', //From search stock query
         quantity: 0, //Form input
