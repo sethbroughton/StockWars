@@ -167,6 +167,12 @@ public class ApiController {
         return portfolios;
     }
 
+    @GetMapping("/stockShares/{portfolioId}/{ticker}")
+    public long getQuantityOfShares(@PathVariable String ticker, @PathVariable long portfolioId) {
+        long sharesQuantity = portfolioDao.getQuantityOfShares(ticker, portfolioId);
+        return sharesQuantity;
+    }
+
     @PostMapping("/portfolios")
 	@ResponseStatus(HttpStatus.CREATED)
 	public String createPortfolios(@RequestBody Game game) {
@@ -205,4 +211,5 @@ public class ApiController {
     public List<Trade> getAllTradesInPortfolio(@PathVariable long id) {
         return tradeDao.getTradesPerPortfolio(id);
     }   
+    
 }

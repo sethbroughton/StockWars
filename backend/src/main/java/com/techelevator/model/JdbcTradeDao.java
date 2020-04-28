@@ -132,6 +132,7 @@ public class JdbcTradeDao implements TradeDao {
 										
 	}
 
+
 	private Trade mapRowSetToTrade(SqlRowSet results) {
 		Trade theTrade = new Trade();
 
