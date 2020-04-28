@@ -191,10 +191,10 @@ public class ApiController {
     
     @PostMapping("/trade")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createTrade(@RequestBody Trade trade) {
+    public Long createTrade(@RequestBody Trade trade) {
     	trade.setDateOfPurchase((LocalDate.now()));
-    	tradeDao.createNewTrade(trade);
-    	return "{\"success\":true}";
+    	Long tradeId = tradeDao.createNewTrade(trade);
+    	return tradeId;
     }
     
     @GetMapping("/trades/{id}")

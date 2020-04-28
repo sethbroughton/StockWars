@@ -28,7 +28,9 @@ public class JdbcTradeDao implements TradeDao {
 	}
 
 	@Override
-	public void createNewTrade(Trade trade) {
+	public Long createNewTrade(Trade trade) {
+		//Trade newTrade = null;
+		Long tradeId = null;
 		BigDecimal accountBalance = null;
 		//Get current CASH balance from portfolio table
 		String sqlGetCurrentCashBalance = "SELECT cash from portfolio where portfolio_id=?";
@@ -52,10 +54,17 @@ public class JdbcTradeDao implements TradeDao {
 		
 		//Create trade in trade table
 		String sqlInsertNewTrade = "INSERT INTO trade (portfolio_id, type, ticker, "
-				+ "quantity, stock_value, commission, date_of_purchase) VALUES (?, ?, ?, ?, ?, ?, ?)";
+				+ "quantity, stock_value, commission, date_of_purchase) VALUES (?, ?, ?, ?, ?, ?, ?) "
+				+ "RETURNING trade_id";
 
-		jdbcTemplate.update(sqlInsertNewTrade, trade.getPortfolioId(), trade.getType(), trade.getTicker(),
+		SqlRowSet insertResult = jdbcTemplate.queryForRowSet(sqlInsertNewTrade, trade.getPortfolioId(), trade.getType(), trade.getTicker(),
 				trade.getQuantity(), trade.getStockValue(), trade.getCommission(), trade.getDateOfPurchase());
+		
+		if (insertResult.next()) {
+			tradeId = insertResult.getLong("trade_id");
+		}
+		
+		return tradeId;
 	}
 
 	// Lists all the trades in the database - Kevin
