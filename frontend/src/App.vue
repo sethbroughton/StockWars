@@ -197,6 +197,11 @@ a {
   align-items: center; 
 }
 
+.table-header-item {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
 .table-buttons {
   display: flex; 
 }

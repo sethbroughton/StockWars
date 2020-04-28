@@ -75,7 +75,7 @@ const router = new Router({
       }
     },
     {
-      path: '/tradeHistory',
+      path: '/tradeHistory/:portfolioId',
       name: 'trade-history',
       component: TradeHistory,
       meta: {

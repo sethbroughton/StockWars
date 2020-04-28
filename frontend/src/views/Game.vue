@@ -14,7 +14,7 @@
         <router-link v-bind:to="{ name: 'portfolio', params: {portfolioId: portfolio.portfolioId} }" id="portfolio" class="link-box">
           Portfolio
         </router-link>
-        <router-link :to="{ name: 'trade-history' }" id="history" class="link-box">
+        <router-link :to="{ name: 'trade-history', params: {portfolioId: portfolio.portfolioId} }" id="history" class="link-box">
           History
         </router-link>
       </div>

@@ -1,38 +1,36 @@
 <template>
   <div id="trade-history">
     <user-header></user-header>
-    <h1>Trade History</h1>
+    <div class="container">
+      <h1 class="u-margin-bottom">Trade History</h1>
 
-    <div class="trade-history">
-      <button class="return-to-game-btn">Return New Game</button>
-      <table class="trade-history-list" >
-        <table>
-          <tr> 
-            <th>Stock Name</th>
-            <th>Ticker</th>
-            <th>Buy/Sell </th>
-            <th>Shares</th>
-            <th>Value</th>
-            <th>Date</th>
-          </tr>
-          <tr v-for="trade in trades" v-bind:key="trade.tradeId">
-            <td> Name </td>
-            <td> {{trade.ticker}}</td>
-            <td> {{trade.type}} </td>
-            <td>{{trade.quantity}}</td>
-            <td>${{trade.stockValue}}</td>
-            <td>{{trade.dateOfPurchase.month}}, {{trade.dateOfPurchase.dayOfMonth}}{{trade.dateOfPurchase.year}} </td>
-             </tr>
-          
-        </table>       
-      </table>
-      <routes/>
+      <div class="trade-history table u-margin-bottom">
+        <div class="table-header">
+          <span class="table-header-item">Stock Name</span>
+          <span class="table-header-item">Ticker</span>
+          <span class="table-header-item">Buy/Sell </span>
+          <span class="table-header-item">Shares</span>
+          <span class="table-header-item">Value</span>
+          <span class="table-header-item">Date</span>
+        </div>
+
+        <div v-for="trade in trades" v-bind:key="trade.tradeId" class="table-row">
+          <span class="table-item">Name</span>
+          <span class="table-item">{{trade.ticker}}</span>
+          <span class="table-item">{{trade.type}} </span>
+          <span class="table-item">{{trade.quantity}}</span>
+          <span class="table-item">${{trade.stockValue}}</span>
+          <td>{{trade.dateOfPurchase.month}}, {{trade.dateOfPurchase.dayOfMonth}}{{trade.dateOfPurchase.year}} </td>
+        </div>
+      </div>
+
+      <button class="button return-to-game">Return to Game</button>
     </div>
+
   </div>
 </template>
 
 <script>
-import Routes from '@/components/Routes'
 import UserHeader from '@/components/UserHeader'
 import auth from '../auth'
 
@@ -40,13 +38,12 @@ export default {
   name: 'trade-history',
 
   components: {
-    Routes,
     UserHeader
   }, 
-
   data() {
 
     return {
+      user: this.$parent.user,
       trades: []
     }
 
@@ -71,9 +68,22 @@ export default {
 }
 </script>
 
-<style>
-#trade-history {
-  color: var(--color-grey-light-1);
-  font-size: 2rem;
+<style scoped>
+
+.container {
+  padding: 2%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+h1 {
+  font-size: 5rem;
+  color: var(--color-grey-light-1); 
+}
+
+.return-to-game { background-color: var(--color-complementary-2); }
+.return-to-game:hover { background-color: var(--color-complementary-1); }
+
 </style>

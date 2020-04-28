@@ -23,11 +23,10 @@
       <div id="stock-info" v-if="lookup">
         <h3 class="stock-name u-margin-bottom-small">{{quote.companyName}} ({{quote.symbol}})</h3>
         <ul>          
-          <li> Current Price: ${{quote.latestPrice}}</li>
-          <li> Company Name: {{company.companyName}} ({{company.symbol}})</li>
-          <li> Website: {{company.website}} </li>
-          <li> Primary Exchange: {{company.exchange}} </li>
-          <li> Industry: {{company.industry}} </li>
+          <!-- <li>Website: {{company.website}} </li> -->
+          <!-- <li>Primary Exchange: {{company.exchange}} </li> -->
+          <li class="u-margin-bottom-small">{{company.industry}} </li>
+          <li>${{quote.latestPrice}}</li>
           <!-- JEFF: THERE'S A LOT OF TEXT HERE, NOT SURE IF/HOW TO WORK IT IN -->
           <!-- <li> Description: {{company.description}} </li> -->
         </ul> 
@@ -227,7 +226,7 @@ ul {
 li {
   list-style: none;
   color: var(--color-grey-light-1);
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 600;
 }
 
