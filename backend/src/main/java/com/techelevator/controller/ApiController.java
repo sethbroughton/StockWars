@@ -95,6 +95,11 @@ public class ApiController {
         return gameDao.listPendingGames();
     }    
 
+    @GetMapping("/gameByPortfolio/{portfolioId}")
+    public long getGameByPortfolioId(@PathVariable long portfolioId) {
+        return tradeDao.getGameIdByPortfolioId(portfolioId);
+    }    
+
     @PostMapping("/game")
 	@ResponseStatus(HttpStatus.CREATED)
 	public String create(@RequestBody Game game) {
