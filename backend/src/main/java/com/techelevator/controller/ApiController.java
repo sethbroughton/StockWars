@@ -135,7 +135,7 @@ public class ApiController {
 
      //insert a winner id when the game ends - Kevin
    //  not working, figured I'd comment it out for now
-     @PutMapping("/winner/game/{id}")
+     @PutMapping("/winner/game/{gameId}")
      public String insertTheWinnerId(@RequestBody long winnerId, @PathVariable long gameId) {
          gameDao.insertWinnerId(winnerId, gameId);
          return "{\"success\":true}"; 
