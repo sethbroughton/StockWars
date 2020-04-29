@@ -56,18 +56,11 @@ export default {
     
     returnToGame() {
 
-    
+    }
     
   },
 
-
-
   created() {
- 
-
-    
-    
-
 
      const authToken = auth.getToken();
      const fetchConfig = {
@@ -76,13 +69,16 @@ export default {
         Authorization: `Bearer ${authToken}`
         }
     }
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/tradeHistory`, fetchConfig)
+
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/trades/1`, fetchConfig)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         this.trades= data;
+        console.log('hi')
       })
+
     fetch(`${process.env.VUE_APP_REMOTE_API}/api/gameByPortfolio/1`, fetchConfig)
        .then((response) => {
         return response.json();
@@ -92,8 +88,9 @@ export default {
           console.log(this.gameId);
         })
   }
-  }
+
 }
+
 </script>
 
 <style scoped>
