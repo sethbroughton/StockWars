@@ -21,10 +21,10 @@
       </div>
     </div>
     
-    <button v-on:click="currentAccountBalance">Update</button>
+    <button id="show-scoreboard" v-on:click="currentAccountBalance">See Current Scores</button>
     <div v-if="this.hideScoreboard === false" class="scoreboard">
       <div v-for="portfolio in portfoliosWithTotalBalance" :key="portfolio.portfolioId" class="player-card">
-        {{portfolio.userId}}: ${{portfolio.accountBalance.toLocaleString()}}
+        {{portfolio.username}}: ${{portfolio.accountBalance.toLocaleString()}}
       </div>
     </div>
 
@@ -50,7 +50,7 @@ export default {
       },
       portfolio: null,
       allPortfolios: [],
-      hideScoreboard: false,
+      hideScoreboard: true,
       tickerArray: [],
       tickerDate: '',
       portfoliosWithTotalBalance: [],
@@ -72,6 +72,9 @@ export default {
     hide() {
       this.hideScoreboard = true;
     },
+    show() {
+      this.hideScoreboard = false;
+    },
     getPricesForAllStocks(){
       let query = "";
         let tickerArray = this.tickerArray;
@@ -86,7 +89,7 @@ export default {
               .then((quotes) => {
                 this.quotes = quotes;
               })
-              console.log(this.quotes["AAPL"])   
+              // console.log(this.quotes["AAPL"])   
     },
 
     getDateToday(){
@@ -111,6 +114,14 @@ export default {
                "userId": myPortfolio["userId"],
                "accountBalance": accountBalance
              }
+
+            // JEFF: LOOPS THROUGH ALL PLAYERS IN CURRENT GAME AND AND USERNAME TO SCOREBOARD DATA
+            for (let j = 0; j < this.game.players.length; j++) {
+              if ( this.allPortfolios[i].userId == this.game.players[j].id ) {
+                portfolioWithTotal.username = this.game.players[j].username;
+              }
+            }
+
             portfoliosWithTotalBalance.push(portfolioWithTotal);   
       }
 
@@ -120,7 +131,7 @@ export default {
       })
 
       this.portfoliosWithTotalBalance = portfoliosWithTotalBalance;
-    
+      this.hideScoreboard = false;
     },
 
 // TODO: This is for the game over mechanism...
