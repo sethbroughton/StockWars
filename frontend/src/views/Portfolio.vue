@@ -11,7 +11,7 @@
           </div>
         </div>
         <div v-for="stock in stockArray" v-bind:key="stock.ticker" class="table-row">
-          <router-link  v-bind:to="{name: 'game', params: {gameId: portfolio.gameId}, props: { defaultTicker: stock.ticker }, query: {ticker: stock.ticker}}"
+          <router-link  v-bind:to="{name: 'game', params: {gameId: portfolio.gameId}, query: {defaultTicker: stock.ticker}}"
           class="button-small buysell-button">Buy/Sell</router-link>
           <!-- <span class="table-item">{{quotes.companyName}}</span> -->
           <span class="table-item">{{stock.ticker}}</span>
