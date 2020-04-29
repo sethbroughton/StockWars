@@ -64,6 +64,7 @@ public class ApiController {
         }
         return "Success";
     }
+
     
     /////////////////////////////////////////////////////
     ////////////////////     GAMES     /////////////////
@@ -122,7 +123,11 @@ public class ApiController {
     @PostMapping("/invite/{gameId}")
     @ResponseStatus(HttpStatus.CREATED)
     public String invitePlayer(@RequestBody String username, @PathVariable long gameId) {
-        userDao.inviteUser(username, gameId);
+        
+    	username = username.replaceAll("^\"|\"$", "");
+    	
+        User user = userDao.getUserByUsername(username);
+        userDao.inviteUser(user, gameId);
         return "{\"success\":true}";
     }
 

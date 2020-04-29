@@ -4,7 +4,7 @@
     <div class="container">
       <h1 class="u-margin-bottom">Invite to Game</h1>
       <div class="invite-to-game">
-        <form class="form" @submit.prevent="inviteToGame(invite.username)">
+        <form class="form" @submit.prevent="inviteToGame">
           <div class="form-group u-margin-bottom">
 
             <!-- This section is where username needs to be put -->
@@ -13,7 +13,6 @@
             type="text"
             id="userame"
             v-model="invite.username"
-            placeholder="Username"
             required
             autofocus
             />
@@ -38,7 +37,7 @@ export default {
     return {
       invite: {
         gameId: this.$route.params.gameId,
-        username: ''
+        username: null
       },
       user: this.$parent.user
     }
@@ -47,7 +46,7 @@ export default {
     UserHeader    
   },
   methods: {
-    inviteToGame(username) {
+    inviteToGame() {
       const authToken = auth.getToken();
       fetch(`${process.env.VUE_APP_REMOTE_API}/api/invite/${this.invite.gameId}`, {
         method: 'POST',
@@ -56,7 +55,7 @@ export default {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${authToken}`
         },
-        body: JSON.stringify(username)
+        body: JSON.stringify(this.invite.username)
       })
       .then((response) => {
         if(response.ok) {

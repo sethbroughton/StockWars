@@ -154,16 +154,17 @@ public class JdbcUserDao implements UserDao {
     }
     
     @Override
-    public void inviteUser(String username, Long gameId) {
-        
-        User user = new User();
+    public void inviteUser(User user, Long gameId) {
+        String username = user.getUsername();
 
-    	String sqlFindUserIdByName = "SELECT * FROM users WHERE username = ?";
+        String sqlFindUserIdByName = "SELECT * FROM users WHERE username = ?";
     	SqlRowSet results = jdbcTemplate.queryForRowSet(sqlFindUserIdByName, username);
-    	user = mapResultToUser(results);
-        
+    	long userId = 0;
+    	while (results.next()) {
+    		userId = results.getLong("id");
+    	}
     	String sqlAddInvite = "INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (?, ?, false)";
-    	jdbcTemplate.update(sqlAddInvite, user.getId(), gameId);
+    	jdbcTemplate.update(sqlAddInvite, userId, gameId);
     }
 
 }
