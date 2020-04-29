@@ -22,8 +22,8 @@
     
     <button v-on:click="currentAccountBalance">Update</button>
     <div v-if="this.hideScoreboard === false" class="scoreboard">
-      <div v-for="portfolio in allPortfolios" :key="portfolio.portfolioId" class="player-card">
-        {{portfolio.portfolioId}}
+      <div v-for="portfolio in portfoliosWithTotalBalance" :key="portfolio.portfolioId" class="player-card">
+        {{portfolio.userId}}: {{portfolio.accountBalance}}
       </div>
     </div>
 
@@ -102,13 +102,14 @@ export default {
                "userId": myPortfolio["userId"],
                "accountBalance": accountBalance
              }
+      //TODO: Sort array
             portfoliosWithTotalBalance.push(portfolioWithTotal);   
       }
       this.portfoliosWithTotalBalance = portfoliosWithTotalBalance;
-      console.log()
-
+    
     },
 
+// TODO: This is for the game over mechanism...
     // gameOverPrice(ticker){
     //   fetch(`https://cloud.iexapis.com/stable/stock/${ticker}/chart/date/${this.tickerDate}?chartByDay=true&token=${process.env.VUE_APP_API_KEY}`)
     //           .then((response) => {
@@ -204,9 +205,7 @@ export default {
         this.tickerArray = myArr;
         this.getDateToday();
         this.getPricesForAllStocks();
-
 })  
-
   }
 }
 

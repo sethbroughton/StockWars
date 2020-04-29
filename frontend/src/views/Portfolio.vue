@@ -117,7 +117,7 @@ export default {
               query += tickerArray[i] + ','
           }
           console.log(query)
-            fetch(`https://cloud.iexapis.com/v1/stock/market/batch?&types=quote&symbols=${query}&token=${process.env.VUE_APP_API_KEY}`)
+            fetch(`https://cloud.iexapis.com/stable/stock/market/batch?&types=price&symbols=${query}&token=${process.env.VUE_APP_API_KEY}`)
               .then((response) => {
                 return response.json();
               })
