@@ -70,7 +70,7 @@ export default {
         }
     }
 
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/trades/1`, fetchConfig)
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/trades/${this.portfolio.portfolioId}`, fetchConfig)
       .then((response) => {
         return response.json();
       })
@@ -79,7 +79,7 @@ export default {
         console.log('hi')
       })
 
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/gameByPortfolio/1`, fetchConfig)
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/gameByPortfolio/${this.portfolio.portfolioId}`, fetchConfig)
        .then((response) => {
         return response.json();
       })
