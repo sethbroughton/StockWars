@@ -20,6 +20,7 @@
       </div>
     </div>
     
+    <button v-on:click="currentAccountBalance">Update</button>
     <div v-if="this.hideScoreboard === false" class="scoreboard">
       <div v-for="portfolio in allPortfolios" :key="portfolio.portfolioId" class="player-card">
         {{portfolio.portfolioId}}
@@ -51,7 +52,9 @@ export default {
       hideScoreboard: false,
       tickerArray: [],
       tickerDate: '',
-      portfoliosWithTotalBalance: []
+      portfoliosWithTotalBalance: [],
+      quotes: {
+      },
 
     }
   },
@@ -73,37 +76,27 @@ export default {
               .then((quotes) => {
                 this.quotes = quotes;
               })
-              console.log(this.quotes[0])   
+              console.log(this.quotes["AAPL"])   
     },
 
     getDateToday(){
       let currentDate = new Date();
       this.tickerDate = currentDate;  //TODO: Add a check for if the current date is after game finish date
     },
-    // getCurrentPrice(){
-    //   let price = 0;
-    //   fetch(`https://cloud.iexapis.com/stable/stock/AAPL/price?token=${process.env.VUE_APP_API_KEY}`)
-    //           .then((response) => {
-    //             return response.json();
-    //           })
-    //           .then((quote) => {
-    //             let price = quote;
-    //          })
-    //      return price; 
-    // },
 
     currentAccountBalance(){
-      //TODO: Takes in a portfolio and returns a $$ balance // based on an real-time API call
+      console.log('hi')
       let portfoliosWithTotalBalance = [];
        for(let i = 0; i<this.allPortfolios.length; i++){
           let myPortfolio = this.allPortfolios[i];
           let accountBalance = myPortfolio["cash"];
           let object = myPortfolio["stocks"][0];
-            // for (const ticker in object){
-            //   let stockValue = this.getCurrentPrice()*100;
-            // console.log(ticker)
-            //   accountBalance += stockValue;
-            // }
+            for (const property in object){
+              console.log(property)
+              let stockValue = object[property]*this.quotes[property].price
+
+              accountBalance += stockValue;
+            }
             let portfolioWithTotal = {
                "portfolioId": myPortfolio["portfolioId"],
                "userId": myPortfolio["userId"],
@@ -116,39 +109,22 @@ export default {
 
     },
 
-    gameOverPrice(ticker){
-      fetch(`https://cloud.iexapis.com/stable/stock/${ticker}/chart/date/${this.tickerDate}?chartByDay=true&token=${process.env.VUE_APP_API_KEY}`)
-              .then((response) => {
-                return response.json();
-              })
-              .then((quote) => {
-                let price = quote;
-                return price;
-              })
-    }, 
-
-    // updateStockPrices(){
-    //   let query = "";
-    //     let tickerArray = this.tickerArray;
-    //       for(let i = 0; i<tickerArray.length; i++){
-    //           query += tickerArray[i] + ','
-    //       }
-    //       console.log(query)
-    //         fetch(`https://cloud.iexapis.com/v1/stock/market/batch?&types=quote&symbols=${query}&token=${process.env.VUE_APP_API_KEY}`)
+    // gameOverPrice(ticker){
+    //   fetch(`https://cloud.iexapis.com/stable/stock/${ticker}/chart/date/${this.tickerDate}?chartByDay=true&token=${process.env.VUE_APP_API_KEY}`)
     //           .then((response) => {
     //             return response.json();
     //           })
-    //           .then((quotes) => {
-    //             this.quotes = quotes;
+    //           .then((quote) => {
+    //             let price = quote;
+    //             return price;
     //           })
-    //           console.log(this.quotes[0])
-    // }   
+    // }, 
+
   },
 
   created() {
 
     const authToken = auth.getToken();
-
     const fetchConfigGet = {
       method: 'GET',
       headers:{
@@ -183,7 +159,6 @@ export default {
     .catch(err => console.log(`Error fetching portfolios ${err}`));
 
     //Create Portfolio Array
-
     const gameId = 1; //TODO: This will need to be dynamic
     fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfoliosInGame/${gameId}`, fetchConfigGet)
     .then(response => {
@@ -227,9 +202,8 @@ export default {
         }
         console.log(myArr)
         this.tickerArray = myArr;
-        
         this.getDateToday();
-        this.currentAccountBalance(); 
+        this.getPricesForAllStocks();
 
 })  
 
