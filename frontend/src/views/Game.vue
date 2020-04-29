@@ -2,14 +2,14 @@
   <div id="game">
     <user-header></user-header>
     <div class="container">
-      <div class="game-stats u-margin-bottom">
+      <div class="game-stats u-margin-bottom-large">
         <p class="stat">{{game.name}}</p>
         <p class="stat">Available Cash: ${{cashBalance}}</p>
         <!-- <p class="stat">Current: {{today}} </p> -->
          <p class="stat">Game Ends: {{game.endDate.monthValue}}/{{game.endDate.dayOfMonth}}/{{game.endDate.year}}</p>
       </div>
 
-      <stock-buy-sell v-on:hide-scoreboard="hide" class="u-margin-bottom"/>
+      <stock-buy-sell v-on:hide-scoreboard="hide" class="u-margin-bottom-large"/>
 
       <div class="link-boxes">
         <router-link v-bind:to="{ name: 'portfolio', params: {portfolioId: portfolio.portfolioId} }" id="portfolio" class="link-box">
@@ -21,10 +21,10 @@
       </div>
     </div>
     
-    <button id="show-scoreboard" v-on:click="currentAccountBalance">See Current Scores</button>
+    <button v-if="this.hideScoreboard === true" id="show-scoreboard" v-on:click="currentAccountBalance">Current Scores</button>
     <div v-if="this.hideScoreboard === false" class="scoreboard">
       <div v-for="portfolio in portfoliosWithTotalBalance" :key="portfolio.portfolioId" class="player-card">
-        {{portfolio.username}}: ${{portfolio.accountBalance.toLocaleString()}}
+        {{portfolio.username}}<br>${{portfolio.accountBalance.toLocaleString()}}
       </div>
     </div>
 
@@ -295,22 +295,56 @@ export default {
 }
 
 .scoreboard {
-  width: 8%;
-
+  width: 11%;
   position: absolute;
   top: 50vh;
   left: 0;
+  transform: translatey(-50%);
 }
 
 .player-card {
+  width: 100%;
   color: var(--color-grey-light-1);
   background-color: var(--color-tertiary-2);
   text-align: right;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
 
-  padding: 3% 8%;
-  margin-bottom: 5%;
+  padding: 4% 8%;
+  margin-bottom: 15%;
+
+  position: relative;
+  left: -5%;
+
+  transition: all .2s;
+}
+
+.player-card:hover {
+  left: 0;
+}
+
+#show-scoreboard {
+  padding: 1% 1% 1% 2%;
+
+  color: var(--color-grey-light-1);
+  font-size: 2rem;
+  font-weight: 600;
+  background-color: var(--color-complementary-2);
+  border: none;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+
+  position: absolute;
+  top: 50vh;
+  left: -1%;
+  transform: translatey(-50%);
+
+  transition: all .2s;
+}
+
+#show-scoreboard:hover {
+  background-color: var(--color-complementary-1);
+  left: 0;
 }
 
 #portfolio { background-image: linear-gradient(var(--portfolio-image-overlay)), url(../assets/img/portfolio.jpg); }
