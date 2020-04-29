@@ -6,7 +6,7 @@
 
       <div class="trade-history table u-margin-bottom">
         <div class="table-header">
-          <span class="table-header-item">Stock Name</span>
+          <!-- <span class="table-header-item">Stock Name</span> -->
           <span class="table-header-item">Ticker</span>
           <span class="table-header-item">Buy/Sell </span>
           <span class="table-header-item">Shares</span>
@@ -15,12 +15,12 @@
         </div>
 
         <div v-for="trade in trades" v-bind:key="trade.tradeId" class="table-row">
-          <span class="table-item">Name</span>
+          <!-- <span class="table-item">Name</span> -->
           <span class="table-item">{{trade.ticker}}</span>
           <span class="table-item">{{trade.type}} </span>
           <span class="table-item">{{trade.quantity}}</span>
           <span class="table-item">${{trade.stockValue}}</span>
-          <td>{{trade.dateOfPurchase.month}}, {{trade.dateOfPurchase.dayOfMonth}}{{trade.dateOfPurchase.year}} </td>
+          <span class="table-item">{{trade.dateOfPurchase.month}}, {{trade.dateOfPurchase.dayOfMonth}} {{trade.dateOfPurchase.year}} </span class="table-item">
         </div>
       </div>
 
