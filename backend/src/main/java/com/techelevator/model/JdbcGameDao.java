@@ -69,6 +69,7 @@ public class JdbcGameDao implements GameDao {
             theGame = mapRowSetToGame(results);
         }
         
+        //Adds a list of players to the game - SB
         List<User> players = userDao.getUsersInGame(theGame);
         theGame.setPlayers(players);
 

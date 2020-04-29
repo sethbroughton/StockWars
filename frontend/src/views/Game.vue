@@ -141,14 +141,17 @@ export default {
       this.user = currentUser;
     });    
 
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/game/`, fetchConfigGet)
+    //Updated so that it only calls this one game rather than all games - SB
+    const gameId = this.$route.params.gameId;
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/game/${gameId}`, fetchConfigGet)
     .then(response => {
       return response.json();
     })
-    .then((games) => {
-      this.game = games.find(p => p.gameId == this.$route.params.gameId);
+    .then((game) => {
+      this.game = game
     })
     .catch(err => console.log(`Error fetching games ${err}`));
+    
 
     fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolios`, fetchConfigGet)
     .then(response => {
@@ -160,7 +163,6 @@ export default {
     .catch(err => console.log(`Error fetching portfolios ${err}`));
 
     //Create Portfolio Array
-    const gameId = 1; //TODO: This will need to be dynamic
     fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfoliosInGame/${gameId}`, fetchConfigGet)
     .then(response => {
       return response.json();
