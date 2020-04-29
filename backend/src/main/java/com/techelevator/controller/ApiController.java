@@ -14,6 +14,7 @@ import com.techelevator.model.UserDao;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -65,6 +66,14 @@ public class ApiController {
         return "Success";
     }
 
+    /////////////////////////////////////////////////////
+    ////////////////////     USERS     /////////////////
+    /////////////////////////////////////////////////////
+
+    @GetMapping("/leaderboard")
+    public Map<String, Integer> leaderboard() {
+        return userDao.getLeaderboard();
+    }
     
     /////////////////////////////////////////////////////
     ////////////////////     GAMES     /////////////////

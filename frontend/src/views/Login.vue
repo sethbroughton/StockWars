@@ -41,7 +41,7 @@
 
       <router-link :to="{ name: 'register' }" id="register" class="button">Need an account?</router-link>
 
-      <router-link :to="{ name: 'about' }" id="about">About the team</router-link>
+      <!-- <router-link :to="{ name: 'about' }" id="about">About the team</router-link> -->
     </div>
   </div>
 </template>

@@ -1,6 +1,7 @@
 package com.techelevator.model;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserDao {
 
@@ -40,5 +41,7 @@ public interface UserDao {
     public List<User> getUsersInGame(Game game);
     
     public void inviteUser(User user, Long gameId);
+
+    public Map<String, Integer> getLeaderboard();
 
 }

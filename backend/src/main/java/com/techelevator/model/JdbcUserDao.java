@@ -1,7 +1,9 @@
 package com.techelevator.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -165,6 +167,28 @@ public class JdbcUserDao implements UserDao {
     	}
     	String sqlAddInvite = "INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (?, ?, false)";
     	jdbcTemplate.update(sqlAddInvite, userId, gameId);
+    }
+
+    @Override
+    public Map<String, Integer> getLeaderboard() {
+        Map<String, Integer> leaderboard = new HashMap<String, Integer>();
+
+        String sqlGetLeaderboard = "SELECT users.username, COUNT(game.winner_id) AS wins "
+                                    + "FROM users "
+                                    + "JOIN users_game ON (users.id = users_game.user_id) "
+                                    + "JOIN game ON (users_game.game_id = game.game_id) "
+                                    + "WHERE game.winner_id = users.id "
+                                    + "GROUP BY users.username "
+                                    + "ORDER BY wins DESC ";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetLeaderboard);
+        while (results.next()) {
+            String userName = results.getString("username");
+            int wins = results.getInt("wins");
+            leaderboard.put(userName, wins);
+        }
+
+        return leaderboard;
     }
 
 }
