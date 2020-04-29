@@ -4,7 +4,6 @@
     <div class="user-info">
       <router-link :to="{ name: 'profile' }" class="header-link">{{ user.username }}</router-link>
       <form v-on:click="logout" class="header-link">Sign out</form>
-      <img src="../assets/img/sample-user-avi.jpg" alt="user avi">
     </div>
   </header>
 </template>
@@ -48,7 +47,7 @@ export default {
     height: 5rem;
     color: var(--color-grey-light-1);
 
-    padding: 1%;
+    padding: 2%;
 
     position: sticky;
     top: 0;
@@ -81,8 +80,11 @@ img {
   font-size: 2rem;
   color: var(--color-grey-light);
   font-weight: 500;
-  margin-right: 2rem;
   cursor: pointer;
+}
+
+.header-link:not(:last-child) {
+  margin-right: 2rem;
 }
 
 </style>
