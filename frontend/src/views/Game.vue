@@ -49,7 +49,10 @@ export default {
       portfolio: null,
       allPortfolios: [],
       hideScoreboard: false,
-      tickerArray: []
+      tickerArray: [],
+      tickerDate: '',
+      portfoliosWithTotalBalance: []
+
     }
   },
   methods: {
@@ -57,9 +60,46 @@ export default {
       this.hideScoreboard = true;
     }, 
 
+    getDateToday(){
+      let currentDate = new Date();
+      this.tickerDate = currentDate;  //TODO: Add a check for if the current date is after game finish date
+    },
+    getCurrentPrice(price){
+
+    },
+
     currentAccountBalance(){
       //TODO: Takes in a portfolio and returns a $$ balance // based on an real-time API call
+      let portfoliosWithTotalBalance = [];
+       for(let i = 0; i<allPortfolios.length; i++){
+          let myPortfolio = allPortfolios[i];
+          let accountBalance = myPortfolio["cash"];
+          let object = myPortfolio["stocks"][0];
+            for (const ticker in object){
+              let stockValue = this.getCurrentPrice(ticker)*object[ticker]
+              accountBalance += stockValue;
+            }
+            let portfolioWithTotal = {
+               "portfolioId": myPortfolio["portfolioId"],
+               "userId": myPortfolio["userId"],
+               "accountBalance": accountBalance
+             }
+            portfoliosWithTotalBalance.push(portfolioWithTotal);   
+      }
+      this.portfoliosWithTotalBalance = portfoliosWithTotalBalance;
+
     },
+
+    gameOverPrice(ticker){
+      fetch(`https://cloud.iexapis.com/stable/stock/${ticker}/chart/date/${this.tickerDate}?chartByDay=true&token=${process.env.VUE_APP_API_KEY}`)
+              .then((response) => {
+                return response.json();
+              })
+              .then((quote) => {
+                let price = quote;
+                return price;
+              })
+    }, 
 
     updateStockPrices(){
       let query = "";
@@ -161,10 +201,15 @@ export default {
         }
         console.log(myArr)
         this.tickerArray = myArr;
+        //this.updateStockPrices();
+        this.getDateToday();
 
 
 })  
 
+  }, 
+  mounted(){
+    this.updateStockPrices()
   }
 }
 </script>
