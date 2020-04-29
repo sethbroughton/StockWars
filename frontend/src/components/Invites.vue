@@ -7,7 +7,7 @@
       </div>
       <div class="reply-buttons">
         <button v-on:click="acceptInvite(invite.gameId)" class="button-small accept">Accept</button>
-        <button class="button-small reject">Reject</button>
+        <button v-on:click="rejectInvite(invite.gameId)" class="button-small reject">Reject</button>
       </div>
     </div>
   </div>
@@ -37,11 +37,35 @@ export default {
         }
       }
 
-      fetch(`${process.env.VUE_APP_REMOTE_API}/api/${this.user.id}/` + gameId, fetchConfigPut)
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/invite/${this.user.id}/` + gameId, fetchConfigPut)
       .then((response) => {
         if(response.ok) {
-          console.log("success?");
-          this.$router.push('/profile');
+          console.log("success");
+          location.reload();
+        }
+      })
+      .catch((err) => console.error(err));
+    },
+
+    rejectInvite(gameId) {
+      const authToken = auth.getToken();
+      
+      const fetchConfigDelete = {
+        method : "DELETE",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type' : 'application/json',
+          'Accept': 'application/json'
+        }
+      }
+
+      console.log(this.user.id, gameId);
+
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/rejectInvite/${this.user.id}/` + gameId, fetchConfigDelete)
+      .then((response) => {
+        if(response.ok) {
+          console.log("success");
+          location.reload();
         }
       })
       .catch((err) => console.error(err));

@@ -20,7 +20,7 @@
       </div>
     </div>
     
-    <button v-if="this.hideScoreboardButton === false" id="show-scoreboard" v-on:click="currentAccountBalance">Current Scores</button>
+    <button v-if="this.hideScoreboard === true" id="show-scoreboard" v-on:click="currentAccountBalance">Current Scores</button>
     <div v-if="this.hideScoreboard === false" class="scoreboard">
       <div v-for="portfolio in portfoliosWithTotalBalance" :key="portfolio.portfolioId" class="player-card">
         {{portfolio.username}}<br>${{portfolio.accountBalance.toLocaleString()}}
