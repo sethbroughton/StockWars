@@ -132,8 +132,19 @@ public class ApiController {
     
     @PostMapping("/invite/{gameId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public String invitePlayer(@RequestBody String username, @PathVariable long gameId) {
-        
+    public String invitePlayer(/*User user*/ @RequestBody String username, @PathVariable long gameId) {
+    	//-Charles
+    	
+    	/*String existingInvite = user.getUsername(gameDao.getAllInvites());
+		//Need variable for an existing invite
+    	List<Game> existingInvite = gameDao.getAllInvites(id );
+    	//If the user is already invited
+    	if(existingInvite.contains(gameId)) {
+    	//Do not send an invite
+    		throw new GameNotFoundException(gameId, "Player already invited to this game!!!");
+    	}
+    	//Otherwise, send an invite*/
+    	
     	username = username.replaceAll("^\"|\"$", "");
     	
         User user = userDao.getUserByUsername(username);
