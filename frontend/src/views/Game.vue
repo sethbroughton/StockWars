@@ -5,7 +5,8 @@
       <div class="game-stats u-margin-bottom">
         <p class="stat">{{game.name}}</p>
         <p class="stat">Available Cash: ${{cashBalance}}</p>
-        <p class="stat">XX Days Left</p>
+        <!-- <p class="stat">Current: {{today}} </p> -->
+         <p class="stat">Game Ends: {{game.endDate.monthValue}}/{{game.endDate.dayOfMonth}}/{{game.endDate.year}}</p>
       </div>
 
       <stock-buy-sell v-on:hide-scoreboard="hide" class="u-margin-bottom"/>
@@ -61,6 +62,11 @@ export default {
     cashBalance(){
       return (this.portfolio.cash).toLocaleString()
     },
+    // today(){
+    //   let now = new Date();
+    //   //return this.game.endDate
+    //   return now.toLocaleString();
+    // }
   },
   methods: {
     hide() {
@@ -141,13 +147,13 @@ export default {
       }
     }
 
-    fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`, fetchConfigGet)
-    .then((response) => {
-      return response.json();
-    })
-    .then((currentUser) => {
-      this.user = currentUser;
-    });    
+    // fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`, fetchConfigGet)
+    // .then((response) => {
+    //   return response.json();
+    // })
+    // .then((currentUser) => {
+    //   this.user = currentUser;
+    // });    
 
     //Updated so that it only calls this one game rather than all games - SB
     const gameId = this.$route.params.gameId;
