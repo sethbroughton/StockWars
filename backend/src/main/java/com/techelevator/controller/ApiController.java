@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.HttpStatus;
@@ -168,6 +169,12 @@ public class ApiController {
      @PutMapping("/invite/{userId}/{gameId}")
      public String acceptInvite(@PathVariable long userId , @PathVariable long gameId) {
     	 gameDao.acceptInvite(userId, gameId);
+    	 return "{\"success\":true}";
+     }
+     
+     @DeleteMapping("/rejectInvite/{userId}/{gameId}")
+     public String rejectInvite(@PathVariable long userId , @PathVariable long gameId) {
+    	 gameDao.rejectInvite(userId, gameId);
     	 return "{\"success\":true}";
      }
     /////////////////////////////////////////////////////
