@@ -59,26 +59,51 @@ export default {
     hide() {
       this.hideScoreboard = true;
     }, 
+    getPricesForAllStocks(){
+      let query = "";
+        let tickerArray = this.tickerArray;
+          for(let i = 0; i<tickerArray.length; i++){
+              query += tickerArray[i] + ','
+          }
+          console.log(query)
+            fetch(`https://cloud.iexapis.com/stable/stock/market/batch?&types=price&symbols=${query}&token=${process.env.VUE_APP_API_KEY}`)
+              .then((response) => {
+                return response.json();
+              })
+              .then((quotes) => {
+                this.quotes = quotes;
+              })
+              console.log(this.quotes[0])   
+    },
 
     getDateToday(){
       let currentDate = new Date();
       this.tickerDate = currentDate;  //TODO: Add a check for if the current date is after game finish date
     },
-    getCurrentPrice(price){
-
-    },
+    // getCurrentPrice(){
+    //   let price = 0;
+    //   fetch(`https://cloud.iexapis.com/stable/stock/AAPL/price?token=${process.env.VUE_APP_API_KEY}`)
+    //           .then((response) => {
+    //             return response.json();
+    //           })
+    //           .then((quote) => {
+    //             let price = quote;
+    //          })
+    //      return price; 
+    // },
 
     currentAccountBalance(){
       //TODO: Takes in a portfolio and returns a $$ balance // based on an real-time API call
       let portfoliosWithTotalBalance = [];
-       for(let i = 0; i<allPortfolios.length; i++){
-          let myPortfolio = allPortfolios[i];
+       for(let i = 0; i<this.allPortfolios.length; i++){
+          let myPortfolio = this.allPortfolios[i];
           let accountBalance = myPortfolio["cash"];
           let object = myPortfolio["stocks"][0];
-            for (const ticker in object){
-              let stockValue = this.getCurrentPrice(ticker)*object[ticker]
-              accountBalance += stockValue;
-            }
+            // for (const ticker in object){
+            //   let stockValue = this.getCurrentPrice()*100;
+            // console.log(ticker)
+            //   accountBalance += stockValue;
+            // }
             let portfolioWithTotal = {
                "portfolioId": myPortfolio["portfolioId"],
                "userId": myPortfolio["userId"],
@@ -87,6 +112,7 @@ export default {
             portfoliosWithTotalBalance.push(portfolioWithTotal);   
       }
       this.portfoliosWithTotalBalance = portfoliosWithTotalBalance;
+      console.log()
 
     },
 
@@ -101,22 +127,22 @@ export default {
               })
     }, 
 
-    updateStockPrices(){
-      let query = "";
-        let tickerArray = this.tickerArray;
-          for(let i = 0; i<tickerArray.length; i++){
-              query += tickerArray[i] + ','
-          }
-          console.log(query)
-            fetch(`https://cloud.iexapis.com/v1/stock/market/batch?&types=quote&symbols=${query}&token=${process.env.VUE_APP_API_KEY}`)
-              .then((response) => {
-                return response.json();
-              })
-              .then((quotes) => {
-                this.quotes = quotes;
-              })
-              console.log(this.quotes[0])
-    }   
+    // updateStockPrices(){
+    //   let query = "";
+    //     let tickerArray = this.tickerArray;
+    //       for(let i = 0; i<tickerArray.length; i++){
+    //           query += tickerArray[i] + ','
+    //       }
+    //       console.log(query)
+    //         fetch(`https://cloud.iexapis.com/v1/stock/market/batch?&types=quote&symbols=${query}&token=${process.env.VUE_APP_API_KEY}`)
+    //           .then((response) => {
+    //             return response.json();
+    //           })
+    //           .then((quotes) => {
+    //             this.quotes = quotes;
+    //           })
+    //           console.log(this.quotes[0])
+    // }   
   },
 
   created() {
@@ -201,17 +227,15 @@ export default {
         }
         console.log(myArr)
         this.tickerArray = myArr;
-        //this.updateStockPrices();
+        
         this.getDateToday();
-
+        this.currentAccountBalance(); 
 
 })  
 
-  }, 
-  mounted(){
-    this.updateStockPrices()
   }
 }
+
 </script>
 
 <style scoped>
