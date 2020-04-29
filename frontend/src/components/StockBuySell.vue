@@ -151,13 +151,6 @@ export default {
 
       const query = this.trade.ticker;
       fetch(`https://cloud.iexapis.com/stable/stock/${query}/quote?token=${process.env.VUE_APP_API_KEY}`)
-        .then((response) => {
-          return response.json();
-        })
-      .then((quote) => {
-        this.quote = quote;
-      })
-      fetch(`https://cloud.iexapis.com/stable/stock/${query}/quote?token=${process.env.VUE_APP_API_KEY}`)
       .then((response) => {
         return response.json();
       })

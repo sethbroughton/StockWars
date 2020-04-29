@@ -16,8 +16,7 @@
           <span class="table-item">{{stock.ticker}}</span>
           <span class="table-item">{{stock.quantity}}</span>
           <span class="table-item">${{quotes[stock.ticker].price}}</span>
-          <span class="table-item">${{(quotes[stock.ticker].price * stock.quantity)}}</span></div>
-          
+          <span class="table-item">${{(quotes[stock.ticker].price * stock.quantity).toLocaleString()}}</span></div>
       </div>
     </div>
   </div>
