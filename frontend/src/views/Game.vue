@@ -4,13 +4,15 @@
     <div class="container">
       <div class="game-stats u-margin-bottom-large">
         <p class="stat">{{game.name}}</p>
-         <p class="stat">Available Cash: ${{this.portfolio.cash.toLocaleString()}}</p>
+         <p v-if="this.game.winnerId == 0" class="stat">Available Cash: ${{this.portfolio.cash.toLocaleString()}}</p>
          <p class="stat">Game Ends: {{game.endDate.monthValue}}/{{game.endDate.dayOfMonth}}/{{game.endDate.year}}</p>
    </div>
 
-      <stock-buy-sell v-on:hide-scoreboard="hide" class="u-margin-bottom-large"/>
+   <h2 class="game-over" v-if="this.game.winnerId != 0" >Game Over!<br>Winner: [PLAYER 1]</h2>
 
-      <div class="link-boxes">
+      <stock-buy-sell v-if="this.game.winnerId == 0" v-on:hide-scoreboard="hide" class="u-margin-bottom-large"/>
+
+      <div v-if="this.game.winnerId == 0" class="link-boxes">
         <router-link v-bind:to="{ name: 'portfolio', params: {portfolioId: portfolio.portfolioId} }" id="portfolio" class="link-box">
           Portfolio
         </router-link>
@@ -20,7 +22,7 @@
       </div>
     </div>
     
-    <button v-if="this.hideScoreboard === true" id="show-scoreboard" v-on:click="currentAccountBalance">Current Scores</button>
+    <button v-if="this.hideScoreboard === true && this.game.winnerId == 0" id="show-scoreboard" v-on:click="currentAccountBalance">Current Scores</button>
     <div v-if="this.hideScoreboard === false" class="scoreboard">
       <div v-for="portfolio in portfoliosWithTotalBalance" :key="portfolio.portfolioId" class="player-card">
         {{portfolio.username}}<br>${{portfolio.accountBalance.toLocaleString()}}
@@ -122,74 +124,64 @@ export default {
       this.hideScoreboard = false;
     },
 
-// TODO: This is for the game over mechanism...
-    // gameOverPrice(ticker){
-    //   fetch(`https://cloud.iexapis.com/stable/stock/${ticker}/chart/date/${this.tickerDate}?chartByDay=true&token=${process.env.VUE_APP_API_KEY}`)
-    //           .then((response) => {
-    //             return response.json();
-    //           })
-    //           .then((quote) => {
-    //             let price = quote;
-    //             return price;
-    //           })
-    // }, 
+
 
   },
   mounted(){
 
-const authToken = auth.getToken();
-    const fetchConfigGet = {
-      method: 'GET',
-      headers:{
-        Authorization: `Bearer ${authToken}`
-      }
-    }
-//Create Portfolio Array
- const gameId = this.$route.params.gameId;
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfoliosInGame/${gameId}`, fetchConfigGet)
-    .then(response => {
-      return response.json();
-    })
-    .then((portfolios) => {
-      let allPortfolios = [];
-          for(let i = 0; i<portfolios.length; i++){
-            let portfolio = portfolios[i];
-            let stockArray = [];
-                    let trades = portfolio.trades
-                    let stocks = {};
-                      for(let i = 0; i<trades.length; i++){
-                        let ticker = trades[i].ticker;
-                        let num = trades[i].quantity;
-                        stocks[ticker] = stocks[ticker] ? stocks[ticker] + num : num;
-                      }
-                    stockArray.push(stocks);
-                    let totalPortfolio = {
-                      "portfolioId": portfolio["portfolioId"],
-                      "userId": portfolio["userId"],
-                      "stocks": stockArray,
-                      "cash": portfolio["cash"]
-                    }
-            allPortfolios.push(totalPortfolio);
-            }
-                
-    this.allPortfolios = allPortfolios;
-   // console.log(allPortfolios[0]["portfolioId"])
-    
-    //Get Array of tickers
-    let myArr = [];
-        for(let i = 0; i<allPortfolios.length; i++){
-         let array = (Object.keys(allPortfolios[i].stocks[0]))
-          array.forEach(el => {
-            if(!myArr.includes(el)){
-             myArr.push(el)
-            }
-          })
+    const authToken = auth.getToken();
+        const fetchConfigGet = {
+          method: 'GET',
+          headers:{
+            Authorization: `Bearer ${authToken}`
+          }
         }
-        console.log(myArr)
-        this.tickerArray = myArr;
-        this.getDateToday();
-        this.getPricesForAllStocks();
-})
+    //Create Portfolio Array
+    const gameId = this.$route.params.gameId;
+        fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfoliosInGame/${gameId}`, fetchConfigGet)
+        .then(response => {
+          return response.json();
+        })
+        .then((portfolios) => {
+          let allPortfolios = [];
+              for(let i = 0; i<portfolios.length; i++){
+                let portfolio = portfolios[i];
+                let stockArray = [];
+                        let trades = portfolio.trades
+                        let stocks = {};
+                          for(let i = 0; i<trades.length; i++){
+                            let ticker = trades[i].ticker;
+                            let num = trades[i].quantity;
+                            stocks[ticker] = stocks[ticker] ? stocks[ticker] + num : num;
+                          }
+                        stockArray.push(stocks);
+                        let totalPortfolio = {
+                          "portfolioId": portfolio["portfolioId"],
+                          "userId": portfolio["userId"],
+                          "stocks": stockArray,
+                          "cash": portfolio["cash"]
+                        }
+                allPortfolios.push(totalPortfolio);
+                }
+                    
+        this.allPortfolios = allPortfolios;
+      // console.log(allPortfolios[0]["portfolioId"])
+        
+        //Get Array of tickers
+        let myArr = [];
+            for(let i = 0; i<allPortfolios.length; i++){
+            let array = (Object.keys(allPortfolios[i].stocks[0]))
+              array.forEach(el => {
+                if(!myArr.includes(el)){
+                myArr.push(el)
+                }
+              })
+            }
+            console.log(myArr)
+            this.tickerArray = myArr;
+            this.getDateToday();
+            this.getPricesForAllStocks();
+    })
 
     
 
@@ -242,6 +234,12 @@ const authToken = auth.getToken();
 
 #game {
   position: relative;
+}
+
+.game-over {
+  color: var(--color-grey-light-1);
+  font-size: 10rem;
+  font-weight: 300;
 }
 
 .container {
