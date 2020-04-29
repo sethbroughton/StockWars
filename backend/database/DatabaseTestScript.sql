@@ -28,8 +28,8 @@ UPDATE game SET start_date = '2020-04-18', end_date = '2020-05-02' WHERE game.ga
 
 --Portfolios
 INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (1, 1, 1, 120000);
-INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (2, 2, 2, 90000);
-INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (3, 3, 3, 200000);
+INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (2, 2, 1, 90000);
+INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (3, 3, 1, 200000);
 INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (4, 4, 1, 100000);
 
 --Trades - Buy
