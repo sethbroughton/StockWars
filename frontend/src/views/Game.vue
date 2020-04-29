@@ -4,10 +4,9 @@
     <div class="container">
       <div class="game-stats u-margin-bottom-large">
         <p class="stat">{{game.name}}</p>
-        <p class="stat">Available Cash: ${{cashBalance}}</p>
-        <!-- <p class="stat">Current: {{today}} </p> -->
+         <p class="stat">Available Cash: ${{this.portfolio.cash.toLocaleString()}}</p>
          <p class="stat">Game Ends: {{game.endDate.monthValue}}/{{game.endDate.dayOfMonth}}/{{game.endDate.year}}</p>
-      </div>
+   </div>
 
       <stock-buy-sell v-on:hide-scoreboard="hide" class="u-margin-bottom-large"/>
 
@@ -60,14 +59,6 @@ export default {
     }
   },
   computed:{
-    cashBalance(){
-      return (this.portfolio.cash).toLocaleString()
-    },
-    // today(){
-    //   let now = new Date();
-    //   //return this.game.endDate
-    //   return now.toLocaleString();
-    // }
   },
   methods: {
     hide() {
