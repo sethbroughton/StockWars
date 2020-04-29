@@ -141,7 +141,7 @@ export default {
       this.user = currentUser;
     });    
 
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/games`, fetchConfigGet)
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/game/`, fetchConfigGet)
     .then(response => {
       return response.json();
     })

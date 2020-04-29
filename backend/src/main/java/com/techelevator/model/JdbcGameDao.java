@@ -28,6 +28,9 @@ public class JdbcGameDao implements GameDao {
 
 	@Autowired
 	private AuthProvider auth;
+	
+	@Autowired
+	private UserDao userDao;
 
     @Autowired
     public JdbcGameDao(DataSource dataSource) {
@@ -62,9 +65,12 @@ public class JdbcGameDao implements GameDao {
 
         String sqlGetGameById = "SELECT * FROM game WHERE game.game_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetGameById, id);
-        while (results.next()) {
+        if (results.next()) {
             theGame = mapRowSetToGame(results);
         }
+        
+        List<User> players = userDao.getUsersInGame(theGame);
+        theGame.setPlayers(players);
 
         return theGame;
     }

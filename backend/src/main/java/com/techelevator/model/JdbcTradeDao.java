@@ -83,6 +83,11 @@ public class JdbcTradeDao implements TradeDao {
 		String sqlInsertNewTrade = "INSERT INTO trade (portfolio_id, type, ticker, "
 				+ "quantity, stock_value, commission, date_of_purchase) VALUES (?, ?, ?, ?, ?, ?, ?) "
 				+ "RETURNING trade_id";
+		
+		//If it a sale, change the quantity to a negative
+		if(trade.getType().equals("SELL")) {
+			trade.setQuantity(-trade.getQuantity());
+		}
 
 		SqlRowSet insertResult = jdbcTemplate.queryForRowSet(sqlInsertNewTrade, trade.getPortfolioId(), trade.getType(), trade.getTicker(),
 				trade.getQuantity(), trade.getStockValue(), trade.getCommission(), trade.getDateOfPurchase());
