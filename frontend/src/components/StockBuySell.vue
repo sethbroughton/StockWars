@@ -89,7 +89,7 @@ export default {
       trade: {
         portfolioId: this.$parent.portfolio.portfolioId,
         type: '',
-        ticker: this.$route.query.ticker, //From search stock query
+        ticker: '', //From search stock query
         quantity: 0, //Form input
         stockValue: 0,
         commission: 19.99 //Standard commission
