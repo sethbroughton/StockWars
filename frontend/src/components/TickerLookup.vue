@@ -59,9 +59,6 @@ export default {
 
 <style scoped>
 
-#ticker-lookup {
-
-}
 
 ul {
   text-align: center;

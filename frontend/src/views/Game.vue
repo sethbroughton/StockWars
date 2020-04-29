@@ -2,13 +2,14 @@
   <div id="game">
     <user-header></user-header>
     <div class="container">
-      <div class="game-stats u-margin-bottom">
+      <div class="game-stats u-margin-bottom-large">
         <p class="stat">{{game.name}}</p>
         <p class="stat">Available Cash: ${{cashBalance}}</p>
-        <p class="stat">XX Days Left</p>
+        <!-- <p class="stat">Current: {{today}} </p> -->
+         <p class="stat">Game Ends: {{game.endDate.monthValue}}/{{game.endDate.dayOfMonth}}/{{game.endDate.year}}</p>
       </div>
 
-      <stock-buy-sell v-on:hide-scoreboard="hide" class="u-margin-bottom"/>
+      <stock-buy-sell v-on:hide-scoreboard="hide" class="u-margin-bottom-large"/>
 
       <div class="link-boxes">
         <router-link v-bind:to="{ name: 'portfolio', params: {portfolioId: portfolio.portfolioId} }" id="portfolio" class="link-box">
@@ -20,10 +21,10 @@
       </div>
     </div>
     
-    <button v-on:click="currentAccountBalance">Update</button>
+    <button v-if="this.hideScoreboard === true" id="show-scoreboard" v-on:click="currentAccountBalance">Current Scores</button>
     <div v-if="this.hideScoreboard === false" class="scoreboard">
       <div v-for="portfolio in portfoliosWithTotalBalance" :key="portfolio.portfolioId" class="player-card">
-        {{portfolio.userId}}: ${{portfolio.accountBalance.toLocaleString()}}
+        {{portfolio.username}}<br>${{portfolio.accountBalance.toLocaleString()}}
       </div>
     </div>
 
@@ -49,7 +50,7 @@ export default {
       },
       portfolio: null,
       allPortfolios: [],
-      hideScoreboard: false,
+      hideScoreboard: true,
       tickerArray: [],
       tickerDate: '',
       portfoliosWithTotalBalance: [],
@@ -61,10 +62,18 @@ export default {
     cashBalance(){
       return (this.portfolio.cash).toLocaleString()
     },
+    // today(){
+    //   let now = new Date();
+    //   //return this.game.endDate
+    //   return now.toLocaleString();
+    // }
   },
   methods: {
     hide() {
       this.hideScoreboard = true;
+    },
+    show() {
+      this.hideScoreboard = false;
     },
     getPricesForAllStocks(){
       let query = "";
@@ -80,7 +89,7 @@ export default {
               .then((quotes) => {
                 this.quotes = quotes;
               })
-              console.log(this.quotes["AAPL"])   
+              // console.log(this.quotes["AAPL"])   
     },
 
     getDateToday(){
@@ -89,7 +98,6 @@ export default {
     },
 
     currentAccountBalance(){
-      console.log('hi')
       let portfoliosWithTotalBalance = [];
        for(let i = 0; i<this.allPortfolios.length; i++){
           let myPortfolio = this.allPortfolios[i];
@@ -105,6 +113,13 @@ export default {
                "userId": myPortfolio["userId"],
                "accountBalance": accountBalance
              }
+
+            // JEFF: LOOPS THROUGH ALL PLAYERS IN CURRENT GAME AND AND USERNAME TO SCOREBOARD DATA
+            for (let j = 0; j < this.game.players.length; j++) {
+              if ( this.allPortfolios[i].userId == this.game.players[j].id ) {
+                portfolioWithTotal.username = this.game.players[j].username;
+              }
+            }
             portfoliosWithTotalBalance.push(portfolioWithTotal);   
       }
 
@@ -114,7 +129,7 @@ export default {
       })
 
       this.portfoliosWithTotalBalance = portfoliosWithTotalBalance;
-    
+      this.hideScoreboard = false;
     },
 
 // TODO: This is for the game over mechanism...
@@ -130,7 +145,57 @@ export default {
     // }, 
 
   },
+  mounted(){
 
+//Create Portfolio Array
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfoliosInGame/${gameId}`, fetchConfigGet)
+    .then(response => {
+      return response.json();
+    })
+    .then((portfolios) => {
+      let allPortfolios = [];
+          for(let i = 0; i<portfolios.length; i++){
+            let portfolio = portfolios[i];
+            let stockArray = [];
+                    let trades = portfolio.trades
+                    let stocks = {};
+                      for(let i = 0; i<trades.length; i++){
+                        let ticker = trades[i].ticker;
+                        let num = trades[i].quantity;
+                        stocks[ticker] = stocks[ticker] ? stocks[ticker] + num : num;
+                      }
+                    stockArray.push(stocks);
+                    let totalPortfolio = {
+                      "portfolioId": portfolio["portfolioId"],
+                      "userId": portfolio["userId"],
+                      "stocks": stockArray,
+                      "cash": portfolio["cash"]
+                    }
+            allPortfolios.push(totalPortfolio);
+            }
+                
+    this.allPortfolios = allPortfolios;
+   // console.log(allPortfolios[0]["portfolioId"])
+    
+    //Get Array of tickers
+    let myArr = [];
+        for(let i = 0; i<allPortfolios.length; i++){
+         let array = (Object.keys(allPortfolios[i].stocks[0]))
+          array.forEach(el => {
+            if(!myArr.includes(el)){
+             myArr.push(el)
+            }
+          })
+        }
+        console.log(myArr)
+        this.tickerArray = myArr;
+        this.getDateToday();
+        this.getPricesForAllStocks();
+})
+
+    
+
+  },
   created() {
 
     const authToken = auth.getToken();
@@ -141,13 +206,13 @@ export default {
       }
     }
 
-    fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`, fetchConfigGet)
-    .then((response) => {
-      return response.json();
-    })
-    .then((currentUser) => {
-      this.user = currentUser;
-    });    
+    // fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`, fetchConfigGet)
+    // .then((response) => {
+    //   return response.json();
+    // })
+    // .then((currentUser) => {
+    //   this.user = currentUser;
+    // });    
 
     //Updated so that it only calls this one game rather than all games - SB
     const gameId = this.$route.params.gameId;
@@ -169,52 +234,7 @@ export default {
     })
     .catch(err => console.log(`Error fetching portfolios ${err}`));
 
-    //Create Portfolio Array
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfoliosInGame/${gameId}`, fetchConfigGet)
-    .then(response => {
-      return response.json();
-    })
-    .then((portfolios) => {
-      let allPortfolios = [];
-          for(let i = 0; i<portfolios.length; i++){
-            let portfolio = portfolios[i];
-            let stockArray = [];
-                    let trades = portfolio.trades
-                    let stocks = {};
-                      for(let i = 0; i<trades.length; i++){
-                        let ticker = trades[i].ticker;
-                        let num = trades[i].quantity;
-                        //let type = trades[i].type;
-                        stocks[ticker] = stocks[ticker] ? stocks[ticker] + num : num;
-                      }
-                    stockArray.push(stocks);
-                    let totalPortfolio = {
-                      "portfolioId": portfolio["portfolioId"],
-                      "userId": portfolio["userId"],
-                      "stocks": stockArray,
-                      "cash": portfolio["cash"]
-                    }
-            allPortfolios.push(totalPortfolio);
-            }
-                
-    this.allPortfolios = allPortfolios;
-    console.log(allPortfolios[0]["portfolioId"])
-    
-    //Get Array of tickers
-    let myArr = [];
-        for(let i = 0; i<allPortfolios.length; i++){
-         let array = (Object.keys(allPortfolios[i].stocks[0]))
-          array.forEach(el => {
-            if(!myArr.includes(el)){
-             myArr.push(el)
-            }
-          })
-        }
-        console.log(myArr)
-        this.tickerArray = myArr;
-        this.getDateToday();
-        this.getPricesForAllStocks();
-})  
+      
   }
 }
 
@@ -278,22 +298,56 @@ export default {
 }
 
 .scoreboard {
-  width: 8%;
-
+  width: 11%;
   position: absolute;
   top: 50vh;
   left: 0;
+  transform: translatey(-50%);
 }
 
 .player-card {
+  width: 100%;
   color: var(--color-grey-light-1);
   background-color: var(--color-tertiary-2);
   text-align: right;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
 
-  padding: 3% 8%;
-  margin-bottom: 5%;
+  padding: 4% 8%;
+  margin-bottom: 15%;
+
+  position: relative;
+  left: -5%;
+
+  transition: all .2s;
+}
+
+.player-card:hover {
+  left: 0;
+}
+
+#show-scoreboard {
+  padding: 1% 1% 1% 2%;
+
+  color: var(--color-grey-light-1);
+  font-size: 2rem;
+  font-weight: 600;
+  background-color: var(--color-complementary-2);
+  border: none;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+
+  position: absolute;
+  top: 50vh;
+  left: -1%;
+  transform: translatey(-50%);
+
+  transition: all .2s;
+}
+
+#show-scoreboard:hover {
+  background-color: var(--color-complementary-1);
+  left: 0;
 }
 
 #portfolio { background-image: linear-gradient(var(--portfolio-image-overlay)), url(../assets/img/portfolio.jpg); }

@@ -4,25 +4,25 @@
     <div class="container">
       <h1 class="u-margin-bottom">Trade History</h1>
 
-      <div class="trade-history table u-margin-bottom">
-        <div class="table-header">
-          <span class="table-header-item">Stock Name</span>
-          <span class="table-header-item">Ticker</span>
-          <span class="table-header-item">Buy/Sell </span>
-          <span class="table-header-item">Shares</span>
-          <span class="table-header-item">Value</span>
-          <span class="table-header-item">Date</span>
-        </div>
+      <table class="trade-history table u-margin-bottom">
+        <tr class="table-header">
+          <!-- <span class="table-header-item">Stock Name</span> -->
+          <td class="table-header-item">Ticker</td>
+          <td class="table-header-item">Buy/Sell </td>
+          <td class="table-header-item">Shares</td>
+          <td class="table-header-item">Value</td>
+          <td class="table-header-item">Date</td>
+        </tr>
 
-        <div v-for="trade in trades" v-bind:key="trade.tradeId" class="table-row">
-          <span class="table-item">Name</span>
-          <span class="table-item">{{trade.ticker}}</span>
-          <span class="table-item">{{trade.type}} </span>
-          <span class="table-item">{{trade.quantity}}</span>
-          <span class="table-item">${{trade.stockValue}}</span>
-          <td>{{trade.dateOfPurchase.month}}, {{trade.dateOfPurchase.dayOfMonth}}{{trade.dateOfPurchase.year}} </td>
-        </div>
-      </div>
+        <tr v-for="trade in trades" v-bind:key="trade.tradeId" class="table-row">
+          <!-- <td class="table-item">Name</td> -->
+          <td class="table-item">{{trade.ticker}}</td>
+          <td class="table-item">{{trade.type}} </td>
+          <td class="table-item">{{trade.quantity}}</td>
+          <td class="table-item">${{trade.stockValue}}</td>
+          <td class="table-item">{{trade.dateOfPurchase.month}}, {{trade.dateOfPurchase.dayOfMonth}} {{trade.dateOfPurchase.year}} </td>
+        </tr>
+      </table>
 
        <router-link v-bind:to="{name: 'game', params: {gameId: gameId} }" class="button return-to-game">Return to Game</router-link>
     </div>
@@ -106,6 +106,20 @@ export default {
 h1 {
   font-size: 5rem;
   color: var(--color-grey-light-1); 
+}
+
+.table-header > * {
+  font-size: 2.5rem;
+}
+
+.table-row {
+  width: 100%;
+  padding: 1%;
+}
+
+td {
+  text-align: center;
+  padding: 1%;
 }
 
 .return-to-game { background-color: var(--color-complementary-2); }

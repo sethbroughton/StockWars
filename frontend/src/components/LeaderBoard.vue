@@ -1,13 +1,13 @@
 <template>
-  <div id="leaderboard" class="table">
-    <div class="table-header">
-      <h3 class="table-title">Leader Board</h3>
-    </div>
-    <div v-for="(wins, user) in leaderboard" :key="user" class="table-row">
-      <span class="table-item">{{user}}</span>
-      <span class="table-item">{{wins}}</span>
-    </div>
-  </div>
+  <table id="leaderboard" class="table">
+    <tr class="table-header">
+      <th class="table-title">Leader Board</th>
+    </tr>
+    <tr v-for="(wins, user) in leaderboard" :key="user" class="table-row">
+      <td>Player: {{user}}</td>
+      <td>Wins: {{wins}}</td>
+    </tr>
+  </table>
 </template>
 
 <script>
@@ -44,4 +44,8 @@ export default {
   flex: 3 1 0;
 }
 
+td {
+  text-align: left;
+  width: 50%;
+}
 </style>
