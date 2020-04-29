@@ -13,12 +13,10 @@
         <div v-for="stock in stockArray" v-bind:key="stock.ticker" class="table-row">
           <!-- <router-link  v-bind:to="{name: 'game', params: {gameId: portfolio.gameId}, query: {ticker: stock.ticker}}"
            class="button-small buysell-button">Buy/Sell</router-link> -->
-          <!-- <span class="table-item">{{quotes.companyName}}</span> -->
           <span class="table-item">{{stock.ticker}}</span>
           <span class="table-item">{{stock.quantity}}</span>
-          <!-- <span class="table-item">{{quotes.AAPL.price}}</span> -->
-          <span class="table-item">Total$</span></div>
-          
+          <span class="table-item">${{quotes[stock.ticker].price}}</span>
+          <span class="table-item">${{(quotes[stock.ticker].price * stock.quantity).toLocaleString()}}</span></div>
       </div>
     </div>
   </div>
@@ -55,7 +53,8 @@ export default {
       tickerArray: [],
       stockArray: []
     }
-  },
+  }, 
+
   methods: {
     setTickerSymbol(){
       this.$emit('setTickerSymbol')

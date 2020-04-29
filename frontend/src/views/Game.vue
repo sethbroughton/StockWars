@@ -98,7 +98,6 @@ export default {
     },
 
     currentAccountBalance(){
-      console.log('hi')
       let portfoliosWithTotalBalance = [];
        for(let i = 0; i<this.allPortfolios.length; i++){
           let myPortfolio = this.allPortfolios[i];
@@ -121,7 +120,6 @@ export default {
                 portfolioWithTotal.username = this.game.players[j].username;
               }
             }
-
             portfoliosWithTotalBalance.push(portfolioWithTotal);   
       }
 
@@ -147,7 +145,65 @@ export default {
     // }, 
 
   },
+  mounted(){
 
+const authToken = auth.getToken();
+    const fetchConfigGet = {
+      method: 'GET',
+      headers:{
+        Authorization: `Bearer ${authToken}`
+      }
+    }
+//Create Portfolio Array
+ const gameId = this.$route.params.gameId;
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfoliosInGame/${gameId}`, fetchConfigGet)
+    .then(response => {
+      return response.json();
+    })
+    .then((portfolios) => {
+      let allPortfolios = [];
+          for(let i = 0; i<portfolios.length; i++){
+            let portfolio = portfolios[i];
+            let stockArray = [];
+                    let trades = portfolio.trades
+                    let stocks = {};
+                      for(let i = 0; i<trades.length; i++){
+                        let ticker = trades[i].ticker;
+                        let num = trades[i].quantity;
+                        stocks[ticker] = stocks[ticker] ? stocks[ticker] + num : num;
+                      }
+                    stockArray.push(stocks);
+                    let totalPortfolio = {
+                      "portfolioId": portfolio["portfolioId"],
+                      "userId": portfolio["userId"],
+                      "stocks": stockArray,
+                      "cash": portfolio["cash"]
+                    }
+            allPortfolios.push(totalPortfolio);
+            }
+                
+    this.allPortfolios = allPortfolios;
+   // console.log(allPortfolios[0]["portfolioId"])
+    
+    //Get Array of tickers
+    let myArr = [];
+        for(let i = 0; i<allPortfolios.length; i++){
+         let array = (Object.keys(allPortfolios[i].stocks[0]))
+          array.forEach(el => {
+            if(!myArr.includes(el)){
+             myArr.push(el)
+            }
+          })
+        }
+        console.log(myArr)
+        this.tickerArray = myArr;
+        this.getDateToday();
+        this.getPricesForAllStocks();
+})
+
+    
+
+  },
   created() {
 
     const authToken = auth.getToken();
@@ -186,52 +242,7 @@ export default {
     })
     .catch(err => console.log(`Error fetching portfolios ${err}`));
 
-    //Create Portfolio Array
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfoliosInGame/${gameId}`, fetchConfigGet)
-    .then(response => {
-      return response.json();
-    })
-    .then((portfolios) => {
-      let allPortfolios = [];
-          for(let i = 0; i<portfolios.length; i++){
-            let portfolio = portfolios[i];
-            let stockArray = [];
-                    let trades = portfolio.trades
-                    let stocks = {};
-                      for(let i = 0; i<trades.length; i++){
-                        let ticker = trades[i].ticker;
-                        let num = trades[i].quantity;
-                        //let type = trades[i].type;
-                        stocks[ticker] = stocks[ticker] ? stocks[ticker] + num : num;
-                      }
-                    stockArray.push(stocks);
-                    let totalPortfolio = {
-                      "portfolioId": portfolio["portfolioId"],
-                      "userId": portfolio["userId"],
-                      "stocks": stockArray,
-                      "cash": portfolio["cash"]
-                    }
-            allPortfolios.push(totalPortfolio);
-            }
-                
-    this.allPortfolios = allPortfolios;
-    console.log(allPortfolios[0]["portfolioId"])
-    
-    //Get Array of tickers
-    let myArr = [];
-        for(let i = 0; i<allPortfolios.length; i++){
-         let array = (Object.keys(allPortfolios[i].stocks[0]))
-          array.forEach(el => {
-            if(!myArr.includes(el)){
-             myArr.push(el)
-            }
-          })
-        }
-        console.log(myArr)
-        this.tickerArray = myArr;
-        this.getDateToday();
-        this.getPricesForAllStocks();
-})  
+      
   }
 }
 
