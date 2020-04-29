@@ -2,6 +2,7 @@ package com.techelevator.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -171,7 +172,7 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public Map<String, Integer> getLeaderboard() {
-        Map<String, Integer> leaderboard = new HashMap<String, Integer>();
+        Map<String, Integer> leaderboard = new LinkedHashMap<String, Integer>();
 
         String sqlGetLeaderboard = "SELECT users.username, COUNT(game.winner_id) AS wins "
                                     + "FROM users "
