@@ -164,7 +164,12 @@ public class ApiController {
          gameDao.insertWinnerId(winnerId, gameId);
          return "{\"success\":true}"; 
      }
-
+     
+     @PutMapping("/invite/{userId}/{gameId}")
+     public String acceptInvite(@PathVariable long userId , @PathVariable long gameId) {
+    	 gameDao.acceptInvite(userId, gameId);
+    	 return "{\"success\":true}";
+     }
     /////////////////////////////////////////////////////
     ////////////////////     PORTFOLIOS     /////////////////
     /////////////////////////////////////////////////////

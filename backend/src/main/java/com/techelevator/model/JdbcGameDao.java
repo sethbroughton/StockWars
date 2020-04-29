@@ -230,6 +230,26 @@ public class JdbcGameDao implements GameDao {
     }
 
     @Override
+	public void acceptInvite(long userId, long gameId) {
+    	
+		String sqlAcceptInvite = "UPDATE users_game SET invite_accepted = true WHERE game_id = ? AND user_id = ?";
+		jdbcTemplate.update(sqlAcceptInvite, gameId, userId);
+    }
+    
+    //Obstacle : We don't want to simply DELETE FROM users_game WHERE invite_accepted = false
+    //Reason : Invite_accepted = false may simply mean the invite has not been accepted OR rejected - pending
+    //Objective: How do we make a query to reject an invite, without deleting pending invites?
+    @Override
+	public void rejectInvite(long userId, long gameId) {
+    	//Current user using authenticator
+    	//Relevant invite for game id 
+		String sqlRejectInvite = "DELETE FROM users_game WHERE user_id = ? AND game_id = ?";
+		jdbcTemplate.update(sqlRejectInvite, userId, gameId);
+    }
+    
+    
+    
+    @Override
     public void insertWinnerId(long winnerId, long gameId){
             String sqlUpdateWinner = "UPDATE game SET winner_id = ? WHERE game_id = ? AND end_date < CURRENT_DATE";
 
@@ -270,4 +290,6 @@ public class JdbcGameDao implements GameDao {
 			games.put(game.getGameId(), game);
 		}
     }
+
+	
 }
