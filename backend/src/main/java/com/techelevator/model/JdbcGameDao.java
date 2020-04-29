@@ -92,7 +92,7 @@ public class JdbcGameDao implements GameDao {
         String sqlGetAvailableGames = "SELECT DISTINCT users_game.game_id, game.* "
                                         + "FROM users_game "
                                         + "LEFT OUTER JOIN game ON (users_game.game_id = game.game_id) "
-                                        + "WHERE users_game.game_id NOT IN "
+                                        + "WHERE game.start_date IS NULL AND users_game.game_id NOT IN "
                                             + "(SELECT game_id "
                                             + "FROM users_game "
                                             + "WHERE user_id = ?) "
