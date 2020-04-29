@@ -147,7 +147,15 @@ export default {
   },
   mounted(){
 
+const authToken = auth.getToken();
+    const fetchConfigGet = {
+      method: 'GET',
+      headers:{
+        Authorization: `Bearer ${authToken}`
+      }
+    }
 //Create Portfolio Array
+ const gameId = this.$route.params.gameId;
     fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfoliosInGame/${gameId}`, fetchConfigGet)
     .then(response => {
       return response.json();
