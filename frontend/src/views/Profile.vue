@@ -40,7 +40,7 @@ export default {
 .container {
   color: var(--color-grey-light-1);
 
-  padding: 4%;
+  padding: 2% 4%;
 
   display: flex;
   flex-direction: column;
