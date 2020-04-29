@@ -20,9 +20,10 @@
       </div>
     </div>
     
+    <button v-on:click="currentAccountBalance">Update</button>
     <div v-if="this.hideScoreboard === false" class="scoreboard">
-      <div v-for="portfolio in allPortfolios" :key="portfolio.portfolioId" class="player-card">
-        {{portfolio.portfolioId}}
+      <div v-for="portfolio in portfoliosWithTotalBalance" :key="portfolio.portfolioId" class="player-card">
+        {{portfolio.userId}}: {{portfolio.accountBalance}}
       </div>
     </div>
 
@@ -43,26 +44,88 @@ export default {
   data() {
     return {
       user: this.$parent.user,
-      game: null,
+      game: {
+        gameId: this.$route.gameId
+      },
       portfolio: null,
       allPortfolios: [],
-      hideScoreboard: false
+      hideScoreboard: false,
+      tickerArray: [],
+      tickerDate: '',
+      portfoliosWithTotalBalance: [],
+      quotes: {
+      },
+
     }
   },
   methods: {
     hide() {
       this.hideScoreboard = true;
     }, 
+    getPricesForAllStocks(){
+      let query = "";
+        let tickerArray = this.tickerArray;
+          for(let i = 0; i<tickerArray.length; i++){
+              query += tickerArray[i] + ','
+          }
+          console.log(query)
+            fetch(`https://cloud.iexapis.com/stable/stock/market/batch?&types=price&symbols=${query}&token=${process.env.VUE_APP_API_KEY}`)
+              .then((response) => {
+                return response.json();
+              })
+              .then((quotes) => {
+                this.quotes = quotes;
+              })
+              console.log(this.quotes["AAPL"])   
+    },
+
+    getDateToday(){
+      let currentDate = new Date();
+      this.tickerDate = currentDate;  //TODO: Add a check for if the current date is after game finish date
+    },
 
     currentAccountBalance(){
-      //TODO: Takes in a portfolio and returns a $$ balance
-    }
+      console.log('hi')
+      let portfoliosWithTotalBalance = [];
+       for(let i = 0; i<this.allPortfolios.length; i++){
+          let myPortfolio = this.allPortfolios[i];
+          let accountBalance = myPortfolio["cash"];
+          let object = myPortfolio["stocks"][0];
+            for (const property in object){
+              console.log(property)
+              let stockValue = object[property]*this.quotes[property].price
+
+              accountBalance += stockValue;
+            }
+            let portfolioWithTotal = {
+               "portfolioId": myPortfolio["portfolioId"],
+               "userId": myPortfolio["userId"],
+               "accountBalance": accountBalance
+             }
+      //TODO: Sort array
+            portfoliosWithTotalBalance.push(portfolioWithTotal);   
+      }
+      this.portfoliosWithTotalBalance = portfoliosWithTotalBalance;
+    
+    },
+
+// TODO: This is for the game over mechanism...
+    // gameOverPrice(ticker){
+    //   fetch(`https://cloud.iexapis.com/stable/stock/${ticker}/chart/date/${this.tickerDate}?chartByDay=true&token=${process.env.VUE_APP_API_KEY}`)
+    //           .then((response) => {
+    //             return response.json();
+    //           })
+    //           .then((quote) => {
+    //             let price = quote;
+    //             return price;
+    //           })
+    // }, 
 
   },
+
   created() {
 
     const authToken = auth.getToken();
-
     const fetchConfigGet = {
       method: 'GET',
       headers:{
@@ -97,7 +160,6 @@ export default {
     .catch(err => console.log(`Error fetching portfolios ${err}`));
 
     //Create Portfolio Array
-
     const gameId = 1; //TODO: This will need to be dynamic
     fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfoliosInGame/${gameId}`, fetchConfigGet)
     .then(response => {
@@ -128,10 +190,25 @@ export default {
                 
     this.allPortfolios = allPortfolios;
     console.log(allPortfolios[0]["portfolioId"])
+    
+    //Get Array of tickers
+    let myArr = [];
+        for(let i = 0; i<allPortfolios.length; i++){
+         let array = (Object.keys(allPortfolios[i].stocks[0]))
+          array.forEach(el => {
+            if(!myArr.includes(el)){
+             myArr.push(el)
+            }
+          })
+        }
+        console.log(myArr)
+        this.tickerArray = myArr;
+        this.getDateToday();
+        this.getPricesForAllStocks();
 })  
-
   }
 }
+
 </script>
 
 <style scoped>
