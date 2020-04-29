@@ -24,7 +24,7 @@ INSERT INTO game (organizer_id, name, number_of_players, length_in_days) VALUES 
 
 --Active Games
 UPDATE game SET start_date = '2020-04-25', end_date = '2020-05-02' WHERE game.game_id = 1;
-UPDATE game SET start_date = '2020-04-18', end_date = '2020-04-28' WHERE game.game_id = 3;
+UPDATE game SET start_date = '2020-04-18', end_date = '2020-05-02' WHERE game.game_id = 3;
 
 --Portfolios
 INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (1, 1, 1, 120000);
@@ -45,7 +45,9 @@ INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'SELL', 'AAPL', 10, 110, 0, '2020-04-24');
 
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (1, 1, true);
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 2, false);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 1, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (3, 1, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (4, 1, true);
 
 END TRANSACTION;
 

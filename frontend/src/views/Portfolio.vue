@@ -11,7 +11,8 @@
           </div>
         </div>
         <div v-for="stock in stockArray" v-bind:key="stock.ticker" class="table-row">
-          <router-link v-bind:to="{name: 'stock'}" class="button-small buysell-button">Buy/Sell</router-link>
+          <router-link  v-bind:to="{name: 'game', params: {gameId: portfolio.gameId}, props: { defaultTicker: stock.ticker }, query: {ticker: stock.ticker}}"
+          class="button-small buysell-button">Buy/Sell</router-link>
           <!-- <span class="table-item">{{quotes.companyName}}</span> -->
           <span class="table-item">{{stock.ticker}}</span>
           <span class="table-item">{{stock.quantity}}</span>
@@ -56,11 +57,12 @@ export default {
     }
   },
   methods: {
-
+    setTickerSymbol(){
+      this.$emit('setTickerSymbol')
+    }, 
     displayPortfolio() {
 
       const authToken = auth.getToken();
-
       const fetchConfigGet = {
         method: 'GET',
         headers: {
@@ -78,12 +80,7 @@ export default {
         for (var i = 0; i < trades.length; i++) {
           let ticker = trades[i].ticker;
           let num = trades[i].quantity;
-          let type = trades[i].type;
-          if(type=='BUY'){
             stocks[ticker] = stocks[ticker] ? stocks[ticker] + num : num;
-          } else {
-            stocks[ticker] = stocks[ticker] ? stocks[ticker] - num : num;
-          }
         }
         this.tickerArray = Object.keys(stocks); //BUILDS AN ARRAY OF TICKERS FOR THE PUBLIC API CALL
         console.log(this.tickerArray)
