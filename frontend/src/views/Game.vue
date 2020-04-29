@@ -4,7 +4,7 @@
     <div class="container">
       <div class="game-stats u-margin-bottom">
         <p class="stat">{{game.name}}</p>
-        <p class="stat">Balance: ${{allPortfolios[0]["cash"]}}</p>
+        <p class="stat">Available Cash: ${{cashBalance}}</p>
         <p class="stat">XX Days Left</p>
       </div>
 
@@ -23,7 +23,7 @@
     <button v-on:click="currentAccountBalance">Update</button>
     <div v-if="this.hideScoreboard === false" class="scoreboard">
       <div v-for="portfolio in portfoliosWithTotalBalance" :key="portfolio.portfolioId" class="player-card">
-        {{portfolio.userId}}: {{portfolio.accountBalance}}
+        {{portfolio.userId}}: ${{portfolio.accountBalance.toLocaleString()}}
       </div>
     </div>
 
@@ -55,13 +55,17 @@ export default {
       portfoliosWithTotalBalance: [],
       quotes: {
       },
-
     }
+  },
+  computed:{
+    cashBalance(){
+      return (this.portfolio.cash).toLocaleString()
+    },
   },
   methods: {
     hide() {
       this.hideScoreboard = true;
-    }, 
+    },
     getPricesForAllStocks(){
       let query = "";
         let tickerArray = this.tickerArray;
@@ -94,7 +98,6 @@ export default {
             for (const property in object){
               console.log(property)
               let stockValue = object[property]*this.quotes[property].price
-
               accountBalance += stockValue;
             }
             let portfolioWithTotal = {
@@ -102,9 +105,14 @@ export default {
                "userId": myPortfolio["userId"],
                "accountBalance": accountBalance
              }
-      //TODO: Sort array
             portfoliosWithTotalBalance.push(portfolioWithTotal);   
       }
+
+      //Sort Array
+      portfoliosWithTotalBalance.sort(function(a,b){
+        return b.accountBalance - a.accountBalance;
+      })
+
       this.portfoliosWithTotalBalance = portfoliosWithTotalBalance;
     
     },
@@ -151,7 +159,6 @@ export default {
       this.game = game
     })
     .catch(err => console.log(`Error fetching games ${err}`));
-    
 
     fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolios`, fetchConfigGet)
     .then(response => {
@@ -177,7 +184,7 @@ export default {
                       for(let i = 0; i<trades.length; i++){
                         let ticker = trades[i].ticker;
                         let num = trades[i].quantity;
-                        let type = trades[i].type;
+                        //let type = trades[i].type;
                         stocks[ticker] = stocks[ticker] ? stocks[ticker] + num : num;
                       }
                     stockArray.push(stocks);
