@@ -249,15 +249,14 @@ public class JdbcGameDao implements GameDao {
     
     
     
-    // @Override
-    // public void insertWinnerId(long winnerId, long gameId){
-    //         String sqlUpdateWinner = "UPDATE game SET winner_id = ? WHERE game_id = ? AND end_date < CURRENT_DATE";
+    @Override
+    public void setWinner(long winnerId, long gameId){
+            String sqlUpdateWinner = "UPDATE game SET winner_id = ? WHERE game_id = ?";
 
-    //         jdbcTemplate.update(sqlUpdateWinner, winnerId, gameId);
-    // }
+            jdbcTemplate.update(sqlUpdateWinner, winnerId, gameId);
+    }
 
 
-    //still need to fix the setPlayers section -Kevin 
     private Game mapRowSetToGame(SqlRowSet results) {
         Game theGame = new Game();
 

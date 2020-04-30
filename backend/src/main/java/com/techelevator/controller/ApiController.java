@@ -176,12 +176,19 @@ public class ApiController {
     	 gameDao.acceptInvite(userId, gameId);
     	 return "{\"success\":true}";
      }
+
+     @PutMapping("/setWinner/{gameId}/{winnerId}")
+     public String setWinner(@PathVariable long gameId, @PathVariable long winnerId) {
+         gameDao.setWinner(gameId, winnerId);
+    	 return "{\"success\":true}";
+     }
      
      @DeleteMapping("/rejectInvite/{userId}/{gameId}")
      public String rejectInvite(@PathVariable long userId , @PathVariable long gameId) {
     	 gameDao.rejectInvite(userId, gameId);
     	 return "{\"success\":true}";
      }
+
     /////////////////////////////////////////////////////
     ////////////////////     PORTFOLIOS     /////////////////
     /////////////////////////////////////////////////////
