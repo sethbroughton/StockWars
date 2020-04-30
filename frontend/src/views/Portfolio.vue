@@ -15,8 +15,8 @@
            class="button-small buysell-button">Buy/Sell</router-link> -->
           <span class="table-item">{{stock.ticker}}</span>
           <span class="table-item">{{stock.quantity}}</span>
-          <!-- <span class="table-item">${{quotes[stock.ticker].price}}</span>
-          <span class="table-item">${{(quotes[stock.ticker].price * stock.quantity).toLocaleString()}}</span> -->
+          <span class="table-item">${{quotes[stock.ticker].price}}</span>
+          <span class="table-item">${{(quotes[stock.ticker].price * stock.quantity).toLocaleString()}}</span>
           </div>
       </div>
     </div>
@@ -78,6 +78,7 @@ export default {
       })
       .then((stocks)=> { 
         this.stocks = stocks;
+
         // let stocks = {};
         // for (var i = 0; i < trades.length; i++) {
         //   let ticker = trades[i].ticker;
@@ -85,18 +86,18 @@ export default {
         //     stocks[ticker] = stocks[ticker] ? stocks[ticker] + num : num;
         // }
         
-        this.tickerArray = Object.keys(stocks); //BUILDS AN ARRAY OF TICKERS FOR THE PUBLIC API CALL
-        console.log(this.tickerArray)
+        // this.tickerArray = Object.keys(stocks); //BUILDS AN ARRAY OF TICKERS FOR THE PUBLIC API CALL
+        // console.log(this.tickerArray)
 
         //BUILDS AN ARRAY OF OBJECTS TO RENDER EACH LINE ITEM IN THE PORTFOLIO
-        this.stockArray = [];
+        //this.stockArray = [];
 
-        for(let i = 0; i<this.tickerArray.length; i++){
-          let object = {};
-          object.ticker = this.tickerArray[i];
-          object.quantity = stocks[this.tickerArray[i]];
-          this.stockArray.push(object);
-        }
+        // for(let i = 0; i<this.tickerArray.length; i++){
+        //   let object = {};
+        //   object.ticker = this.tickerArray[i];
+        //   object.quantity = stocks[this.tickerArray[i]];
+        //   this.stockArray.push(object);
+        // }
 
         this.updateStockPrices();
       })
@@ -111,10 +112,9 @@ export default {
     },
 
     updateStockPrices(){
-      let query = "";
-        let tickerArray = this.tickerArray;
-          for(let i = 0; i<tickerArray.length; i++){
-              query += tickerArray[i] + ','
+          let query = ''
+          for(let i = 0; i<this.stocks.length; i++){
+              query += this.stocks[i].ticker + ','
           }
           console.log(query)
             fetch(`https://cloud.iexapis.com/stable/stock/market/batch?&types=price&symbols=${query}&token=${process.env.VUE_APP_API_KEY}`)
