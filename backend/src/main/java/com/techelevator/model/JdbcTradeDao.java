@@ -123,7 +123,7 @@ public class JdbcTradeDao implements TradeDao {
 	public List<Trade> listAllTradesForAPortfolio(long portfolioId){
 		Trade theTrade = null;
 		ArrayList<Trade> allTrades = new ArrayList<Trade>();
-		String sqlGetAllTrades = "SELECT * FROM trade WHERE portfolio_id=?";
+		String sqlGetAllTrades = "SELECT * FROM trade WHERE portfolio_id=? ORDER BY date_of_purchase DESC";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllTrades, portfolioId);
 		while (results.next()) {
 			theTrade = mapRowSetToTrade(results);
