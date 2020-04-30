@@ -5,10 +5,11 @@
       <div class="game-stats u-margin-bottom-large">
         <p class="stat">{{game.name}}</p>
          <p v-if="this.game.winnerId == 0" class="stat">Available Cash: ${{this.portfolio.cash.toLocaleString()}}</p>
-         <p v-on:click="endGame" class="stat">Game Ends: {{game.endDate.monthValue}}/{{game.endDate.dayOfMonth}}/{{game.endDate.year}}</p>
+         <p class="stat">Game Ends: {{game.endDate.monthValue}}/{{game.endDate.dayOfMonth}}/{{game.endDate.year}}</p>
+         <button v-on:click="endGame" id="end-game-button" class="button">End Game</button>
    </div>
 
-   <h2 class="game-over" v-if="this.game.winnerId != 0" >Game Over!<br>Winner: [PLAYER 1]</h2>
+   <h2 class="game-over" v-if="this.game.winnerId != 0" >Game Over!<br>Winner: {{this.winner.username}}</h2>
 
       <stock-buy-sell ref="buysell" v-if="this.game.winnerId == 0" v-on:hide-scoreboard="hide" class="u-margin-bottom-large"/>
 
@@ -22,7 +23,7 @@
       </div>
     </div>
     
-    <button v-if="this.hideScoreboard === true && this.game.winnerId == 0" id="show-scoreboard" v-on:click="currentAccountBalance">Current Scores</button>
+    <button v-if="this.hideScoreboard == true && this.hideScoreboardButton == false && !this.game.winnerId" id="show-scoreboard" v-on:click="currentAccountBalance">Current Scores</button>
     <div v-if="this.hideScoreboard === false" class="scoreboard">
       <div v-for="portfolio in portfoliosWithTotalBalance" :key="portfolio.portfolioId" class="player-card">
         {{portfolio.username}}<br>${{portfolio.accountBalance.toLocaleString()}}
@@ -58,6 +59,7 @@ export default {
       portfoliosWithTotalBalance: [],
       quotes: {
       },
+      winner: null
     }
   },
   methods: {
@@ -142,13 +144,15 @@ export default {
       console.log('gameId: ' + this.game.gameId);
 
       // SET WINNER ID
-      fetch(`${process.env.VUE_APP_REMOTE_API}/api//setWinner/${winnerId}/${this.game.gameId}`, fetchConfigPut)
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/setWinner/${winnerId}/${this.game.gameId}`, fetchConfigPut)
       .then((response) => {
         if(response.ok) {
           return response.json();
         }
       })
-      .catch((err) => console.error(err));  
+      .catch((err) => console.error(err));
+
+      location.reload();
 
     },
     getDateToday(){
@@ -188,7 +192,23 @@ export default {
 
       this.portfoliosWithTotalBalance = portfoliosWithTotalBalance;
       this.hideScoreboard = false;
-    }
+    },
+    setWinnerName() {
+      const authToken = auth.getToken();
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api/user/${this.game.winnerId}`, {
+        method: 'GET',
+        headers:{
+          Authorization: `Bearer ${authToken}`
+        }
+      })
+      .then(response => {
+        return response.json();
+      })
+      .then((winnerName) => {
+        this.winner = winnerName;
+      })
+      .catch(err => console.log(`Error fetching user ${err}`));  
+      }
   },
   mounted(){
 
@@ -261,15 +281,19 @@ export default {
 
     const gameId = this.$route.params.gameId;
 
+    console.log('setting correct game');
     fetch(`${process.env.VUE_APP_REMOTE_API}/api/game/${gameId}`, fetchConfigGet)
     .then(response => {
       return response.json();
     })
     .then((game) => {
-      this.game = game
+      this.game = game;
+      this.setWinnerName();
+      console.log(this.game.winnerId, this.winner);
     })
     .catch(err => console.log(`Error fetching games ${err}`));
 
+    console.log('getting correct portfolio');
     fetch(`${process.env.VUE_APP_REMOTE_API}/api/portfolios`, fetchConfigGet)
     .then(response => {
       return response.json();
@@ -279,7 +303,8 @@ export default {
     })
     .catch(err => console.log(`Error fetching portfolios ${err}`));
 
-      
+  
+
   }
 }
 
@@ -401,7 +426,11 @@ export default {
   left: 0;
 }
 
+#end-game-button {background-color: var(--color-complementary-2);}
+#end-game-button:hover {background-color: var(--color-complementary-1);}
+
 #portfolio { background-image: linear-gradient(var(--portfolio-image-overlay)), url(../assets/img/portfolio.jpg); }
 #history { background-image: linear-gradient(var(--history-image-overlay)), url(../assets/img/history.jpg); }
+
 
 </style>

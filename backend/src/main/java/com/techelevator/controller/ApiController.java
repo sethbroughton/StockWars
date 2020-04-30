@@ -77,6 +77,11 @@ public class ApiController {
         return userDao.getLeaderboard();
     }
     
+    @GetMapping("/user/{id}")
+    public User userById(@PathVariable long id) {
+        return userDao.getUserById(id);
+    }
+    
     /////////////////////////////////////////////////////
     ////////////////////     GAMES     /////////////////
     /////////////////////////////////////////////////////

@@ -191,4 +191,17 @@ public class JdbcUserDao implements UserDao {
         return leaderboard;
     }
 
+    @Override
+    public User getUserById(long userId) {
+
+        String sqlGetUserById = "SELECT * FROM users WHERE id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetUserById, userId);
+
+        if (results.next()) {
+            return mapResultToUser(results);
+        } else {
+            return null;
+        }
+    }
+
 }

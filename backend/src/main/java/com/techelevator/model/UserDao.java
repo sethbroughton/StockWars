@@ -44,4 +44,6 @@ public interface UserDao {
 
     public Map<String, Integer> getLeaderboard();
 
+    public User getUserById(long userId);
+
 }
