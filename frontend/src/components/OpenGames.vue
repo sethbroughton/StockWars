@@ -10,7 +10,8 @@
       <button class="button-small join-button" v-on:click="joinGame(game.gameId)">Join</button>
       <span class="table-item">{{game.name}}</span>
       <span class="table-item">Organizer: {{game.organizerName}}</span>
-      <span class="table-item">Players: X/{{game.numberOfPlayers}}</span>
+      <!-- //check to see if this works -->
+      <span class="table-item">Players: {{game.players.length}}/{{game.numberOfPlayers}}</span>
       <span class="table-item">{{game.lengthInDays}} Days</span>
     </div>
   </div>
