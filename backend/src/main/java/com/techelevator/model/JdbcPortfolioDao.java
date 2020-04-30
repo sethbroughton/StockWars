@@ -97,7 +97,7 @@ public class JdbcPortfolioDao implements PortfolioDao {
         
         while (results.next()) {
             Portfolio thePortfolio = mapRowToPortfolio(results);
-            List<Trade> tradesForPortfolio = tradeDao.getTradesPerPortfolio(results.getLong("portfolio_id"));
+            List<Trade> tradesForPortfolio = tradeDao.getStockInPortfolio(results.getLong("portfolio_id"));
             thePortfolio.setTrades(tradesForPortfolio);
             portfolios.add(thePortfolio);
         }

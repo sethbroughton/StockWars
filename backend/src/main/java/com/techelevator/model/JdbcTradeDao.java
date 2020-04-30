@@ -121,7 +121,7 @@ public class JdbcTradeDao implements TradeDao {
 	
 	//Return quantity of shares for a portfolio.
 	@Override
-	public List<Trade> getTradesPerPortfolio(long id) {
+	public List<Trade> getStockInPortfolio(long id) {
 
 		ArrayList<Trade> allTheTrades = new ArrayList<Trade>();
 		String sqlGetTradesPerPortfolio = "SELECT sum(quantity) as quantity, ticker from "
@@ -137,6 +137,10 @@ public class JdbcTradeDao implements TradeDao {
 		}
 		return allTheTrades;							
 	}
+	
+	
+	
+	
 	
 	@Override
 	public List<Trade> getTradesPerGame(long gameId) {

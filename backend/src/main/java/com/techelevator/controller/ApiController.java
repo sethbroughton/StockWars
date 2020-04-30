@@ -244,10 +244,11 @@ public class ApiController {
     }
     
     @GetMapping("/trades/{id}")
-    public List<Trade> getAllTradesInPortfolio(@PathVariable long id) {
-        return tradeDao.getTradesPerPortfolio(id);
+    public List<Trade> getAllStocksInPortfolio(@PathVariable long id) {
+        return tradeDao.getStockInPortfolio(id);
     }   
-
+    
+   
     
     @GetMapping("/trades/game/{gameId}")
     public List<Trade> getAllTradesInGame(@PathVariable long gameId) {
