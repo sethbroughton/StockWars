@@ -18,8 +18,7 @@ INSERT INTO users (id, username, password, salt, role) VALUES (6, 'Batman', 'Doa
 INSERT INTO users (id, username, password, salt, role) VALUES (7, 'Superman', 'H1LuKvgRrfAEO8xoyvZYCA==', 'sxPeq9q9MqUKJN5cRFSjXs0cTYJko7TACdktIt/diXaGYa6QOvgoLXjnPjijEhGuqsTXfJcF/UFnQvK60AMeJdLL7mMyU0apswNlRPjcPQPi6+JohtCDFEO7P3OjiW7hsrL3Kod5Zw3HPfYXqJfIyKTYLJfpt2Zccfoj7i8RiZ0=', user);
 INSERT INTO users (id, username, password, salt, role) VALUES (8, 'Spiderman', '5BQBtsq0j8dCPdR++ZcX/w==', 'gnDISFp7CRsHLdywkzVqQf/MGMK7MmYaN7SK9aNMKC0CvAX6j67wNEZ8FoQ/baqgM8frcdOlILdzWBfROVNU5zkcvzNUuUEqiAdcKV5Q4LL6R9sgVSSEY0UDtC/U97GfzZ3/uzodNdMLiuReJ0nbXoFHJ99MaRGO7Ucgpu15p9g=', user);
 
---Pending Games
-
+--Games
 INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (4, 4, 2, 'Game4', 10, 30, '2020-03-01', '2020-04-01', true);
 INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, public_game) VALUES (5, 4, 2, 'Game1', 7, 5, true);
 INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, public_game) VALUES (6, 6, 6, 'Game2', 5, 20, true);
@@ -27,9 +26,10 @@ INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, len
 INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days) VALUES (8, 1, 3, 'Game4', 20, 90);
 INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days) VALUES (17, 1, 7, 'Game17', 20, 90);
 INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days) VALUES (18, 1, 6, 'Game18', 20, 90);
-INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (11, 4, 5, 'Fun Coupons', 2, 30, '2020-03-01', '2020-04-01', true);
 INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (12, 6, 6, 'Batman vs Superman', 2, 14, '2020-03-01', '2020-03-14', true);
 INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (13, 5, 8, 'Buy Low Sell High', 2, 7, '2020-03-01', '2020-03-07', true);
+--Active Games
+INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (11, 4, 'Fun Coupons', 2, 30, '2020-03-01', '2020-06-01', true);
 INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (2, 2, 'The Real Gordan Gekko', 4, 30, '2020-04-15', '2020-05-15', true); --Seth's name
 INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (1, 3, 'Glengarry Glen Ross Who', 4, 30, '2020-04-02', '2020-05-02', true); --Jeff's name
 INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (3, 2, 'Money Never Sleeps', 4, 30, '2020-04-22', '2020-05-22', true); --Jake's name
@@ -61,6 +61,7 @@ INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (18, 6, 2, 5
 INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (19, 6, 1, 50705);
 INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (20, 6, 10, 50705);
 INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (21, 6, 3, 50705);
+INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (22, 2, 11, 50705);
 
 --Trades - Buy
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'BUY', 'AAPL', 100, 1000, 0, '2020-04-23');
@@ -138,12 +139,12 @@ INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 10, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (3, 10, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (4, 11, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (5, 11, true);
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 12, true); --- If can't get end game working, Remove this line
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 12, true); 
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (7, 12, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (8, 13, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (5, 13, true);
 
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 13, true); --- If can't get end game working, Remove this line
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 13, true); 
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 2, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 1, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 10, true);
@@ -153,5 +154,14 @@ INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 4, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 4, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (3, 8, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 8, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 5, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 5, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 6, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 17, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (7, 17, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 18, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 15, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 11, true);
+
 END TRANSACTION;
 
