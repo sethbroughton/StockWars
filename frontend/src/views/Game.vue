@@ -158,7 +158,7 @@ export default {
     },
     getDateToday(){
       let currentDate = new Date();
-      this.tickerDate = currentDate;  //TODO: Add a check for if the current date is after game finish date
+      this.tickerDate = currentDate;
     },
     currentAccountBalance(){
       let portfoliosWithTotalBalance = [];
@@ -272,6 +272,17 @@ export default {
   },
   created() {
 
+    const gameId = this.$route.params.gameId;
+    
+    let todayRaw = new Date();
+    let yyyy = todayRaw.getFullYear();
+    let mm = todayRaw.getMonth()+1;
+    let dd = todayRaw.getDate();
+    if(dd<10) { dd='0'+dd; } 
+    if(mm<10) { mm='0'+mm; } 
+    const today = yyyy+'-'+mm+'-'+dd;
+    console.log('today: ' + today);
+
     const authToken = auth.getToken();
     const fetchConfigGet = {
       method: 'GET',
@@ -279,8 +290,6 @@ export default {
         Authorization: `Bearer ${authToken}`
       }
     }
-
-    const gameId = this.$route.params.gameId;
 
     console.log('setting correct game');
     fetch(`${process.env.VUE_APP_REMOTE_API}/api/game/${gameId}`, fetchConfigGet)
@@ -304,7 +313,18 @@ export default {
     })
     .catch(err => console.log(`Error fetching portfolios ${err}`));
 
-  
+    console.log('checking for endgame');
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/endgameTest/${today}/${gameId}`, fetchConfigGet)
+    .then(response => {
+      return response.json();
+    })
+    .then((endGame) => {
+      console.log(endGame);
+      if (endGame) {
+        this.endgameCondition = true;
+      }
+    })
+    .catch(err => console.log(`Error fetching games ${err}`));  
 
   }
 }
