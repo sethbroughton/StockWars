@@ -136,9 +136,9 @@ public class ApiController {
     public String invitePlayer(/*User user*/ @RequestBody String username, @PathVariable long gameId) {
     	//-Charles
     	
-    	/*String existingInvite = user.getUsername(gameDao.getAllInvites());
+    	/*String existingInvite = gameDao.getAllInvites();
 		//Need variable for an existing invite
-    	List<Game> existingInvite = gameDao.getAllInvites(id );
+    	List<Game> existingInvite = gameDao.getAllInvites(id);
     	//If the user is already invited
     	if(existingInvite.contains(gameId)) {
     	//Do not send an invite
