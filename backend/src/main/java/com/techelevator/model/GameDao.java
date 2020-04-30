@@ -18,4 +18,5 @@ public interface GameDao {
     public void rejectInvite(long userId, long gameId);
     public boolean doesInviteExist(long userId, long gameId);
     public void setWinner(long winnerId, long gameId);
+    public boolean testForEndgame(LocalDate today, long gameId);
 }

@@ -30,8 +30,8 @@ INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, len
 INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (11, 4, 5, 'Fun Coupons', 2, 30, '2020-03-01', '2020-04-01', true);
 INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (12, 6, 6, 'Batman vs Superman', 2, 14, '2020-03-01', '2020-03-14', true);
 INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (13, 5, 8, 'Buy Low Sell High', 2, 7, '2020-03-01', '2020-03-07', true);
-INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (2, 2, 'The Real Gordan Gekko', 4, 30, '2020-04-15', '2020-05-15', true); --Seth
-INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (1, 3, 'Glengarry Glen Ross Who', 4, 30, '2020-04-02', '2020-05-02', true); --Jeff
+INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (2, 2, 'The Real Gordan Gekko', 4, 15, '2020-04-15', '2020-04-30', true); --Seth
+INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (1, 3, 'Glengarry Glen Ross', 4, 15, '2020-04-02', '2020-04-17', true); --Jeff
 --not ran
 INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (3, 2, 'Money Never Sleeps', 4, 30, '2020-04-22', '2020-05-22', true); --Jake
 INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (10, 2, 'Run time Terror', 2, 30, '2020-02-10', '2020-05-10', true); --Charles
