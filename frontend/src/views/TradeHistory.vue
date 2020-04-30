@@ -70,7 +70,7 @@ export default {
         }
     }
 
-    fetch(`${process.env.VUE_APP_REMOTE_API}/api//tradeHistory/${this.portfolio.portfolioId}`, fetchConfig)
+    fetch(`${process.env.VUE_APP_REMOTE_API}/api/tradeHistory/${this.portfolio.portfolioId}`, fetchConfig)
       .then((response) => {
         return response.json();
       })

@@ -16,5 +16,6 @@ public interface GameDao {
     public List<Game> getAllInvites();
     public void acceptInvite(long userId, long gameId);
     public void rejectInvite(long userId, long gameId);
+    public boolean doesInviteExist(long userId, long gameId);
     public void setWinner(long winnerId, long gameId);
 }
