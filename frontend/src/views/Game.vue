@@ -10,7 +10,7 @@
 
    <h2 class="game-over" v-if="this.game.winnerId != 0" >Game Over!<br>Winner: [PLAYER 1]</h2>
 
-      <stock-buy-sell v-if="this.game.winnerId == 0" v-on:hide-scoreboard="hide" class="u-margin-bottom-large"/>
+      <stock-buy-sell ref="buysell" v-if="this.game.winnerId == 0" v-on:hide-scoreboard="hide" class="u-margin-bottom-large"/>
 
       <div v-if="this.game.winnerId == 0" class="link-boxes">
         <router-link v-bind:to="{ name: 'portfolio', params: {portfolioId: portfolio.portfolioId} }" id="portfolio" class="link-box">
@@ -60,8 +60,6 @@ export default {
       },
     }
   },
-  computed:{
-  },
   methods: {
     hide() {
       this.hideScoreboard = true;
@@ -69,6 +67,7 @@ export default {
     },
     getPricesForAllStocks(){
       let query = "";
+      
         let tickerArray = this.tickerArray;
           for(let i = 0; i<tickerArray.length; i++){
               query += tickerArray[i] + ','
@@ -83,12 +82,63 @@ export default {
               })
               // console.log(this.quotes["AAPL"])   
     },
+    endGame() {
+      this.currentAccountBalance();
 
+      const authToken = auth.getToken();
+      
+      const fetchConfigPut = {
+        method : "PUT",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type' : 'application/json',
+          'Accept': 'application/json'
+        }
+      }
+
+      const fetchConfigDelete = {
+        method : "DELETE",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type' : 'application/json',
+          'Accept': 'application/json'
+        }
+      }
+
+      for (let i = 0; i <= this.portfoliosWithTotalBalance.length; i++) {   
+        let thePortfolio = this.portfoliosWithTotalBalance[i]; 
+        
+        // GET PORTFOLIO TOTAL AND ID
+        let finalBalance = thePortfolio.accountBalance;
+        let id = thePortfolio.portfolioId;
+
+        // SET PORTFOLIO TOTAL TO CASH BALANCE
+        fetch(`${process.env.VUE_APP_REMOTE_API}/api/balance/${finalBalance}/${id}`, fetchConfigPut)
+        .then((response) => {
+          if(response.ok) {
+            return response.json();
+          }
+        })
+        .catch((err) => console.error(err));
+
+        // DELETE ALL TRADES
+        fetch(`${process.env.VUE_APP_REMOTE_API}/api/deleteTrades/${id}`, fetchConfigDelete)
+        .then((response) => {
+          if(response.ok) {
+            return response.json();
+          }
+        })
+        .catch((err) => console.error(err));
+        
+        // SET WINNER ID
+
+
+      }   
+    },
     getDateToday(){
       let currentDate = new Date();
       this.tickerDate = currentDate;  //TODO: Add a check for if the current date is after game finish date
     },
-
     currentAccountBalance(){
       let portfoliosWithTotalBalance = [];
        for(let i = 0; i<this.allPortfolios.length; i++){
@@ -122,10 +172,7 @@ export default {
 
       this.portfoliosWithTotalBalance = portfoliosWithTotalBalance;
       this.hideScoreboard = false;
-    },
-
-
-
+    }
   },
   mounted(){
 
@@ -196,16 +243,8 @@ export default {
       }
     }
 
-    // fetch(`${process.env.VUE_APP_REMOTE_API}/currentUser`, fetchConfigGet)
-    // .then((response) => {
-    //   return response.json();
-    // })
-    // .then((currentUser) => {
-    //   this.user = currentUser;
-    // });    
-
-    //Updated so that it only calls this one game rather than all games - SB
     const gameId = this.$route.params.gameId;
+
     fetch(`${process.env.VUE_APP_REMOTE_API}/api/game/${gameId}`, fetchConfigGet)
     .then(response => {
       return response.json();

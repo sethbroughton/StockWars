@@ -185,6 +185,13 @@ public class JdbcTradeDao implements TradeDao {
 		return gameId;
 	}
 
+	@Override
+	public void deleteAllTrades(long portfolioId) {
+		String sqlDeleteTradesFromPortfolio = "DELETE FROM trade WHERE portfolio_id = ?";
+		
+		jdbcTemplate.update(sqlDeleteTradesFromPortfolio, portfolioId);
+	}
+
 
 	// this is similar to what I was trying to do with the portfolio pages
 	// hoping we can work thru this later - Kevin

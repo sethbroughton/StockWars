@@ -12,6 +12,7 @@ import com.techelevator.model.TradeDao;
 import com.techelevator.model.User;
 import com.techelevator.model.UserDao;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -169,14 +170,7 @@ public class ApiController {
         return "{\"success\":true}";      
     }
 
-     //insert a winner id when the game ends - Kevin
-   //  not working, figured I'd comment it out for now
-     @PutMapping("/winner/game/{gameId}")
-     public String insertTheWinnerId(@RequestBody long winnerId, @PathVariable long gameId) {
-         gameDao.insertWinnerId(winnerId, gameId);
-         return "{\"success\":true}"; 
-     }
-     
+       
      @PutMapping("/invite/{userId}/{gameId}")
      public String acceptInvite(@PathVariable long userId , @PathVariable long gameId) {
     	 gameDao.acceptInvite(userId, gameId);
@@ -259,5 +253,17 @@ public class ApiController {
     public List<Trade> getAllTradesInGame(@PathVariable long gameId) {
         return tradeDao.getTradesPerGame(gameId);
     }  
+
+    @PutMapping("/balance/{newBalance}/{portfolioId}")
+    public String updateBalance(@PathVariable BigDecimal newBalance , @PathVariable long portfolioId) {
+        portfolioDao.setCashBalanceById(newBalance, portfolioId);;
+        return "{\"success\":true}";
+    }
+
+    @DeleteMapping("/deleteTrades/{profileId}")
+    public String deleteTrades(@PathVariable long profileId) {
+        tradeDao.deleteAllTrades(profileId);
+        return "{\"success\":true}";
+    }    
     
 }

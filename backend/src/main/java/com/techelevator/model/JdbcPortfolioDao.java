@@ -117,7 +117,13 @@ public class JdbcPortfolioDao implements PortfolioDao {
 		
 		return totalShares;
 	}   
-         
+       
+    @Override
+    public void setCashBalanceById(BigDecimal newBalance, long portfolioId) {
+        String sqlUpdateAccountBalance = "UPDATE portfolio SET cash = ? WHERE portfolio_id = ?";
+		jdbcTemplate.update(sqlUpdateAccountBalance, newBalance, portfolioId);
+    }
+
     private Portfolio mapRowToPortfolio(SqlRowSet results) {
     Portfolio portfolio = new Portfolio();
     portfolio.setGameId(results.getLong("game_id"));
