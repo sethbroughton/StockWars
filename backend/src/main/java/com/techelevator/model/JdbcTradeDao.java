@@ -117,6 +117,21 @@ public class JdbcTradeDao implements TradeDao {
 		}
 		return allTheTrades;
 	}
+	
+	// List of all trades for a given portfolio - Seth
+	@Override
+	public List<Trade> listAllTradesForAPortfolio(long portfolioId){
+		Trade theTrade = null;
+		ArrayList<Trade> allTrades = new ArrayList<Trade>();
+		String sqlGetAllTrades = "SELECT * FROM trade WHERE portfolio_id=?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllTrades, portfolioId);
+		while (results.next()) {
+			theTrade = mapRowSetToTrade(results);
+			allTrades.add(theTrade);
+		}
+		return allTrades;
+		
+	}
 
 	
 	//Return quantity of shares for a portfolio.
@@ -125,7 +140,7 @@ public class JdbcTradeDao implements TradeDao {
 
 		ArrayList<Trade> allTheTrades = new ArrayList<Trade>();
 		String sqlGetTradesPerPortfolio = "SELECT sum(quantity) as quantity, ticker from "
-				+ "trade where portfolio_id=? GROUP BY ticker;";
+				+ "trade WHERE portfolio_id=? AND quantity>0 GROUP BY ticker;";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetTradesPerPortfolio, id);
 
