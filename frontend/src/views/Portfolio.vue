@@ -10,6 +10,7 @@
             <router-link v-bind:to="{name: 'game', params: {gameId: portfolio.gameId} }" id="return-to-game" class="button-small">Return to Game</router-link>
           </div>
         </div>
+        <h3 class="table-header-item">Cash Balance:  ${{portfolio.cash.toLocaleString()}}</h3>
         <div v-for="stock in stocks" v-bind:key="stock.ticker" class="table-row">
           <!-- <router-link  v-bind:to="{name: 'game', params: {gameId: portfolio.gameId}, query: {ticker: stock.ticker}}"
            class="button-small buysell-button">Buy/Sell</router-link> -->
@@ -135,7 +136,7 @@ export default {
         let value = this.quotes[stock.ticker].price * stock.quantity
         totalStockDollar+=value;
       }
-    this.portfolioValue = this.portfolio.cash + totalStockDollar;
+    this.portfolioValue = (this.portfolio.cash + totalStockDollar).toLocaleString()
     }
 
   },
