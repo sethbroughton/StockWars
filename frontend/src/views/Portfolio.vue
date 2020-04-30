@@ -5,7 +5,7 @@
     <div class="container">
       <div class ="table">
         <div class="table-header">
-          <h3 class="table-title">Portfolio - ${{portfolio.cash}}</h3>
+          <h3 class="table-title">Portfolio - ${{portfolioValue}}</h3>
           <div class="table-buttons">
             <router-link v-bind:to="{name: 'game', params: {gameId: portfolio.gameId} }" id="return-to-game" class="button-small">Return to Game</router-link>
           </div>
@@ -51,9 +51,8 @@ export default {
          symbol: '',
          companyName: ''
       },
-      tickerArray: ['AAPL', 'F', 'FB'],
-      stockArray: [],
-      stocks: []
+      stocks: [],
+      portfolioValue: ''
     }
   }, 
 
@@ -108,6 +107,7 @@ export default {
       })
       .then ((data) => {
         this.portfolio = data;
+
       })
     },
 
@@ -123,9 +123,21 @@ export default {
               })
               .then((quotes) => {
                 this.quotes = quotes;
+                this.calculatePortfolioValue();
+
               })
               console.log(this.quotes[0])
-    }    
+    }, 
+    calculatePortfolioValue(){
+      let totalStockDollar = 0;
+      for(let i = 0; i<this.stocks.length; i++){
+        let stock = this.stocks[i];
+        let value = this.quotes[stock.ticker].price * stock.quantity
+        totalStockDollar+=value;
+      }
+    this.portfolioValue = this.portfolio.cash + totalStockDollar;
+    }
+
   },
   created(){
     this.displayPortfolio();
