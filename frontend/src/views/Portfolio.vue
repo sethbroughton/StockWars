@@ -10,13 +10,14 @@
             <router-link v-bind:to="{name: 'game', params: {gameId: portfolio.gameId} }" id="return-to-game" class="button-small">Return to Game</router-link>
           </div>
         </div>
-        <div v-for="stock in stockArray" v-bind:key="stock.ticker" class="table-row">
+        <div v-for="stock in stocks" v-bind:key="stock.ticker" class="table-row">
           <!-- <router-link  v-bind:to="{name: 'game', params: {gameId: portfolio.gameId}, query: {ticker: stock.ticker}}"
            class="button-small buysell-button">Buy/Sell</router-link> -->
           <span class="table-item">{{stock.ticker}}</span>
           <span class="table-item">{{stock.quantity}}</span>
-          <span class="table-item">${{quotes[stock.ticker].price}}</span>
-          <span class="table-item">${{(quotes[stock.ticker].price * stock.quantity).toLocaleString()}}</span></div>
+          <!-- <span class="table-item">${{quotes[stock.ticker].price}}</span>
+          <span class="table-item">${{(quotes[stock.ticker].price * stock.quantity).toLocaleString()}}</span> -->
+          </div>
       </div>
     </div>
   </div>
@@ -50,8 +51,9 @@ export default {
          symbol: '',
          companyName: ''
       },
-      tickerArray: [],
-      stockArray: []
+      tickerArray: ['AAPL', 'F', 'FB'],
+      stockArray: [],
+      stocks: []
     }
   }, 
 
@@ -74,13 +76,15 @@ export default {
       .then((response)=> {
         return response.json();
       })
-      .then((trades)=> { 
-        let stocks = {};
-        for (var i = 0; i < trades.length; i++) {
-          let ticker = trades[i].ticker;
-          let num = trades[i].quantity;
-            stocks[ticker] = stocks[ticker] ? stocks[ticker] + num : num;
-        }
+      .then((stocks)=> { 
+        this.stocks = stocks;
+        // let stocks = {};
+        // for (var i = 0; i < trades.length; i++) {
+        //   let ticker = trades[i].ticker;
+        //   let num = trades[i].quantity;
+        //     stocks[ticker] = stocks[ticker] ? stocks[ticker] + num : num;
+        // }
+        
         this.tickerArray = Object.keys(stocks); //BUILDS AN ARRAY OF TICKERS FOR THE PUBLIC API CALL
         console.log(this.tickerArray)
 
