@@ -261,8 +261,7 @@ public class JdbcGameDao implements GameDao {
     		return false;
     	}
     }
-    
-    
+       
     
     @Override
     public void setWinner(long winnerId, long gameId){
@@ -271,6 +270,25 @@ public class JdbcGameDao implements GameDao {
             jdbcTemplate.update(sqlUpdateWinner, winnerId, gameId);
     }
 
+    
+    @Override
+    public boolean testForEndgame(LocalDate today, long gameId) {
+        LocalDate endDate = null;
+        
+        String sqlGameEndDate = "SELECT end_date FROM game WHERE game_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGameEndDate, gameId);
+        if(results.next()) {
+            String endDateString = results.getString("end_date");
+            endDate = LocalDate.parse(endDateString);
+        }
+
+        if (today.compareTo(endDate) >= 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
     private Game mapRowSetToGame(SqlRowSet results) {
         Game theGame = new Game();

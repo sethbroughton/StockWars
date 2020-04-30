@@ -6,7 +6,7 @@
         <p class="stat">{{game.name}}</p>
          <p v-if="this.game.winnerId == 0" class="stat">Available Cash: ${{this.portfolio.cash.toLocaleString()}}</p>
          <p class="stat">Game Ends: {{game.endDate.monthValue}}/{{game.endDate.dayOfMonth}}/{{game.endDate.year}}</p>
-         <button v-on:click="endGame" id="end-game-button" class="button">End Game</button>
+         <button v-if="this.endgameCondition" v-on:click="endGame" id="end-game-button" class="button">End Game</button>
    </div>
 
    <h2 class="game-over" v-if="this.game.winnerId != 0" >Game Over!<br>Winner: {{this.winner.username}}</h2>
@@ -59,7 +59,8 @@ export default {
       portfoliosWithTotalBalance: [],
       quotes: {
       },
-      winner: null
+      winner: null,
+      endgameCondition: false
     }
   },
   methods: {

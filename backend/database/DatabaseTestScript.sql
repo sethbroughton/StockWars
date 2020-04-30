@@ -28,10 +28,9 @@ INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, len
 INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days) VALUES (18, 1, 6, 'Game18', 20, 90);
 INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (12, 6, 6, 'Batman vs Superman', 2, 14, '2020-03-01', '2020-03-14', true);
 INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (13, 5, 8, 'Buy Low Sell High', 2, 7, '2020-03-01', '2020-03-07', true);
---Active Games
-INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (11, 4, 'Fun Coupons', 2, 30, '2020-03-01', '2020-06-01', true);
-INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (2, 2, 'The Real Gordan Gekko', 4, 30, '2020-04-15', '2020-05-15', true); --Seth's name
-INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (1, 3, 'Glengarry Glen Ross Who', 4, 30, '2020-04-02', '2020-05-02', true); --Jeff's name
+
+INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (2, 2, 'The Real Gordan Gekko', 4, 15, '2020-04-15', '2020-04-30', true); --Seth's name
+INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (1, 3, 'Glengarry Glen Ross Who', 4, 15, '2020-04-02', '2020-04-17', true); --Jeff's name
 INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (3, 2, 'Money Never Sleeps', 4, 30, '2020-04-22', '2020-05-22', true); --Jake's name
 INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (10, 2, 'Run time Terror', 2, 30, '2020-02-10', '2020-05-10', true); --Charles's name
 INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (15, 6, 'Enron', 2, 182, '2020-01-10', '2020-06-10', true); -- Kevin's name
@@ -154,14 +153,5 @@ INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 4, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 4, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (3, 8, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 8, true);
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 5, true);
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 5, true);
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 6, true);
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 17, true);
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (7, 17, true);
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 18, true);
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 15, true);
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 11, true);
-
-END TRANSACTION;
+COMMIT TRANSACTION;
 
