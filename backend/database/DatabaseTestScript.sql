@@ -1,5 +1,11 @@
 
 BEGIN TRANSACTION; 
+--===================================================
+--I have set the game up for us to run the program as Batman for demo
+--This way we have a populated leaderboard, and games
+--The game with a populated portfolio is **The Real Gordan Gekko**
+--user: jake is 2nd most populated with data
+--===================================================
 
 --Password: "password"
 INSERT INTO users (id, username, password, salt, role) VALUES (2, 'jake', 'Isv0ZInVPcF2ZDKcrhltSw==', 'Gid+gJga/PggeuFhxYsqBvRXStwRrw/qt22elyZQwbkPMMSo2bcbc8VE26f9JZOucXH96J+S8UW6I6Paxj3GwHIRSBBM/y7qIK+nIxIIKk6Rfdbx+rpDnWq8arwdxKuMo1R+/RhLnSwNraAm8hQPaGxzYQ1V7Sj6ZXZBY8mynpE=', user);
@@ -14,13 +20,14 @@ INSERT INTO users (id, username, password, salt, role) VALUES (8, 'Spiderman', '
 
 --Pending Games
 
-
-INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days) VALUES (4, 3, 'Game4', 20, 90);
-INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days) VALUES (5, 4, 'Game1', 7, 5);
-INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days) VALUES (6, 6, 'Game2', 5, 20);
-INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days) VALUES (7, 1, 'Game3', 10, 45);
-INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days) VALUES (8, 1, 'Game4', 20, 90);
-INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (11, 4, 5, 'Money Never Sleep', 2, 30, '2020-03-01', '2020-04-01', true);
+INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (4, 4, 2, 'Game4', 10, 30, '2020-03-01', '2020-04-01', true);
+INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, public_game) VALUES (5, 4, 2, 'Game1', 7, 5, true);
+INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, public_game) VALUES (6, 6, 6, 'Game2', 5, 20, true);
+INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days) VALUES (7, 1, 6, 'Game3', 10, 45);
+INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days) VALUES (8, 1, 3, 'Game4', 20, 90);
+INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days) VALUES (17, 1, 7, 'Game17', 20, 90);
+INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days) VALUES (18, 1, 6, 'Game18', 20, 90);
+INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (11, 4, 5, 'Fun Coupons', 2, 30, '2020-03-01', '2020-04-01', true);
 INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (12, 6, 6, 'Batman vs Superman', 2, 14, '2020-03-01', '2020-03-14', true);
 INSERT INTO game (game_id, organizer_id, winner_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (13, 5, 8, 'Buy Low Sell High', 2, 7, '2020-03-01', '2020-03-07', true);
 INSERT INTO game (game_id, organizer_id, name, number_of_players, length_in_days, start_date, end_date, public_game) VALUES (2, 2, 'The Real Gordan Gekko', 4, 30, '2020-04-15', '2020-05-15', true); --Seth
@@ -87,7 +94,8 @@ INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (18, 'BUY', 'ZM', 50, 7100, 0, '2020-04-27');
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (18, 'BUY', 'FB', 100, 20000, 0, '2020-04-27');
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (18, 'BUY', 'WMT', 100, 12200, 0, '2020-04-27');
-INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (18, 'BUY', 'AAPL', 100, 29000, 0, '2020-04-27');
+INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (18, 'BUY', 'AAPL', 100, 19000, 0, '2020-04-27');
+INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (18, 'BUY', 'HD', 68, 15000, 0, '2020-04-27');
 
 --Trades - Sell - # of shares sold must be negative
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'SELL', 'IBM', -10, 110, 0, '2020-04-24');
@@ -107,6 +115,7 @@ INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (8, 'SELL', 'COTY', -10, 2170, 0, '2020-04-28');
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (6, 'SELL', 'AAL', -100, 2170, 0, '2020-04-25');
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (18, 'SELL', 'AAPL', 100, 29500, 0, '2020-04-29');
+INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (19, 'SELL', 'AAPL', 100, 29500, 0, '2020-04-29');
 
 --Users_game
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (1, 1, true);
@@ -137,5 +146,7 @@ INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 1, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 10, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 15, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 3, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 4, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 4, true);
 END TRANSACTION;
 
