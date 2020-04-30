@@ -114,7 +114,10 @@ public class JdbcGameDao implements GameDao {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAvailableGames, userId);
         while (results.next()) {
             theGame = mapRowSetToGame(results);
+            List<User> theUsers = userDao.getUsersInGame(theGame);
+            theGame.setPlayers(theUsers);
             availableGames.add(theGame);
+
         }
 
         for (Game game : availableGames) {
@@ -172,6 +175,8 @@ public class JdbcGameDao implements GameDao {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetPendingGames, userId);
         while (results.next()) {  
             Game theGame = mapRowSetToGame(results);
+            List<User> theUsers =userDao.getUsersInGame(theGame);
+            theGame.setPlayers(theUsers);
             pendingGames.add(theGame);
         }
 
