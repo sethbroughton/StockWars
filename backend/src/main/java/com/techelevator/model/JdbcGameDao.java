@@ -247,6 +247,17 @@ public class JdbcGameDao implements GameDao {
 		jdbcTemplate.update(sqlRejectInvite, userId, gameId);
     }
     
+    @Override
+    public boolean doesInviteExist(long userId, long gameId) {
+    	String sqlQueryForInvite = "SELECT * FROM users_game WHERE user_id = ? AND game_id = ?";
+    	SqlRowSet results = jdbcTemplate.queryForRowSet(sqlQueryForInvite, userId, gameId);
+    	if(results.next()) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    
     
     
     @Override
