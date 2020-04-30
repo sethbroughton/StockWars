@@ -138,8 +138,7 @@ public class JdbcGameDao implements GameDao {
                                         "FROM game " +
                                         "INNER JOIN users_game ON (game.game_id = users_game.game_id) " +
                                         "INNER JOIN users ON (users_game.user_id = users.id) " +
-                                        
-                                        "WHERE users.id = ? AND game.start_date IS NOT NULL " +
+                                        "WHERE users.id = ? AND game.start_date IS NOT NULL AND winner_id IS NULL " +
                                         "GROUP BY game.game_id";
 
         List<Game> activeGames = new ArrayList<Game>();
