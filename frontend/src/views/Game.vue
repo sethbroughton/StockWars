@@ -5,7 +5,7 @@
       <div class="game-stats u-margin-bottom-large">
         <p class="stat">{{game.name}}</p>
          <p v-if="this.game.winnerId == 0" class="stat">Available Cash: ${{this.portfolio.cash.toLocaleString()}}</p>
-         <p class="stat">Game Ends: {{game.endDate.monthValue}}/{{game.endDate.dayOfMonth}}/{{game.endDate.year}}</p>
+         <p v-on:click="endGame" class="stat">Game Ends: {{game.endDate.monthValue}}/{{game.endDate.dayOfMonth}}/{{game.endDate.year}}</p>
    </div>
 
    <h2 class="game-over" v-if="this.game.winnerId != 0" >Game Over!<br>Winner: [PLAYER 1]</h2>
@@ -83,6 +83,7 @@ export default {
               // console.log(this.quotes["AAPL"])   
     },
     endGame() {
+      console.log('calling portfolio totals');
       this.currentAccountBalance();
 
       const authToken = auth.getToken();
@@ -105,8 +106,11 @@ export default {
         }
       }
 
-      for (let i = 0; i <= this.portfoliosWithTotalBalance.length; i++) {   
+      console.log('liquidating portfolios');
+      // LIQUIDATE THE PORTFOLIOS
+      for (let i = 0; i < this.portfoliosWithTotalBalance.length; i++) {   
         let thePortfolio = this.portfoliosWithTotalBalance[i]; 
+        console.log('current portfolio: ' + thePortfolio);
         
         // GET PORTFOLIO TOTAL AND ID
         let finalBalance = thePortfolio.accountBalance;
@@ -128,12 +132,24 @@ export default {
             return response.json();
           }
         })
-        .catch((err) => console.error(err));
-        
-        // SET WINNER ID
-
+        .catch((err) => console.error(err));      
 
       }   
+
+      console.log('setting winner id');
+      let winnerId = this.portfoliosWithTotalBalance[0].userId;
+      console.log('winnerId: ' + winnerId);
+      console.log('gameId: ' + this.game.gameId);
+
+      // SET WINNER ID
+      fetch(`${process.env.VUE_APP_REMOTE_API}/api//setWinner/${winnerId}/${this.game.gameId}`, fetchConfigPut)
+      .then((response) => {
+        if(response.ok) {
+          return response.json();
+        }
+      })
+      .catch((err) => console.error(err));  
+
     },
     getDateToday(){
       let currentDate = new Date();
