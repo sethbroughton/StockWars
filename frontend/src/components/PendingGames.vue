@@ -8,7 +8,7 @@
       <router-link class="button-small invite" :to="{ name: 'invite', params: {gameId: game.gameId}}" >Invite</router-link>
       <span class="table-item">{{game.name}}</span>
       <span class="table-item">Organizer: {{game.organizerName}}</span>
-      <span class="table-item">Players: X/{{game.numberOfPlayers}}</span>
+      <span class="table-item">Players: {{game.players.length}}/{{game.numberOfPlayers}}</span>
       <span class="table-item">{{game.lengthInDays}} Days</span>  
     </div>
   </div>
