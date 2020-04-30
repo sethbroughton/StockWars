@@ -5,8 +5,8 @@
       <div class="game-stats u-margin-bottom-large">
         <p class="stat">{{game.name}}</p>
          <p v-if="this.game.winnerId == 0" class="stat">Available Cash: ${{this.portfolio.cash.toLocaleString()}}</p>
-         <p class="stat">Game Ends: {{game.endDate.monthValue}}/{{game.endDate.dayOfMonth}}/{{game.endDate.year}}</p>
-         <button v-if="this.endgameCondition" v-on:click="endGame" id="end-game-button" class="button">End Game</button>
+         <p v-if="!this.endgameCondition" class="stat">Game Ends: {{game.endDate.monthValue}}/{{game.endDate.dayOfMonth}}/{{game.endDate.year}}</p>
+         <button v-if="this.endgameCondition && this.game.winnerId == 0" v-on:click="endGame" id="end-game-button" class="button">Game Over!<br>Click to See Winner</button>
    </div>
 
    <h2 class="game-over" v-if="this.game.winnerId != 0" >Game Over!<br>Winner: {{this.winner.username}}</h2>
@@ -447,8 +447,8 @@ export default {
   left: 0;
 }
 
-#end-game-button {background-color: var(--color-complementary-2);}
-#end-game-button:hover {background-color: var(--color-complementary-1);}
+#end-game-button {background-color: var(--color-red-2);}
+#end-game-button:hover {background-color: var(--color-red-1);}
 
 #portfolio { background-image: linear-gradient(var(--portfolio-image-overlay)), url(../assets/img/portfolio.jpg); }
 #history { background-image: linear-gradient(var(--history-image-overlay)), url(../assets/img/history.jpg); }

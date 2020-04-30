@@ -60,7 +60,6 @@ INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (18, 6, 2, 5
 INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (19, 6, 1, 50705);
 INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (20, 6, 10, 50705);
 INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (21, 6, 3, 50705);
-INSERT INTO portfolio (portfolio_id, user_id, game_id, cash) VALUES (22, 2, 11, 50705);
 
 --Trades - Buy
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'BUY', 'AAPL', 100, 1000, 0, '2020-04-23');
@@ -96,7 +95,6 @@ INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (19, 'BUY', 'NFLX', 7, 2800, 0, '2020-04-24');
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (19, 'BUY', 'TSLA', 10, 7600, 0, '2020-04-19');
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (19, 'BUY', 'AMZN', 2, 4800, 0, '2020-04-21');
-INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (19, 'BUY', 'TSLS', 10, 7600, 0, '2020-04-19');
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (19, 'BUY', 'AMZN', 2, 4800, 0, '2020-04-21');
 
 
@@ -136,12 +134,6 @@ INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (3, 4, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (4, 4, false);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 10, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (3, 10, true);
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (4, 11, true);
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (5, 11, true);
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 12, true); 
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (7, 12, true);
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (8, 13, true);
-INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (5, 13, true);
 
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 13, true); 
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 2, true);
