@@ -43,10 +43,15 @@
           <input
             type="number"
             min=1
-            v-model="trade.quantity"
+            v-model="tradeNumber"
             required
             autofocus
           />
+          <select v-model="dollarOrShares" v-on:click="calculateValue">
+            <option disabled value="">Select</option>
+            <option>Shares</option>
+            <option>US Dollars</option>
+          </select>
           <select v-model="trade.type">
             <option disabled value="">Select</option>
             <option>BUY</option>
@@ -54,8 +59,8 @@
           </select>
         </div>
       </div>
-      <button v-if="trade.type==='BUY'" type="submit" id="" class="button trade-button">BUY ${{stockValue}}</button>
-      <button v-if="trade.type==='SELL'" type="submit" id="" class="button trade-button">SELL ${{stockValue}}</button>
+      <button v-if="trade.type==='BUY'" type="submit" id="" class="button trade-button">BUY ${{trade.stockValue}}</button>
+      <button v-if="trade.type==='SELL'" type="submit" id="" class="button trade-button">SELL ${{trade.stockValue}}</button>
     </form>
 
   </div>
@@ -94,6 +99,9 @@ export default {
         stockValue: 0,
         commission: 19.99 //Standard commission
       }, 
+      tradeNumber: '',
+      dollarOrShares: '',
+      //stockValue: '',
       timePeriod: '1m',
       priceDataPoints: [{
         close: ''
@@ -105,19 +113,27 @@ export default {
     }
   },
   computed: {
-    stockValue() {
-      return (Math.round(this.quote.latestPrice * this.trade.quantity*100) / 100).toFixed(2)
-    }
+    // stockValue() {
+    //   return (Math.round(this.quote.latestPrice * this.trade.quantity*100) / 100).toFixed(2)
+    // },
   },
   created(){
     
   },
   methods: {
+    //Calculate Trade Value
+    calculateValue(){
+      if(this.dollarOrShares == 'Shares'){
+        this.trade.quantity = this.tradeNumber;
+      } else {
+        this.trade.quantity = this.tradeNumber / this.quote.latestPrice;
+      }
+      this.trade.stockValue = (Math.round(this.quote.latestPrice * this.trade.quantity*100) / 100).toFixed(2)
+    },
     
     //POST a trade
     tradeStock(){
-      this.trade.stockValue = (Math.round(this.quote.latestPrice * this.trade.quantity*100) / 100).toFixed(2)
-      const authToken = auth.getToken();
+     const authToken = auth.getToken();
       fetch(`${process.env.VUE_APP_REMOTE_API}/api/trade`,{
         method: 'POST',
         headers:{

@@ -29,6 +29,10 @@ public class JdbcTradeDao implements TradeDao {
 		int quantityBought = 0;
 		int quantitySold = 0;
 		int shareTotal = 0;
+		
+		if(trade.getQuantity()<=0) {
+			return null;
+		}
 	    
 	    //Check for sufficient Shares to sell
 	    //TODO: This sql query needs to be changed or we need to put negative 
