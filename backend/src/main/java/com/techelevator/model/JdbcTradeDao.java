@@ -140,7 +140,7 @@ public class JdbcTradeDao implements TradeDao {
 
 		ArrayList<Trade> allTheTrades = new ArrayList<Trade>();
 		String sqlGetTradesPerPortfolio = "SELECT sum(quantity) as quantity, ticker from "
-				+ "trade WHERE portfolio_id=? AND quantity>0 GROUP BY ticker;";
+				+ "trade WHERE portfolio_id=? AND quantity!=0 GROUP BY ticker;";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetTradesPerPortfolio, id);
 
