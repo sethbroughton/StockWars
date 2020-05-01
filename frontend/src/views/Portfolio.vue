@@ -3,23 +3,29 @@
     <user-header/>
 
     <div class="container">
-      <div class ="table">
-        <div class="table-header">
+      <table class ="table u-margin-bottom">
+        <tr class="table-header">
           <h3 class="table-title">Portfolio - ${{portfolioValue}}</h3>
           <div class="table-buttons">
             <router-link v-bind:to="{name: 'game', params: {gameId: portfolio.gameId} }" id="return-to-game" class="button-small">Return to Game</router-link>
           </div>
-        </div>
-        <h3 class="table-header-item">Cash Balance:  ${{portfolio.cash.toLocaleString()}}</h3>
-        <div v-for="stock in stocks" v-bind:key="stock.ticker" class="table-row">
+        </tr>
+        <tr class="table-header">
+          <th class="table-item">Ticker</th>
+          <th class="table-item">Shares</th>
+          <th class="table-item">Price</th>
+          <th class="table-item">Total Value</th>
+        </tr>
+        <tr v-for="stock in stocks" v-bind:key="stock.ticker" class="table-row">
           <!-- <router-link  v-bind:to="{name: 'game', params: {gameId: portfolio.gameId}, query: {ticker: stock.ticker}}"
            class="button-small buysell-button">Buy/Sell</router-link> -->
-          <span class="table-item">{{stock.ticker}}</span>
-          <span class="table-item">{{stock.quantity}}</span>
-          <span class="table-item">${{quotes[stock.ticker].price}}</span>
-          <span class="table-item">${{(quotes[stock.ticker].price * stock.quantity).toLocaleString()}}</span>
-          </div>
-      </div>
+          <td class="table-item">{{stock.ticker}}</td>
+          <td class="table-item">{{stock.quantity}}</td>
+          <td class="table-item">${{quotes[stock.ticker].price}}</td>
+          <td class="table-item">${{(quotes[stock.ticker].price * stock.quantity).toLocaleString()}}</td>
+        </tr>
+      </table>
+      <h3 id="cash-balance">Cash Balance:  ${{portfolio.cash.toLocaleString()}}</h3>
     </div>
   </div>
 
@@ -154,6 +160,24 @@ export default {
 
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+th {
+  font-size: 2.5rem;
+  width: 25%;
+  border: none !important; 
+}
+
+.table-row {
+  width: 100%;
+}
+
+#cash-balance {
+  color: var(--color-grey-light-1);
+  font-size: 3rem;
+
+  display: flex;
   align-items: center;
 }
 
