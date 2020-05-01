@@ -1,4 +1,4 @@
-
+        
 --===================================================
 --I have set the game up for us to run the program as Batman for demo
 --This way we have a populated leaderboard, and games
@@ -55,9 +55,12 @@ INSERT INTO portfolio (user_id, game_id, cash) VALUES (6, 14, 50705);
 INSERT INTO portfolio (user_id, game_id, cash) VALUES (6, 2, 50705);
 INSERT INTO portfolio (user_id, game_id, cash) VALUES (6, 1, 50705);
 INSERT INTO portfolio (user_id, game_id, cash) VALUES (6, 10, 50705);
-INSERT INTO portfolio (user_id, game_id, cash) VALUES (6, 3, 50705);
+INSERT INTO portfolio (user_id, game_id, cash) VALUES (6, 3, 170000);
 INSERT INTO portfolio (user_id, game_id, cash) VALUES (6, 13, 90705);
 INSERT INTO portfolio (user_id, game_id, cash) VALUES (5, 13, 101905);
+INSERT INTO portfolio (user_id, game_id, cash) VALUES (2, 13, 71305);
+INSERT INTO portfolio (user_id, game_id, cash) VALUES (3, 13, 63105);
+INSERT INTO portfolio (user_id, game_id, cash) VALUES (5, 3, 90000);
 
 --Trades - Buy
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'BUY', 'AAPL', 100, 1000, 0, '2020-04-23');
@@ -129,8 +132,8 @@ INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (1, 3, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 3, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (3, 4, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (4, 4, false);
---INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 13, true);
---INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (3, 13, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 13, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (3, 13, true);
 
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 13, true); 
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 2, true);
@@ -142,5 +145,6 @@ INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (2, 4, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (3, 8, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 8, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (5, 13, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (5, 3, true);
 
 COMMIT TRANSACTION;
