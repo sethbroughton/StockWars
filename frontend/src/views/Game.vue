@@ -2,16 +2,15 @@
   <div id="game">
     <user-header></user-header>
     <div class="container">
-      <div class="game-stats u-margin-bottom-large">
+      <div class="game-stats u-margin-bottom-x-large">
         <p class="stat">{{game.name}}</p>
-         <p v-if="this.game.winnerId == 0" class="stat">Available Cash: ${{this.portfolio.cash.toLocaleString()}}</p>
-         <p v-if="!this.endgameCondition" class="stat">Game Ends: {{game.endDate.monthValue}}/{{game.endDate.dayOfMonth}}/{{game.endDate.year}}</p>
-         <button v-if="this.endgameCondition && this.game.winnerId == 0" v-on:click="endGame" id="end-game-button" class="button">Game Over!<br>Click to See Winner</button>
-   </div>
+        <p v-if="this.game.winnerId == 0" class="stat">Available Cash: ${{this.portfolio.cash.toLocaleString()}}</p>
+        <p v-if="!this.endgameCondition" class="stat">Game Ends: {{game.endDate.monthValue}}/{{game.endDate.dayOfMonth}}/{{game.endDate.year}}</p>
+        <button v-if="this.endgameCondition && this.game.winnerId == 0" v-on:click="endGame" id="end-game-button" class="button">Game Over!<br>Click to See Winner</button>
+      </div>
+      <h2 class="game-over" v-if="this.game.winnerId != 0" >Game Over!<br>Winner: {{this.winner.username}}</h2>
 
-   <h2 class="game-over" v-if="this.game.winnerId != 0" >Game Over!<br>Winner: {{this.winner.username}}</h2>
-
-      <stock-buy-sell ref="buysell" v-if="this.game.winnerId == 0" v-on:hide-scoreboard="hide" class="u-margin-bottom-large"/>
+      <stock-buy-sell ref="buysell" v-if="this.game.winnerId == 0" v-on:hide-scoreboard="hide" class="u-margin-bottom-x-large"/>
 
       <div v-if="this.game.winnerId == 0" class="link-boxes">
         <router-link v-bind:to="{ name: 'portfolio', params: {portfolioId: portfolio.portfolioId} }" id="portfolio" class="link-box">
@@ -22,14 +21,13 @@
         </router-link>
       </div>
     </div>
-    
+
     <button v-if="this.hideScoreboard == true && this.hideScoreboardButton == false && !this.game.winnerId" id="show-scoreboard" v-on:click="currentAccountBalance">Current Scores</button>
     <div v-if="this.hideScoreboard === false" class="scoreboard">
       <div v-for="portfolio in portfoliosWithTotalBalance" :key="portfolio.portfolioId" class="player-card">
         {{portfolio.username}}<br>${{portfolio.accountBalance.toLocaleString()}}
       </div>
     </div>
-
   </div>
 </template>
 
@@ -368,9 +366,10 @@ export default {
 
 .link-boxes {
   width: 100%;
+  margin: 0 2%;
 
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .link-box {
@@ -379,11 +378,11 @@ export default {
   font-size: 5rem;
   text-align: center;
 
-  width: 25%;
   background-size: cover;
   background-position: center;
   box-shadow: var(--shadow);
 
+  margin: 0 1%;
   padding: 2% 3%;
 
   transition: all .2s;

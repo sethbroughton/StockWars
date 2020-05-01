@@ -219,7 +219,7 @@ export default {
   justify-content: space-evenly;
   align-items: flex-start;
 
-  width: 100%;
+  width: 70%;
 }
 
 #stock-buy-sell > * {

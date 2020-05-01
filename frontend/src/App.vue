@@ -67,7 +67,7 @@ body {
 
 :root {
   /***************************************************
-  ******* rgbIABLES ****************************
+  ******* rgbTABLES ****************************
   ****************************************************/
 
   /* FONTS */
@@ -294,5 +294,6 @@ button:focus {
 .u-margin-bottom-small { margin-bottom: 1rem !important; }
 .u-margin-bottom { margin-bottom: 3rem !important; }
 .u-margin-bottom-large { margin-bottom: 5rem !important; }
+.u-margin-bottom-x-large { margin-bottom: 10rem !important; }
 
 </style>
