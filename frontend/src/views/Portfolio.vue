@@ -21,11 +21,11 @@
            class="button-small buysell-button">Buy/Sell</router-link> -->
           <td class="table-item">{{stock.ticker}}</td>
           <td class="table-item">{{stock.quantity}}</td>
-          <td class="table-item">${{quotes[stock.ticker].price}}</td>
-          <td class="table-item">${{(quotes[stock.ticker].price * stock.quantity).toLocaleString()}}</td>
+          <td class="table-item">{{(quotes[stock.ticker].price)}}</td>
+          <td class="table-item">{{formatMoney(quotes[stock.ticker].price * stock.quantity)}}</td>
         </tr>
       </table>
-      <h3 id="cash-balance">Cash Balance:  ${{portfolio.cash.toLocaleString()}}</h3>
+      <h3 id="cash-balance">Cash Balance:  {{formatMoney(portfolio.cash)}}</h3>
     </div>
   </div>
 
@@ -64,6 +64,14 @@ export default {
   }, 
 
   methods: {
+    formatMoney(number){
+       const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
+        })
+        return formatter.format(number);
+    },
     setTickerSymbol(){
       this.$emit('setTickerSymbol')
     }, 

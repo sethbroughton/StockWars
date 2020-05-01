@@ -59,8 +59,8 @@
           </select>
         </div>
       </div>
-      <button v-if="trade.type==='BUY'" type="submit" id="" class="button trade-button">BUY ${{trade.stockValue}}</button>
-      <button v-if="trade.type==='SELL'" type="submit" id="" class="button trade-button">SELL ${{trade.stockValue}}</button>
+      <button v-if="trade.type==='BUY'" type="submit" id="" class="button trade-button">BUY {{formatMoney(trade.stockValue)}}</button>
+      <button v-if="trade.type==='SELL'" type="submit" id="" class="button trade-button">SELL {{formatMoney(trade.stockValue)}}</button>
     </form>
 
   </div>
@@ -121,6 +121,14 @@ export default {
     
   },
   methods: {
+    formatMoney(number){
+       const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
+        })
+        return formatter.format(number);
+    },
     //Calculate Trade Value
     calculateValue(){
       if(this.dollarOrShares == 'Shares'){

@@ -4,7 +4,7 @@
     <div class="container">
       <div class="game-stats u-margin-bottom-x-large">
         <p class="stat">{{game.name}}</p>
-        <p v-if="this.game.winnerId == 0" class="stat">Available Cash: ${{this.portfolio.cash.toLocaleString()}}</p>
+        <p v-if="this.game.winnerId == 0" class="stat">Available Cash: {{formatMoney(this.portfolio.cash)}}</p>
         <p v-if="!this.endgameCondition" class="stat">Game Ends: {{game.endDate.monthValue}}/{{game.endDate.dayOfMonth}}/{{game.endDate.year}}</p>
         <button v-if="this.endgameCondition && this.game.winnerId == 0" v-on:click="endGame" id="end-game-button" class="button">Game Over!<br>Click to See Winner</button>
       </div>
@@ -25,7 +25,7 @@
     <button v-if="this.hideScoreboard == true && this.hideScoreboardButton == false && !this.game.winnerId" id="show-scoreboard" v-on:click="currentAccountBalance">Current Scores</button>
     <div v-if="this.hideScoreboard === false" class="scoreboard">
       <div v-for="portfolio in portfoliosWithTotalBalance" :key="portfolio.portfolioId" class="player-card">
-        {{portfolio.username}}<br>${{portfolio.accountBalance.toLocaleString()}}
+        {{portfolio.username}}<br>{{formatMoney(portfolio.accountBalance)}}
       </div>
     </div>
   </div>
@@ -62,6 +62,14 @@ export default {
     }
   },
   methods: {
+    formatMoney(number){
+       const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
+        })
+        return formatter.format(number);
+    },
     hide() {
       this.hideScoreboard = true;
       this.hideScoreboardButton = true;
