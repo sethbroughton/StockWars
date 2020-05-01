@@ -4,7 +4,7 @@
       <h3 class="table-title">Pending Games</h3>
     </div>
     <div v-for="game in pendingGames" :key="game.gameId" class="table-row">
-      <!--Change this button so only organizer can start game-->
+      <!--Change this button so only organizer can start-->
       <button class="button-small start-game" v-on:click="startGame(game)">Start</button>
       <router-link class="button-small invite" :to="{ name: 'invite', params: {gameId: game.gameId}}" >Invite</router-link>
       <span class="table-item">{{game.name}}</span>
