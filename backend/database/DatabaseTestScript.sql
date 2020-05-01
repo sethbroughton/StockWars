@@ -52,15 +52,18 @@ INSERT INTO portfolio (user_id, game_id, cash) VALUES (7, 9, 31630);
 INSERT INTO portfolio (user_id, game_id, cash) VALUES (8, 10, 55310);
 INSERT INTO portfolio (user_id, game_id, cash) VALUES (5, 10, 930);
 INSERT INTO portfolio (user_id, game_id, cash) VALUES (6, 14, 50705);
-INSERT INTO portfolio (user_id, game_id, cash) VALUES (6, 2, 50705);
-INSERT INTO portfolio (user_id, game_id, cash) VALUES (6, 1, 50705);
-INSERT INTO portfolio (user_id, game_id, cash) VALUES (6, 10, 50705);
+INSERT INTO portfolio (user_id, game_id, cash) VALUES (6, 2, 50405);
+INSERT INTO portfolio (user_id, game_id, cash) VALUES (6, 1, 59705);
+INSERT INTO portfolio (user_id, game_id, cash) VALUES (6, 10, 70705);
 INSERT INTO portfolio (user_id, game_id, cash) VALUES (6, 3, 170000);
 INSERT INTO portfolio (user_id, game_id, cash) VALUES (6, 13, 90705);
 INSERT INTO portfolio (user_id, game_id, cash) VALUES (5, 13, 101905);
 INSERT INTO portfolio (user_id, game_id, cash) VALUES (2, 13, 71305);
 INSERT INTO portfolio (user_id, game_id, cash) VALUES (3, 13, 63105);
 INSERT INTO portfolio (user_id, game_id, cash) VALUES (5, 3, 90000);
+INSERT INTO portfolio (user_id, game_id, cash) VALUES (3, 2, 105000);
+INSERT INTO portfolio (user_id, game_id, cash) VALUES (7, 3, 99000);
+INSERT INTO portfolio (user_id, game_id, cash) VALUES (4, 3, 109000);
 
 --Trades - Buy
 INSERT INTO trade (portfolio_id, type, ticker, quantity, stock_value, commission, date_of_purchase) VALUES (1, 'BUY', 'AAPL', 100, 1000, 0, '2020-04-23');
@@ -146,5 +149,8 @@ INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (3, 8, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (6, 8, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (5, 13, true);
 INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (5, 3, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (3, 3, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (7, 3, true);
+INSERT INTO users_game (user_id, game_id, invite_accepted) VALUES (4, 3, true);
 
 COMMIT TRANSACTION;
